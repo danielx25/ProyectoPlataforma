@@ -7,7 +7,7 @@ ciertos atributos como salto, caminar y correr
 """
 
 
-class Personaje(Object):
+class Personaje(object):
 
     def __init__(self):
 
@@ -26,6 +26,9 @@ class Personaje(Object):
 
         #sentido
         self.sentido = 0
+
+        self.protagonista = False
+        self.iA = False
 
 
 
