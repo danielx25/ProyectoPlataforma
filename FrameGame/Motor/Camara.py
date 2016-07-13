@@ -15,7 +15,7 @@ MOVPERSONAJE_CENTRADO = "centrado"
 MOVPERSONAJE_BORDES = "bordes"
 
 
-class Dimension (object):
+class Camara (object):
     def __init__(self,campoAccion, dimen = 3):
         self.monito = None
         self.campoAccion=campoAccion

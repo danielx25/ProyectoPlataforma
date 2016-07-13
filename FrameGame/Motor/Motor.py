@@ -4,6 +4,9 @@ import AdminRecursos
 import Eventos
 import DeteccionColisiones
 import EjecucionActividades
+import Camara
+
+from pygame import Rect
 
 class MotorVideojuego(object):
     def __init__(self):
@@ -26,8 +29,10 @@ class MotorVideojuego(object):
         self.reloj = None
         self.tiempoLimite = 10 #10 minutos
 
+        self.campoAccion = Rect(0, 0, 800, 600)
         self.eventosUsuario = None
         self.controlEventos = Eventos.Eventos_Protagonista()
+        self.camara = Camara.Camara(self.campoAccion)
 
 
     def cicloVideojuego(self):
@@ -41,6 +46,8 @@ class MotorVideojuego(object):
             EjecucionActividades.ejecutarScripts(self.diccionarioScripts)#falta tabla de colisones, personajes etc
             EjecucionActividades.ejecutarPersonajes(self.conjuntoPersonajes)
             EjecucionActividades.ejecutarSonidos(self.tablaSonidos)#falta musica
+            self.camara.centrado(self.conjuntoPersonajes, self.conjuntoPlataformas)
+
 
     def entradaPersonajes(self, personajes):
         self.universoPersonajes = personajes

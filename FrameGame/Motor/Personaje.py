@@ -29,7 +29,7 @@ class Personaje(object):
 
         self.protagonista = False
         self.iA = False
-
+        self.agente = None
 
 
     def saltando(self,):
