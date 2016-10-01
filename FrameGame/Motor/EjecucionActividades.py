@@ -1,8 +1,13 @@
+
+
 def ejecutarScripts(diccionarioScripts):
     pass
 
 def ejecutarPersonajes(conjuntoPersonajes):
-    pass
+    for p in conjuntoPersonajes:
+        p.saltando()
+        p.corriendo()
+        p.caminando()
 
 def ejecutarSonidos(tablaSonidos):
     pass

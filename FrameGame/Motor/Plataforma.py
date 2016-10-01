@@ -11,6 +11,9 @@ class plataforma(object):
         self.ancho = 0
         self.largo = 0
 
+        self.visible = True
+        self.colisionable = True
+
     def getEjeX(self):
         return self._x
 
@@ -19,3 +22,15 @@ class plataforma(object):
 
     def getCoordenadas(self):
         return (self._x, self._y)
+
+    def setVisible(self, valor):
+        self.visible = valor
+
+    def getVisible(self):
+        return self.visible
+
+    def setColision(self, valor):
+        self.colisionable = valor
+
+    def getColision(self):
+        return self.colisionable

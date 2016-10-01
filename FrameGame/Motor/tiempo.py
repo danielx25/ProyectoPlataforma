@@ -24,7 +24,7 @@ class Tiempo(object):
         self.estado = False
         self.rapidez = CONT
 
-    def gettime():
+    def gettime(self):
         return time.time()
 
     def modPasivo(self,):

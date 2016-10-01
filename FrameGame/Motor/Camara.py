@@ -178,52 +178,7 @@ class Camara (object):
                             self.eje_x = coorx
 
 
-##                    if self.eje_x != coorx or self.eje_y != coory:
-##                        self.eje_x = coorx
-##                        self.eje_y = coory
-##
-##                        personajes.x= coorx-self.eje_x
-##                        personajes.y= coory-self.eje_y
 
-
-
-
-
-
-
-##    def centrando(self,personaje, entorno, coor):
-##        #self.monito = personaje
-##        (x, y) = self.monito.coordenadas()#(self.monito.sprite.rect.left, self.monito.sprite.rect.top)
-##        if y <= self.arriba:#se sale por arriba
-##            pass
-##        if y + self.monito.sprite.rect.size[1] >= self.abajo:# se cae a la mierda
-##            pass
-##
-##        if x + self.monito.sprite.rect.size[0] > self.derecha:
-##            const = x + self.monito.sprite.rect.size[0] - self.derecha
-##            print const
-##            for l in entorno:#correr el entorno
-##                (w, k) = l.coordenadas()
-##                l.coordenadas((w - const,k))
-##
-##                for rec in l.lados:
-##                    if rec != None:
-##                        (rec.left, rec.top) = (rec.left - const,rec.top)
-##
-##            self.monito.coordenadas((coor[0], y))
-##            self.monito.reseteo()
-##            self.monito.condicion = (self.monito.velocidad, self.monito.Info[2], self.monito.Info[1], 9.8)
-##
-##        """
-##        if x <= self.izquierda:
-##            const = self.izquierda - x
-##            for l in entorno:
-##                w = l.sprite.rect.left + 5#const
-##                k = l.sprite.rect.top
-##                l.coordenadas((w, k))
-##                lados_del_rectangulo(self.l.rect.size, l.lados,w,k)
-##            (self.monito.rect.left, self.monito.rect.top) = (self.monito.rect.left+const, self.monito.rect.top)
-##        """
 def lados_del_rectangulo(tam, lados, x, y):
 
     dis = 5
