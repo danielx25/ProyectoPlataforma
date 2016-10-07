@@ -46,6 +46,10 @@ def velocidad_InstanteXY(V_inicial, angulo, tiempo, gravedad):
 def velocidad_Instante(Vx ,Vy):
     return math.sqrt(math.pow(Vx,2)+math.pow(Vy,2))
 
+def angulo_actual(Vx ,Vy):
+    return math.atan2(Vy, Vx)* (180.0 / math.pi)
+
+
 
 ##    if Info[1] != None and Info[1] != 270.0:
 ##        print Info[1]

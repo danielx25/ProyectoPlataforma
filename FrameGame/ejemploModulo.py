@@ -32,7 +32,10 @@ def main():
     angulo = 45
     gravedad = 9.8
     altura = 0
-    tiempo = 1.2
+    tiempo = 2.1
+
+    veloActual=0
+    anguloActual=0
 
     x , y = (0,0)
 
@@ -56,16 +59,23 @@ def main():
         cadena = "velocidad: "+str(velocidad)+ " Angulo: "+str(angulo) + " gravedad: "+str(gravedad)+ " altura: "+str(altura)
         x,y = mov_parabolico1(velocidad, altura, angulo, tiempo, gravedad)
         vx,vy = velocidad_InstanteXY(velocidad,angulo,tiempo,gravedad)
+        veloActual=velocidad_Instante(vx,vy)
+        anguloActual=angulo_actual(vx,vy)
+
         texto1 = fuente.render(cadena, 0, (255, 255, 255))
         texto2 = fuente.render("x: "+str(x), 0, (255, 255, 255))
         texto3 = fuente.render("y: "+str(y), 0, (255, 255, 255))
         texto4 = fuente.render("vx: " + str(vx), 0, (255, 255, 255))
         texto5 = fuente.render("vy: " + str(vy), 0, (255, 255, 255))
+        texto6 = fuente.render("vActual: " + str(veloActual), 0, (255, 255, 255))
+        texto7 = fuente.render("anguloActual: " + str(anguloActual), 0, (255, 255, 255))
         screen.blit(texto1,(10,10))
         screen.blit(texto2, (10, 30))
         screen.blit(texto3, (10, 50))
         screen.blit(texto4, (10, 70))
         screen.blit(texto5, (10, 90))
+        screen.blit(texto6, (10, 110))
+        screen.blit(texto7, (10, 130))
         #pygame.draw.rect(screen, blue, rect2)
 
         pygame.display.flip()
