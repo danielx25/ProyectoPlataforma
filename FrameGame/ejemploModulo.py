@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import sys
 from Motor.Personaje import *
-
+from Motor.Fisica import *
 red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
@@ -24,6 +24,20 @@ def main():
     print "ancho"+ str(rect2.size[0])
     print "alto" + str(rect2.size[1])
     rect3 = Rect(0, 0, 100, 100)
+
+    fuente = pygame.font.Font(None, 25)
+    texto1 = fuente.render("Texto de pruebas", 0, (255, 255, 255))
+
+    velocidad = 19
+    angulo = 45
+    gravedad = 9.8
+    altura = 0
+    tiempo = 1.2
+
+    x , y = (0,0)
+
+    vx,vy = (0,0)
+
     while True:
         # Posibles entradas del teclado y mouse
         for event in pygame.event.get():
@@ -39,9 +53,23 @@ def main():
         pygame.draw.rect(screen, green, p1.rec2)
         pygame.draw.rect(screen, blue, p1.rec4)
 
+        cadena = "velocidad: "+str(velocidad)+ " Angulo: "+str(angulo) + " gravedad: "+str(gravedad)+ " altura: "+str(altura)
+        x,y = mov_parabolico1(velocidad, altura, angulo, tiempo, gravedad)
+        vx,vy = velocidad_InstanteXY(velocidad,angulo,tiempo,gravedad)
+        texto1 = fuente.render(cadena, 0, (255, 255, 255))
+        texto2 = fuente.render("x: "+str(x), 0, (255, 255, 255))
+        texto3 = fuente.render("y: "+str(y), 0, (255, 255, 255))
+        texto4 = fuente.render("vx: " + str(vx), 0, (255, 255, 255))
+        texto5 = fuente.render("vy: " + str(vy), 0, (255, 255, 255))
+        screen.blit(texto1,(10,10))
+        screen.blit(texto2, (10, 30))
+        screen.blit(texto3, (10, 50))
+        screen.blit(texto4, (10, 70))
+        screen.blit(texto5, (10, 90))
         #pygame.draw.rect(screen, blue, rect2)
 
         pygame.display.flip()
+        print max_altura(velocidad, angulo, gravedad)
 
 
 main()

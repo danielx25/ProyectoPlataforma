@@ -77,8 +77,11 @@ class Personaje(object):
             t = self.tic.cronometroC()
             self.tiempo = t  # self.tiempo + self.condicion[0]
             try:
-                tupla = mov_parabolico(self.Info, self.condicion[1], self.y_inicial, self.condicion[2], self.tiempo,
-                                       self.condicion[3])
+                velocidad_inicial = self.status["parabola"][0]
+                angulo_disparo = self.status["parabola"][1]
+                gravedad = self.status["gravedad"]
+                #mov_parabolico(Info, V_inicial,altura, angulo, tiempo, gravedad)
+                tupla = mov_parabolico(self.Info, velocidad_inicial, self.y_inicial,angulo_disparo, self.tiempo, gravedad)
                 (h, self._y) = tupla
             except TypeError:
                 print "velocidad inic: " + str(self.condicion[1])

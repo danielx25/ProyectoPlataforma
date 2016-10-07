@@ -31,6 +31,21 @@ def mov_parabolico(Info, V_inicial,altura, angulo, tiempo, gravedad):#Esto indic
                 #print "angulo rec  : "+str(Info[1])
                 #print "angulo Vy/Vx: "+str(math.degrees(Vx/Vy))
 
+def mov_parabolico1(V_inicial,altura, angulo, tiempo, gravedad):
+    x = V_inicial * math.cos(radianes(angulo)) * tiempo * 1.0
+    y = altura + V_inicial * math.sin(radianes(angulo)) * tiempo - 0.5 * gravedad * tiempo * tiempo
+    return x,y
+
+def max_altura(velo, angulo, gravedad):
+    lm = math.pow(velo, 2) * math.pow(math.sin(radianes(angulo)), 2)
+    return (lm) / (2 * gravedad)
+
+def velocidad_InstanteXY(V_inicial, angulo, tiempo, gravedad):
+    return (V_inicial*math.cos(radianes(angulo)), V_inicial*math.sin(radianes(angulo))-gravedad*tiempo)
+
+def velocidad_Instante(Vx ,Vy):
+    return math.sqrt(math.pow(Vx,2)+math.pow(Vy,2))
+
 
 ##    if Info[1] != None and Info[1] != 270.0:
 ##        print Info[1]
