@@ -50,7 +50,7 @@ class Personaje(object):
         self.status["velocidad x"] = 0
         self.status["velocidad y"] = 0
         self.status["gravedad"] = 9.8
-        self.status["parabola"] = (40, 75)
+        self.status["parabola"] = (40, 75)#velocidad inicial, angulo inicial
         self.status["caida"]=(270, 90)
         self.status["coor antes"] = (0,0)
 
@@ -60,11 +60,16 @@ class Personaje(object):
         self.rec3.width, self.rec3.height = (rec_size[0] / 4.0, rec_size[1] / 2.0)
         self.rec4.width, self.rec4.height = (rec_size[0] / 2.0, rec_size[1] / 4.0)
 
-    def pos_rectangulos(self, x, y, ancho, alto):
+    def pos_rectangulos(self, coor, tam):
+        x, y = coor
+        ancho, alto = tam
         (self.rec1.left, self.rec1.top) = (x + (ancho / 4.0),y + alto - self.rec1.height)  # + 3*(alto/4.0))#abajo
         (self.rec2.left, self.rec2.top) = (x, y + (alto / 4.0))
         (self.rec3.left, self.rec3.top) = (x + ancho - self.rec3.width,y + (alto / 4.0))
         (self.rec4.left, self.rec4.top) = (x + (ancho / 4.0), y)
+
+    def actualizacionRec(self):
+        self.pos_rectangulos((self._x, self._y),(self.ancho, self.largo))
 
     def saltando(self,):
         if self.saltar == False and self.correr == False and self.caminar == False:
@@ -75,22 +80,16 @@ class Personaje(object):
         if self.saltar == True and self.correr == False and self.caminar == False:
             t = self.tic.cronometroC()
             self.tiempo = t  # self.tiempo + self.condicion[0]
-            try:
-                velocidad_inicial = self.status["parabola"][0]
-                angulo_disparo = self.status["parabola"][1]
-                gravedad = self.status["gravedad"]
-                tupla = mov_parabolico(velocidad_inicial, self.y_inicial,angulo_disparo, self.tiempo, gravedad)
-                (h, self._y) = tupla
-                self._x = self.x_inicial + h
-                self.status["velocidad x"],self.status["velocidad y"]=velocidad_InstanteXY(velocidad_inicial,angulo_disparo,self.tiempo,gravedad)
-                self.status["velocidad"]=velocidad_Instante(self.status["velocidad x"],self.status["velocidad y"])
-                self.status["angulo"]=angulo_actual(self.status["velocidad x"],self.status["velocidad y"])
-            except TypeError:
-                print "velocidad inic: " + str(self.condicion[1])
-                print "angulo        : " + str(self.condicion[2])
-                print "tiempo        : " + str(self.tiempo)
-                print "gravedad      : " + str(self.condicion[3])
-                print "info[0]       : " + str(self.Info[0])
+
+            velocidad_inicial = self.status["parabola"][0]
+            angulo_disparo = self.status["parabola"][1]
+            gravedad = self.status["gravedad"]
+            tupla = mov_parabolico1(velocidad_inicial, self.y_inicial,angulo_disparo, self.tiempo, gravedad)
+            (h, self._y) = tupla
+            self._x = self.x_inicial + h
+            self.status["velocidad x"],self.status["velocidad y"]=velocidad_InstanteXY(velocidad_inicial,angulo_disparo,self.tiempo,gravedad)
+            self.status["velocidad"]=velocidad_Instante(self.status["velocidad x"],self.status["velocidad y"])
+            self.status["angulo"]=angulo_actual(self.status["velocidad x"],self.status["velocidad y"])
             self.record = self.tiempo
 
     def corriendo(self,):

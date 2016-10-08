@@ -32,7 +32,7 @@ def main():
     angulo = 45
     gravedad = 9.8
     altura = 0
-    tiempo = 2.1
+    tiempo = 0.9
 
     veloActual=0
     anguloActual=0
