@@ -71,7 +71,6 @@ class Personaje(object):
             self.tic.modPasivo()
             self.x_inicial = self._x
             self.y_inicial = self._y
-            self.Info[3] = (0.0, 0.0)
 
         if self.saltar == True and self.correr == False and self.caminar == False:
             t = self.tic.cronometroC()
@@ -80,19 +79,19 @@ class Personaje(object):
                 velocidad_inicial = self.status["parabola"][0]
                 angulo_disparo = self.status["parabola"][1]
                 gravedad = self.status["gravedad"]
-                #mov_parabolico(Info, V_inicial,altura, angulo, tiempo, gravedad)
-                tupla = mov_parabolico(self.Info, velocidad_inicial, self.y_inicial,angulo_disparo, self.tiempo, gravedad)
+                tupla = mov_parabolico(velocidad_inicial, self.y_inicial,angulo_disparo, self.tiempo, gravedad)
                 (h, self._y) = tupla
+                self._x = self.x_inicial + h
+                self.status["velocidad x"],self.status["velocidad y"]=velocidad_InstanteXY(velocidad_inicial,angulo_disparo,self.tiempo,gravedad)
+                self.status["velocidad"]=velocidad_Instante(self.status["velocidad x"],self.status["velocidad y"])
+                self.status["angulo"]=angulo_actual(self.status["velocidad x"],self.status["velocidad y"])
             except TypeError:
                 print "velocidad inic: " + str(self.condicion[1])
                 print "angulo        : " + str(self.condicion[2])
                 print "tiempo        : " + str(self.tiempo)
                 print "gravedad      : " + str(self.condicion[3])
                 print "info[0]       : " + str(self.Info[0])
-                print "mov_parabolico   : " + str(tupla)
-            self._x = self.x_inicial + h
             self.record = self.tiempo
-            self.angulo = self.Info[1]
 
     def corriendo(self,):
         if self.saltar == False and self.correr == False and self.caminar == False:
