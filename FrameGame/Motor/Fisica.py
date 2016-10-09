@@ -34,6 +34,7 @@ def mov_parabolico(Info, V_inicial,altura, angulo, tiempo, gravedad):#Esto indic
 def mov_parabolico1(V_inicial,altura, angulo, tiempo, gravedad):
     x = V_inicial * math.cos(radianes(angulo)) * tiempo * 1.0
     y = altura + V_inicial * math.sin(radianes(angulo)) * tiempo - 0.5 * gravedad * tiempo * tiempo
+    y = altura - (y - altura)
     return x,y
 
 def max_altura(velo, angulo, gravedad):

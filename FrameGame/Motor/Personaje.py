@@ -25,6 +25,12 @@ class Personaje(object):
         self.x_inicial = 0
         self.y_inicial = 0
 
+        self.x_antes = 0
+        self.y_antes = 0
+
+        self.ganancia_x = 0
+        self.ganancia_y = 0
+
         # estado del personaje
         self.saltar = False
         self.correr= False
@@ -50,11 +56,23 @@ class Personaje(object):
         self.status["velocidad x"] = 0
         self.status["velocidad y"] = 0
         self.status["gravedad"] = 9.8
-        self.status["parabola"] = (40, 75)#velocidad inicial, angulo inicial
+        self.status["parabola"] = (90, 75)#velocidad inicial, angulo inicial
         self.status["caida"]=(270, 90)
         self.status["coor antes"] = (0,0)
 
+    def setGananciaXY(self, xg, yg):
+        #self.ganancia_x = self._x- self.x_antes
+        self.ganancia_x+=xg
+        self.ganancia_x+=yg
+
+    def getGananciaXY(self):
+        return self.ganancia_x, self.ganancia_y
+    
+    def getStatus(self, valor):
+        return self.status[valor]
+
     def tam_rectangulos(self, rec_size):
+        self.ancho, self.largo=rec_size
         self.rec1.width, self.rec1.height = (rec_size[0] / 2.0, rec_size[1] / 4.0)
         self.rec2.width, self.rec2.height = (rec_size[0] / 4.0, rec_size[1] / 2.0)
         self.rec3.width, self.rec3.height = (rec_size[0] / 4.0, rec_size[1] / 2.0)
@@ -139,8 +157,7 @@ class Personaje(object):
                 velocidad *= -1
             self.Info[2] = self.angulo
 
-            x = mov_recUniforme(t, velocidad,
-                                self.x_inicial)  # 0.5* 20* self.tiempo*self.tiempo + self.x_inicial + 60*self.tiempo
+            x = mov_recUniforme(t, velocidad,self.x_inicial)  # 0.5* 20* self.tiempo*self.tiempo + self.x_inicial + 60*self.tiempo
             self._x = x
 
     def getEjeX(self):
@@ -177,3 +194,9 @@ class Personaje(object):
 
     def getStatus(self, status):
         return self.status[status]
+
+    def reseteo(self):
+        self.tiempo=0
+        self.x_inicial=self._x
+        self.y_inicial=self._y
+        self.tic.modPasivo()

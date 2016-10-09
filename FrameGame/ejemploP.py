@@ -16,6 +16,8 @@ def main():
     pygame.display.set_caption("tutorial pygame parte 2")
 
     p1 = Personaje()
+    p1._x =100
+    p1._y = 400
     p1.tam_rectangulos((50,50))
     p1.actualizacionRec()
 
@@ -54,6 +56,7 @@ def main():
 
         p1.saltando()
         p1.actualizacionRec()
+        screen.fill((0,0,240))
         pygame.draw.rect(screen, red, p1.rec1)
         pygame.draw.rect(screen, darkBlue, p1.rec3)
         pygame.draw.rect(screen, green, p1.rec2)
@@ -66,12 +69,12 @@ def main():
         anguloActual=angulo_actual(vx,vy)
 
         texto1 = fuente.render(cadena, 0, (255, 255, 255))
-        texto2 = fuente.render("x: "+str(x), 0, (255, 255, 255))
-        texto3 = fuente.render("y: "+str(y), 0, (255, 255, 255))
-        texto4 = fuente.render("vx: " + str(vx), 0, (255, 255, 255))
-        texto5 = fuente.render("vy: " + str(vy), 0, (255, 255, 255))
-        texto6 = fuente.render("vActual: " + str(veloActual), 0, (255, 255, 255))
-        texto7 = fuente.render("anguloActual: " + str(anguloActual), 0, (255, 255, 255))
+        texto2 = fuente.render("x: "+str(p1.getEjeX()), 0, (255, 255, 255))
+        texto3 = fuente.render("y: "+str(p1.getEjeY()), 0, (255, 255, 255))
+        texto4 = fuente.render("vx: " + str(p1.getStatus("velocidad x")), 0, (255, 255, 255))
+        texto5 = fuente.render("vy: " + str(p1.getStatus("velocidad y")), 0, (255, 255, 255))
+        texto6 = fuente.render("vActual: " + str(p1.getStatus("velocidad")), 0, (255, 255, 255))
+        texto7 = fuente.render("anguloActual: " + str(p1.getStatus("angulo")), 0, (255, 255, 255))
         screen.blit(texto1,(10,10))
         screen.blit(texto2, (10, 30))
         screen.blit(texto3, (10, 50))
