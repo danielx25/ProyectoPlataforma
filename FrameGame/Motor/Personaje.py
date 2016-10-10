@@ -60,10 +60,17 @@ class Personaje(object):
         self.status["caida"]=(270, 90)
         self.status["coor antes"] = (0,0)
 
+    def runGanancia(self):
+        self._x+=self.ganancia_x
+        self._y+=self.ganancia_y
+
+        self.ganancia_x = self._x - self.x_antes
+        self.ganancia_y = self._y - self.y_antes
+
+
     def setGananciaXY(self, xg, yg):
-        #self.ganancia_x = self._x- self.x_antes
-        self.ganancia_x+=xg
-        self.ganancia_x+=yg
+        self.ganancia_x=xg
+        self.ganancia_y=yg
 
     def getGananciaXY(self):
         return self.ganancia_x, self.ganancia_y
@@ -90,14 +97,16 @@ class Personaje(object):
         self.pos_rectangulos((self._x, self._y),(self.ancho, self.largo))
 
     def saltando(self,):
+        self.x_antes = self._x
+        self.y_antes = self._y
+
         if self.saltar == False and self.correr == False and self.caminar == False:
             self.tic.modPasivo()
             self.x_inicial = self._x
             self.y_inicial = self._y
 
         if self.saltar == True and self.correr == False and self.caminar == False:
-            t = self.tic.cronometroC()
-            self.tiempo = t  # self.tiempo + self.condicion[0]
+            self.tiempo = self.tic.cronometroC()  # self.tiempo + self.condicion[0]
 
             velocidad_inicial = self.status["parabola"][0]
             angulo_disparo = self.status["parabola"][1]
