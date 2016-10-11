@@ -28,8 +28,10 @@ class Personaje(object):
         self.x_antes = 0
         self.y_antes = 0
 
-        self.ganancia_x = 0
-        self.ganancia_y = 0
+        self.enviarGanancia_x = 0
+        self.enviarGanancia_y = 0
+        self.recibirGanancia_x = 0
+        self.recibirGanancia_y = 0
 
         # estado del personaje
         self.saltar = False
@@ -60,20 +62,28 @@ class Personaje(object):
         self.status["caida"]=(270, 90)
         self.status["coor antes"] = (0,0)
 
-    def runGanancia(self):
-        self._x+=self.ganancia_x
-        self._y+=self.ganancia_y
-
-        self.ganancia_x = self._x - self.x_antes
-        self.ganancia_y = self._y - self.y_antes
+    def runGanancia1(self):
+        self.enviarGanancia_x = self._x - self.x_antes
+        self.enviarGanancia_y = self._y - self.y_antes
 
 
-    def setGananciaXY(self, xg, yg):
-        self.ganancia_x=xg
-        self.ganancia_y=yg
+    def runGanancia2(self):
+        self._x+=self.recibirGanancia_x
+        self._y+=self.recibirGanancia_y
+
+
+    def getDiferenciaXY(self):
+        x = self._x - self.x_antes
+        y = self._y - self.y_antes
+        return x,y
+
+
+    def setGananciaXY(self, g):
+        self.recibirGanancia_x=g[0]
+        self.recibirGanancia_y=g[1]
 
     def getGananciaXY(self):
-        return self.ganancia_x, self.ganancia_y
+        return self.enviarGanancia_x, self.enviarGanancia_y
     
     def getStatus(self, valor):
         return self.status[valor]
