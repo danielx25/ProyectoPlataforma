@@ -65,6 +65,7 @@ def main():
         cadena = "velocidad: "+str(velocidad)+ " Angulo: "+str(angulo) + " gravedad: "+str(gravedad)+ " altura: "+str(altura)
         x,y = mov_parabolico1(velocidad, altura, angulo, tiempo, gravedad)
         vx,vy = velocidad_InstanteXY(velocidad,angulo,tiempo,gravedad)
+        print vx
         veloActual=velocidad_Instante(vx,vy)
         anguloActual=angulo_actual(vx,vy)
 

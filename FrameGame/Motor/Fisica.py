@@ -31,10 +31,10 @@ def mov_parabolico(Info, V_inicial,altura, angulo, tiempo, gravedad):#Esto indic
                 #print "angulo rec  : "+str(Info[1])
                 #print "angulo Vy/Vx: "+str(math.degrees(Vx/Vy))
 
-def mov_parabolico1(V_inicial,altura, angulo, tiempo, gravedad):
+def mov_parabolico1(V_inicial, angulo, tiempo, gravedad):
     x = V_inicial * math.cos(radianes(angulo)) * tiempo * 1.0
-    y = altura + V_inicial * math.sin(radianes(angulo)) * tiempo - 0.5 * gravedad * tiempo * tiempo
-    y = altura - (y - altura)
+    y = V_inicial * math.sin(radianes(angulo)) * tiempo - 0.5 * gravedad * tiempo * tiempo
+    y = -y
     return x,y
 
 def max_altura(velo, angulo, gravedad):
@@ -58,9 +58,12 @@ def angulo_actual(Vx ,Vy):
     y = altura - (y - altura)#por coordenadas y
     return (x,y)
 
-def mov_recAcelerado(tiempo, aceler_, veloci_inic, x_inic):
-    x = 0.5*aceler_*tiempo**2 +veloci_inic*tiempo + x_inic
+def mov_recAcelerado(tiempo, aceler_, veloci_inic):
+    x = 0.5*aceler_*tiempo**2 +veloci_inic*tiempo
     return x
+
+def vel_movRecAcelerado(aceleracion, t, velocidad_inicial):
+    return aceleracion * t + velocidad_inicial
 
 
 def mov_recUniforme(tiempo, velocidad, x_inic):
