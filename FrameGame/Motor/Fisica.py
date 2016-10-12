@@ -62,6 +62,9 @@ def mov_recAcelerado(tiempo, aceler_, veloci_inic, x_inic):
     x = 0.5*aceler_*tiempo**2 +veloci_inic*tiempo + x_inic
     return x
 
+def vel_movRecAcelerado(aceleracion, t, velocidad_inicial):
+    return aceleracion * t + velocidad_inicial
+
 
 def mov_recUniforme(tiempo, velocidad, x_inic):
     x = velocidad*tiempo*1.0 + x_inic

@@ -17,7 +17,7 @@ def main():
 
     p1 = Personaje()
     p1.tam_rectangulos((100,100))
-    p1.pos_rectangulos(200,200, 100,100)
+    p1.actualizacionRec()
 
     rect1 = Rect(0, 0, 300, 200)
     rect2 = Rect(300, 200, 500, 100)

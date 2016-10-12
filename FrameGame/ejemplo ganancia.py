@@ -57,19 +57,20 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 p1.setSalto(True)
+                p2.setCorrer(True, False)
                 if rect1.colliderect(rect2):
                     print "estan colisionando"
 
         p1.saltando()
         p1.actualizacionRec()
         p1.runGanancia1()
-        p1.runGanancia2()
+        #p1.runGanancia2()
 
-        #p2.saltando()
+        p2.corriendo()
         p2.setGananciaXY(p1.getGananciaXY())
         #p2.setGananciaXY((1, -1))
         p2.actualizacionRec()
-        p2.runGanancia2()
+        p2.runGanancia1()
 
 
         screen.fill((0,0,240))

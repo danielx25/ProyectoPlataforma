@@ -28,6 +28,9 @@ class Personaje(object):
         self.x_antes = 0
         self.y_antes = 0
 
+        self.sistema_cerradox = [0, 0]
+        self.sistema_cerradoy = [0, 0]
+        
         self.enviarGanancia_x = 0
         self.enviarGanancia_y = 0
         self.recibirGanancia_x = 0
@@ -60,23 +63,23 @@ class Personaje(object):
         self.status["gravedad"] = 9.8
         self.status["parabola"] = (90, 75)#velocidad inicial, angulo inicial
         self.status["caida"]=(270, 90)
-        self.status["coor antes"] = (0,0)
+        self.status["correr"] = (0, 2)#velocidad, aceleracion
 
     def runGanancia1(self):
         self.enviarGanancia_x = self._x - self.x_antes
         self.enviarGanancia_y = self._y - self.y_antes
-
+        self._x += self.recibirGanancia_x
+        self._y += self.recibirGanancia_y
+        #self.enviarGanancia_x = self._x + self.enviarGanancia_x
 
     def runGanancia2(self):
         self._x+=self.recibirGanancia_x
         self._y+=self.recibirGanancia_y
 
-
     def getDiferenciaXY(self):
         x = self._x - self.x_antes
         y = self._y - self.y_antes
         return x,y
-
 
     def setGananciaXY(self, g):
         self.recibirGanancia_x=g[0]
@@ -130,31 +133,32 @@ class Personaje(object):
             self.record = self.tiempo
 
     def corriendo(self,):
+        self.x_antes = self._x
+        self.y_antes = self._y
+
         if self.saltar == False and self.correr == False and self.caminar == False:
-            self.cronometro.modPasivo()
+            self.tic.modPasivo()
             self.x_inicial = self._x
             self.y_inicial = self._y
 
         if self.correr == True and self.saltar == False and self.caminar == False:  # aceleracion |            disancia inicial | velocidad inicial
-            t = self.cronometro.cronometroC()
+            t = self.tic.cronometroC()
 
-            velocidad = 20
-            aceleracion = 6
+            velocidad = self.status["correr"][0]
+            aceleracion =self.status["correr"][1]
 
-            if self.direccion == True:
-                # self._x = x
-                self.angulo = 0
+            if self.sentido == True:
+                self.status["angulo"] = 0
             else:
-                # self._x = self.x_inicial -(x-self.x_inicial)
-                self.angulo = 180
+                self.status["angulo"] = 180
                 velocidad *= -1
                 aceleracion *= -1
 
-            vel_t = aceleracion * t + velocidad
-            self.Info[1] = vel_t
-            self.Info[2] = self.angulo
-            x = mov_recAcelerado(t, aceleracion, velocidad,
-                                 self.x_inicial)  # mov_recUniforme(t, 20, self.x_inicial)#0.5* 20* self.tiempo*self.tiempo + self.x_inicial + 60*self.tiempo
+            vel_t = vel_movRecAcelerado(aceleracion,t, velocidad)
+            self.status["velocidad"] = vel_t
+            self.status["velocidad x"] = vel_t
+            self.status["velocidad y"]  = 0
+            x = mov_recAcelerado(t, aceleracion, velocidad,self.x_inicial)
             self._x = x
     def caminando(self,):
         if self.saltar == False and self.correr == False and self.caminar == False:
