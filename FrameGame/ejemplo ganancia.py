@@ -69,6 +69,7 @@ def main():
         p2.setGananciaXY(p1.getGananciaXY())
         #p2.setGananciaXY((1, -1))
         p2.actualizacionRec()
+        p1.runGanancia1()
         p2.runGanancia2()
 
 
