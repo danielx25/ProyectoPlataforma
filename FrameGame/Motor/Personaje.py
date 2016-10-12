@@ -30,7 +30,7 @@ class Personaje(object):
 
         self.sistema_cerradox = [0, 0]
         self.sistema_cerradoy = [0, 0]
-        
+
         self.enviarGanancia_x = 0
         self.enviarGanancia_y = 0
         self.recibirGanancia_x = 0
@@ -63,18 +63,21 @@ class Personaje(object):
         self.status["gravedad"] = 9.8
         self.status["parabola"] = (90, 75)#velocidad inicial, angulo inicial
         self.status["caida"]=(270, 90)
-        self.status["correr"] = (0, 2)#velocidad, aceleracion
+        self.status["correr"] = (0, 0.1)#velocidad, aceleracion
 
     def runGanancia1(self):
         self.enviarGanancia_x = self._x - self.x_antes
         self.enviarGanancia_y = self._y - self.y_antes
         self._x += self.recibirGanancia_x
         self._y += self.recibirGanancia_y
-        #self.enviarGanancia_x = self._x + self.enviarGanancia_x
 
     def runGanancia2(self):
-        self._x+=self.recibirGanancia_x
-        self._y+=self.recibirGanancia_y
+        self._x += self.sistema_cerradox[1] - self.sistema_cerradox[0]
+        self._y += self.sistema_cerradoy[1] - self.sistema_cerradoy[0]
+        self._x += self.recibirGanancia_x
+        self._y += self.recibirGanancia_y
+        self.enviarGanancia_x = self._x - self.x_antes
+        self.enviarGanancia_y = self._y - self.y_antes
 
     def getDiferenciaXY(self):
         x = self._x - self.x_antes
@@ -113,20 +116,27 @@ class Personaje(object):
         self.x_antes = self._x
         self.y_antes = self._y
 
+
         if self.saltar == False and self.correr == False and self.caminar == False:
             self.tic.modPasivo()
             self.x_inicial = self._x
             self.y_inicial = self._y
 
-        if self.saltar == True and self.correr == False and self.caminar == False:
-            self.tiempo = self.tic.cronometroC()  # self.tiempo + self.condicion[0]
+            self.sistema_cerradox[0] = self.sistema_cerradox[1]= 0
+            self.sistema_cerradoy[0] = self.sistema_cerradoy[1]= 0
 
+        if self.saltar == True and self.correr == False and self.caminar == False:
+            self.tiempo = self.tic.cronometroC()
+            self.sistema_cerradox[0] = self.sistema_cerradox[1]
+            self.sistema_cerradoy[0] = self.sistema_cerradoy[1]
             velocidad_inicial = self.status["parabola"][0]
             angulo_disparo = self.status["parabola"][1]
             gravedad = self.status["gravedad"]
-            tupla = mov_parabolico1(velocidad_inicial, self.y_inicial,angulo_disparo, self.tiempo, gravedad)
-            (h, self._y) = tupla
-            self._x = self.x_inicial + h
+            tupla = mov_parabolico1(velocidad_inicial ,angulo_disparo, self.tiempo, gravedad)
+            (x, y) = tupla
+            self.sistema_cerradox[1] = x
+            self.sistema_cerradoy[1] = y
+
             self.status["velocidad x"],self.status["velocidad y"]=velocidad_InstanteXY(velocidad_inicial,angulo_disparo,self.tiempo,gravedad)
             self.status["velocidad"]=velocidad_Instante(self.status["velocidad x"],self.status["velocidad y"])
             self.status["angulo"]=angulo_actual(self.status["velocidad x"],self.status["velocidad y"])
@@ -141,9 +151,14 @@ class Personaje(object):
             self.x_inicial = self._x
             self.y_inicial = self._y
 
+            self.sistema_cerradox[0] = self.sistema_cerradox[1] = 0
+            self.sistema_cerradoy[0] = self.sistema_cerradoy[1] = 0
+
         if self.correr == True and self.saltar == False and self.caminar == False:  # aceleracion |            disancia inicial | velocidad inicial
             t = self.tic.cronometroC()
 
+            self.sistema_cerradox[0] = self.sistema_cerradox[1]
+            self.sistema_cerradoy[0] = self.sistema_cerradoy[1]
             velocidad = self.status["correr"][0]
             aceleracion =self.status["correr"][1]
 
@@ -158,8 +173,8 @@ class Personaje(object):
             self.status["velocidad"] = vel_t
             self.status["velocidad x"] = vel_t
             self.status["velocidad y"]  = 0
-            x = mov_recAcelerado(t, aceleracion, velocidad,self.x_inicial)
-            self._x = x
+            x = mov_recAcelerado(t, aceleracion, velocidad)
+            self.sistema_cerradox[1] = x
     def caminando(self,):
         if self.saltar == False and self.correr == False and self.caminar == False:
             self.cronometro.modPasivo()

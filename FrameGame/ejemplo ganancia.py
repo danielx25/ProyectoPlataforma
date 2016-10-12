@@ -63,14 +63,14 @@ def main():
 
         p1.saltando()
         p1.actualizacionRec()
-        p1.runGanancia1()
+        p1.runGanancia2()
         #p1.runGanancia2()
 
         p2.corriendo()
         p2.setGananciaXY(p1.getGananciaXY())
         #p2.setGananciaXY((1, -1))
         p2.actualizacionRec()
-        p2.runGanancia1()
+        p2.runGanancia2()
 
 
         screen.fill((0,0,240))
@@ -85,7 +85,7 @@ def main():
         pygame.draw.rect(screen, blue, p2.rec4)
 
         cadena = "velocidad: "+str(velocidad)+ " Angulo: "+str(angulo) + " gravedad: "+str(gravedad)+ " altura: "+str(altura)
-        x,y = mov_parabolico1(velocidad, altura, angulo, tiempo, gravedad)
+        x,y = mov_parabolico1(velocidad,  angulo, tiempo, gravedad)
         vx,vy = velocidad_InstanteXY(velocidad,angulo,tiempo,gravedad)
         veloActual=velocidad_Instante(vx,vy)
         anguloActual=angulo_actual(vx,vy)
