@@ -42,7 +42,7 @@ class Personaje(object):
         self.caminar = False
 
         #sentido
-        self.sentido = 0
+        self.sentido = False
 
         self.protagonista = False
         self.iA = False
@@ -63,7 +63,8 @@ class Personaje(object):
         self.status["gravedad"] = 9.8
         self.status["parabola"] = (90, 75)#velocidad inicial, angulo inicial
         self.status["caida"]=(270, 90)
-        self.status["correr"] = (0, 0.1)#velocidad, aceleracion
+        self.status["correr"] = (23, 1)#velocidad, aceleracion
+        self.status["caminar"] = 30 #velocidad
 
     def runGanancia1(self):
         self.enviarGanancia_x = self._x - self.x_antes
@@ -103,10 +104,10 @@ class Personaje(object):
 
     def pos_rectangulos(self, coor, tam):
         x, y = coor
-        ancho, alto = tam
-        (self.rec1.left, self.rec1.top) = (x + (ancho / 4.0),y + alto - self.rec1.height)  # + 3*(alto/4.0))#abajo
-        (self.rec2.left, self.rec2.top) = (x, y + (alto / 4.0))
-        (self.rec3.left, self.rec3.top) = (x + ancho - self.rec3.width,y + (alto / 4.0))
+        ancho, largo = tam
+        (self.rec1.left, self.rec1.top) = (x + (ancho / 4.0),y + largo - self.rec1.height)  # + 3*(largo/4.0))#abajo
+        (self.rec2.left, self.rec2.top) = (x, y + (largo / 4.0))
+        (self.rec3.left, self.rec3.top) = (x + ancho - self.rec3.width,y + (largo / 4.0))
         (self.rec4.left, self.rec4.top) = (x + (ancho / 4.0), y)
 
     def actualizacionRec(self):
@@ -175,28 +176,35 @@ class Personaje(object):
             self.status["velocidad y"]  = 0
             x = mov_recAcelerado(t, aceleracion, velocidad)
             self.sistema_cerradox[1] = x
+
     def caminando(self,):
+        self.x_antes = self._x
+        self.y_antes = self._y
+
         if self.saltar == False and self.correr == False and self.caminar == False:
-            self.cronometro.modPasivo()
+            self.tic.modPasivo()
             self.x_inicial = self._x
             self.y_inicial = self._y
+            self.sistema_cerradox[0] = self.sistema_cerradox[1] = 0
+            self.sistema_cerradoy[0] = self.sistema_cerradoy[1] = 0
 
         if self.caminar == True and self.saltar == False and self.correr == False:  # aceleracion |            disancia inicial | velocidad inicial
-            t = self.cronometro.cronometroC()
-            velocidad = 20
-            self.Info[1] = velocidad
+            t = self.tic.cronometroC()
+            self.sistema_cerradox[0] = self.sistema_cerradox[1]
+            self.sistema_cerradoy[0] = self.sistema_cerradoy[1]
 
-            if self.direccion == True:
-                # self._x = x
+            velocidad = self.status["caminar"]
+            self.status["velocidad"] = velocidad
+
+            if self.sentido == True:
                 self.angulo = 0
             else:
-                # self._x = self.x_inicial -(x-self.x_inicial)
                 self.angulo = 180
                 velocidad *= -1
-            self.Info[2] = self.angulo
+            self.status["angulo"] = self.angulo
 
-            x = mov_recUniforme(t, velocidad,self.x_inicial)  # 0.5* 20* self.tiempo*self.tiempo + self.x_inicial + 60*self.tiempo
-            self._x = x
+            x = mov_recUniforme(t, velocidad)  # 0.5* 20* self.tiempo*self.tiempo + self.x_inicial + 60*self.tiempo
+            self.sistema_cerradox[1]=x
 
     def getEjeX(self):
         return self._x

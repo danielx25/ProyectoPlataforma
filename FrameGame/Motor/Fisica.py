@@ -66,8 +66,8 @@ def vel_movRecAcelerado(aceleracion, t, velocidad_inicial):
     return aceleracion * t + velocidad_inicial
 
 
-def mov_recUniforme(tiempo, velocidad, x_inic):
-    x = velocidad*tiempo*1.0 + x_inic
+def mov_recUniforme(tiempo, velocidad):
+    x = velocidad*tiempo*1.0
     return x
 
 def instanAng2((x1, y1), (x2, y2)):
