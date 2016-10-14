@@ -1,18 +1,46 @@
 import uuid
+from pygame import Rect
 
-
-class plataforma(object):
+class Plataforma(object):
     def __init__(self):
         # identinficacion
         self.id = uuid.uuid1()
 
         self._x = 0
         self._y = 0
+        self.x_antes = 0
+        self.y_antes = 0
+
         self.ancho = 0
         self.largo = 0
 
         self.visible = True
         self.colisionable = True
+
+        self.rectangulo = Rect(0,0,0,0)
+
+        self.enviarGanancia_x = 0
+        self.enviarGanancia_y = 0
+
+    def setTamRect(self, ancho, largo):
+        self.rectangulo.width = ancho
+        self.rectangulo.height = largo
+
+    def setPosRect(self, x, y):
+        self.rectangulo.left = x
+        self.rectangulo.top = y
+
+    def estado(self):
+        self.enviarGanancia_x = self._x - self.x_antes
+        self.enviarGanancia_y = self._y - self.y_antes
+
+    def getGananciaXY(self):
+        return self.enviarGanancia_x, self.enviarGanancia_y
+
+    def setXY(self, x, y):
+        self._x = self.x_antes = x
+        self._y = self.y_antes = y
+        self.setPosRect(self._x,self._y)
 
     def getEjeX(self):
         return self._x

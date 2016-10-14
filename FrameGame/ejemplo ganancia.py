@@ -17,13 +17,13 @@ def main():
 
     p1 = Personaje()
     p1._x =100
-    p1._y = 400
+    p1._y = 500
     p1.tam_rectangulos((50,50))
     p1.actualizacionRec()
 
     p2 = Personaje()
     p2._x = 100
-    p2._y = 500
+    p2._y = 400
     p2.tam_rectangulos((50, 50))
     p2.actualizacionRec()
 
@@ -85,13 +85,7 @@ def main():
         pygame.draw.rect(screen, green, p2.rec2)
         pygame.draw.rect(screen, blue, p2.rec4)
 
-        cadena = "velocidad: "+str(velocidad)+ " Angulo: "+str(angulo) + " gravedad: "+str(gravedad)+ " altura: "+str(altura)
-        x,y = mov_parabolico1(velocidad,  angulo, tiempo, gravedad)
-        vx,vy = velocidad_InstanteXY(velocidad,angulo,tiempo,gravedad)
-        veloActual=velocidad_Instante(vx,vy)
-        anguloActual=angulo_actual(vx,vy)
-
-        texto1 = fuente.render(cadena, 0, (255, 255, 255))
+        texto1 = fuente.render("Proyecto en plataforma", 0, (255, 255, 255))
         texto2 = fuente.render("x: "+str(p1.getEjeX()), 0, (255, 255, 255))
         texto3 = fuente.render("y: "+str(p1.getEjeY()), 0, (255, 255, 255))
         texto4 = fuente.render("vx: " + str(p1.getStatus("velocidad x")), 0, (255, 255, 255))
