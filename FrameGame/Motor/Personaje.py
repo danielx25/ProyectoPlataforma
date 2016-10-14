@@ -63,7 +63,7 @@ class Personaje(object):
         self.status["gravedad"] = 9.8
         self.status["parabola"] = (90, 75)#velocidad inicial, angulo inicial
         self.status["caida"]=(270, 90)
-        self.status["correr"] = (0, 0.1)#velocidad, aceleracion
+        self.status["correr"] = (22, 0.1)#velocidad, aceleracion
 
     def runGanancia1(self):
         self.enviarGanancia_x = self._x - self.x_antes
