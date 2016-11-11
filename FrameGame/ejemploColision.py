@@ -7,7 +7,7 @@ from Motor.DeteccionColisiones import *
 from Motor.Fisica import *
 red = (255,0,0)
 green = (0,255,0)
-blue = (0,0,255)
+blue = (60,120,255)
 darkBlue = (0,0,128)
 
 
@@ -30,13 +30,20 @@ def main():
     p2.actualizacionRec()
 
     plataforma = Plataforma()
-    plataforma.setXY(50, 550)
-    plataforma.setTamRect(500, 70)
+    plataforma.setXY(0, 554)
+    plataforma.setTamRect(800, 70)
 
     plataforma1 = Plataforma()
-    plataforma1.setXY(500, 250)
-    plataforma1.setTamRect(60, 200)
-    #plataforma.setPosRect(50, 550)
+    plataforma1.setXY(-20, 1)
+    plataforma1.setTamRect(60, 600)
+
+    plataforma2 = Plataforma()
+    plataforma2.setXY(786, 1)
+    plataforma2.setTamRect(50, 600)
+
+    plataforma3 = Plataforma()
+    plataforma3.setXY(-20, 2)
+    plataforma3.setTamRect(800, 20)
 
     rect1 = Rect(0, 0, 300, 200)
     rect2 = Rect(300, 200, 500, 100)
@@ -78,12 +85,12 @@ def main():
         #p1.runGanancia2()
 
         p2.corriendo()
-        p2.setGananciaXY(p1.getGananciaXY())
+        #p2.setGananciaXY(p1.getGananciaXY())
         #p2.setGananciaXY((1, -1))
         p2.actualizacionRec()
         p2.runGanancia2()
 
-        deteccionColisiones([p1], [plataforma, plataforma1], None)
+        deteccionColisiones([p1,p2], [plataforma, plataforma1, plataforma2, plataforma3], None)
 
         screen.fill((0,0,240))
         pygame.draw.rect(screen, red, p1.rec1)
@@ -98,6 +105,8 @@ def main():
 
         pygame.draw.rect(screen, red, plataforma.rectangulo)
         pygame.draw.rect(screen, green, plataforma1.rectangulo)
+        pygame.draw.rect(screen, blue, plataforma2.rectangulo)
+        pygame.draw.rect(screen, darkBlue, plataforma3.rectangulo)
 
         texto1 = fuente.render("Proyecto en plataforma", 0, (255, 255, 255))
         texto2 = fuente.render("x: "+str(p1.getEjeX()), 0, (255, 255, 255))
