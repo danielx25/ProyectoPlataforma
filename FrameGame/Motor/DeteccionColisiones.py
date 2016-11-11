@@ -2,20 +2,69 @@
 
 def deteccionColisiones(personajes, plataformas, TablaColsiones):
     for personaje in  personajes:
+        angulo = personaje.status["angulo"]
+        x = personaje._x
+        y = personaje._y
         for plataforma in  plataformas:
 
+            if angulo < 0 and angulo >= -90:
+                if personaje.rec1.top < plataforma._y:
+                    if plataforma.rectangulo.colliderect(personaje.rec1):
+                        personaje.setSalto(False)
+                        personaje._y = plataforma._y - personaje.largo
+                if personaje.rec3.left < plataforma._x:
+                    if plataforma.rectangulo.colliderect(personaje.rec3):
+                        personaje.setSalto(False)
+                        personaje._x = plataforma._x - personaje.ancho
+
+            if angulo <-90 and angulo >= -180:
+                if personaje.rec1.top < plataforma._y:
+                    if plataforma.rectangulo.colliderect(personaje.rec1):
+                        personaje.setSalto(False)
+                        personaje._y = plataforma._y - personaje.largo
+
+                if personaje.rec2.left+personaje.rec2.width > plataforma._x+plataforma.ancho:
+                    if plataforma.rectangulo.colliderect(personaje.rec2):
+                        personaje.setSalto(False)
+                        personaje._x = plataforma._x + plataforma.ancho
+
+
+            if angulo < 180 and angulo >=90:
+                if personaje.rec2.left + personaje.rec2.width > plataforma._x + plataforma.ancho:
+                    if plataforma.rectangulo.colliderect(personaje.rec2):
+                        personaje.setSalto(False)
+                        personaje._x = plataforma._x + plataforma.ancho
+
+                if personaje.rec4.top+personaje.rec4.height>plataforma._y+plataforma.largo:
+                    if plataforma.rectangulo.colliderect(personaje.rec4):
+                        personaje.setSalto(False)
+                        personaje._y = plataforma.Y+plataforma.largo
+
+            if angulo < 90 and angulo >=0:
+                if personaje.rec4.top + personaje.rec4.height > plataforma._y + plataforma.largo:
+                    if plataforma.rectangulo.colliderect(personaje.rec4):
+                        personaje.setSalto(False)
+                        personaje._y = plataforma.Y + plataforma.largo
+
+                if personaje.rec3.left < plataforma._x:
+                    if plataforma.rectangulo.colliderect(personaje.rec3):
+                        personaje.setSalto(False)
+                        personaje._x = plataforma._x - personaje.ancho
+            """
             if plataforma.rectangulo.colliderect(personaje.rec1):
                 personaje.setSalto(False)
                 personaje._y = plataforma._y - personaje.largo
 
             if plataforma.rectangulo.colliderect(personaje.rec2):
-                pass
+                personaje.setSalto(False)
+                personaje._x = plataforma._x+plataforma.ancho
 
             if plataforma.rectangulo.colliderect(personaje.rec3):
-                pass
+                personaje.setSalto(False)
+                personaje.x = plataforma.x-personaje.ancho
 
             if plataforma.rectangulo.colliderect(personaje.rec4):
-                pass
+                pass"""
 
 
 def restituir_pos(p, entorno, _lado, sentido=False):

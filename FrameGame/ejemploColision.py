@@ -32,6 +32,10 @@ def main():
     plataforma = Plataforma()
     plataforma.setXY(50, 550)
     plataforma.setTamRect(500, 70)
+
+    plataforma1 = Plataforma()
+    plataforma1.setXY(500, 250)
+    plataforma1.setTamRect(60, 200)
     #plataforma.setPosRect(50, 550)
 
     rect1 = Rect(0, 0, 300, 200)
@@ -79,7 +83,7 @@ def main():
         p2.actualizacionRec()
         p2.runGanancia2()
 
-        deteccionColisiones([p1], [plataforma], None)
+        deteccionColisiones([p1], [plataforma, plataforma1], None)
 
         screen.fill((0,0,240))
         pygame.draw.rect(screen, red, p1.rec1)
@@ -93,6 +97,7 @@ def main():
         pygame.draw.rect(screen, blue, p2.rec4)
 
         pygame.draw.rect(screen, red, plataforma.rectangulo)
+        pygame.draw.rect(screen, green, plataforma1.rectangulo)
 
         texto1 = fuente.render("Proyecto en plataforma", 0, (255, 255, 255))
         texto2 = fuente.render("x: "+str(p1.getEjeX()), 0, (255, 255, 255))
