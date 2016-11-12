@@ -25,6 +25,8 @@ class Plataforma(object):
     def setTamRect(self, ancho, largo):
         self.rectangulo.width = ancho
         self.rectangulo.height = largo
+        self.ancho=ancho
+        self.largo=largo
 
     def setPosRect(self, x, y):
         self.rectangulo.left = x

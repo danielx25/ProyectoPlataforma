@@ -1,5 +1,4 @@
 
-
 def deteccionColisiones(personajes, plataformas, TablaColsiones):
     for personaje in  personajes:
         angulo = personaje.status["angulo"]
@@ -7,20 +6,51 @@ def deteccionColisiones(personajes, plataformas, TablaColsiones):
         y = personaje._y
         for plataforma in  plataformas:
 
+            if personaje.rec1.top < plataforma._y:
+                if plataforma.rectangulo.colliderect(personaje.rec1):
+                    print "asdasd"
+                    personaje.setSalto(False)
+                    personaje.setCorrer(False)
+                    personaje.setCaminar(False)
+                    #personaje._y = plataforma._y - personaje.largo
+
+            if personaje.rec2.left + personaje.rec2.width > plataforma._x + plataforma.ancho:
+                if plataforma.rectangulo.colliderect(personaje.rec2):
+                    personaje.setSalto(False)
+                    personaje.setCorrer(False)
+                    personaje.setCaminar(False)
+                    personaje._x = plataforma._x + plataforma.ancho
+
+            if personaje.rec3.left < plataforma._x:
+                if plataforma.rectangulo.colliderect(personaje.rec3):
+                    personaje.setSalto(False)
+                    personaje.setCorrer(False)
+                    personaje.setCaminar(False)
+                    personaje._x = plataforma._x - personaje.ancho
+
+            if personaje.rec4.top + personaje.rec4.height > plataforma._y + plataforma.largo:
+                if plataforma.rectangulo.colliderect(personaje.rec4):
+                    personaje.setSalto(False)
+                    personaje.setCorrer(False)
+                    personaje.setCaminar(False)
+                    personaje._y = plataforma._y + plataforma.largo
+
+
+"""
             if angulo < 0 and angulo >= -90:
                 if personaje.rec1.top < plataforma._y:
                     if plataforma.rectangulo.colliderect(personaje.rec1):
                         personaje.setSalto(False)
                         personaje.setCorrer(False)
                         personaje.setCaminar(False)
-                        #personaje._y = plataforma._y - personaje.largo
+                        personaje._y = plataforma._y - personaje.largo
 
                 if personaje.rec3.left < plataforma._x:
                     if plataforma.rectangulo.colliderect(personaje.rec3):
                         personaje.setSalto(False)
                         personaje.setCorrer(False)
                         personaje.setCaminar(False)
-                        #personaje._x = plataforma._x - personaje.ancho
+                        personaje._x = plataforma._x - personaje.ancho
 
             if (angulo <-90 and angulo >= -180) or angulo == 180:
                 if personaje.rec1.top < plataforma._y:
@@ -28,14 +58,14 @@ def deteccionColisiones(personajes, plataformas, TablaColsiones):
                         personaje.setSalto(False)
                         personaje.setCorrer(False)
                         personaje.setCaminar(False)
-                        #personaje._y = plataforma._y - personaje.largo
+                        personaje._y = plataforma._y - personaje.largo
 
                 if personaje.rec2.left+personaje.rec2.width > plataforma._x+plataforma.ancho:
                     if plataforma.rectangulo.colliderect(personaje.rec2):
                         personaje.setSalto(False)
                         personaje.setCorrer(False)
                         personaje.setCaminar(False)
-                        #personaje._x = plataforma._x + plataforma.ancho
+                        personaje._x = plataforma._x + plataforma.ancho
 
 
             if angulo < 180 and angulo >=90:
@@ -44,14 +74,14 @@ def deteccionColisiones(personajes, plataformas, TablaColsiones):
                         personaje.setSalto(False)
                         personaje.setCorrer(False)
                         personaje.setCaminar(False)
-                        #personaje._x = plataforma._x + plataforma.ancho
+                        personaje._x = plataforma._x + plataforma.ancho
 
                 if personaje.rec4.top+personaje.rec4.height>plataforma._y+plataforma.largo:
                     if plataforma.rectangulo.colliderect(personaje.rec4):
                         personaje.setSalto(False)
                         personaje.setCorrer(False)
                         personaje.setCaminar(False)
-                        #personaje._y = plataforma._Y+plataforma.largo
+                        personaje._y = plataforma._y+plataforma.largo
 
             if angulo < 90 and angulo >=0:
                 if personaje.rec4.top + personaje.rec4.height > plataforma._y + plataforma.largo:
@@ -59,15 +89,15 @@ def deteccionColisiones(personajes, plataformas, TablaColsiones):
                         personaje.setSalto(False)
                         personaje.setCorrer(False)
                         personaje.setCaminar(False)
-                        #personaje._y = plataforma._y + plataforma.largo
+                        personaje._y = plataforma._y + plataforma.largo
 
                 if personaje.rec3.left < plataforma._x:
                     if plataforma.rectangulo.colliderect(personaje.rec3):
                         personaje.setSalto(False)
                         personaje.setCorrer(False)
                         personaje.setCaminar(False)
-                        #personaje._x = plataforma._x - personaje.ancho
-            """
+                        personaje._x = plataforma._x - personaje.ancho
+
             if plataforma.rectangulo.colliderect(personaje.rec1):
                 personaje.setSalto(False)
                 personaje._y = plataforma._y - personaje.largo
