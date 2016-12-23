@@ -7,8 +7,11 @@ from Motor.DeteccionColisiones import *
 from Motor.Fisica import *
 red = (255,0,0)
 green = (0,255,0)
-blue = (60,120,255)
+blue = (0,0,255)
 darkBlue = (0,0,128)
+white = (255,255,255)
+black = (0,0,0)
+pink = (255,200,200)
 import math
 
 def main():
@@ -34,7 +37,7 @@ def main():
     plataforma.setXY(0, 554)
     plataforma.setTamRect(800, 70)
 
-
+    puntero = Rect(0, 0, 100, 100)
 
     rect1 = Rect(0, 0, 300, 200)
     rect2 = Rect(300, 200, 500, 100)
@@ -72,6 +75,7 @@ def main():
                 if rect1.colliderect(rect2):
                     print "estan colisionando"
 
+        puntero.left, puntero.top=pygame.mouse.get_pos()
         p1.saltando()
         p1.actualizacionRec()
         p1.runGanancia2()
@@ -95,6 +99,7 @@ def main():
         pygame.draw.rect(screen, darkBlue, p2.rec3)
         pygame.draw.rect(screen, green, p2.rec2)
         pygame.draw.rect(screen, blue, p2.rec4)
+        pygame.draw.rect(screen, pink, puntero)
 
         pygame.draw.rect(screen, red, plataforma.rectangulo)
 
@@ -127,9 +132,9 @@ class Circulo(object):
         self.sprite = pygame.sprite.Sprite()
 
         self.radio = 100
-        self.x = 200
+        self.x = 100
         self.y = 200
-        self.sprite.rect = Rect(self.x, self.y, 200, 200)
+        self.sprite.rect = Rect(self.x, self.y, 100, 200)
         self.radio = int(math.sqrt(math.pow(self.sprite.rect.width,2)+math.pow(self.sprite.rect.height,2))/2.0)
 
     def imprimir(self, pantalla):
