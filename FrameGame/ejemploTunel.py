@@ -99,7 +99,8 @@ def main():
         grupo.update()
         lista = pygame.sprite.spritecollide(puntero.sprite, grupo, False, pygame.sprite.collide_circle_ratio(1.4))
         print len(lista)
-        if len(lista)>1:#pygame.sprite.collide_circle(puntero.sprite, circulo.sprite):
+        if circulo.colicion(puntero):#pygame.sprite.collide_circle(puntero.sprite, circulo.sprite):
+            circulo.sprite = pygame.transform.rotate(circulo.sprite.image,45)
             pygame.draw.rect(screen, darkBlue, puntero.sprite.rect)
 
 
@@ -114,24 +115,26 @@ class Circulo(object):
         self.sprite = pygame.sprite.Sprite()
         self.radio = 100
         self.x = 100
-        self.y = 200
-        self.tamx = 400
-        self.tamy = 400
+        self.y = 100
+        self.tamx = 200
+        self.tamy = 200
         self.sprite.rect = Rect(self.x, self.y, self.tamx, self.tamy)
         self.radio = int(math.sqrt(math.pow(self.sprite.rect.width,2)+math.pow(self.sprite.rect.height,2))/2.0)
-        self.sprite.radius = self.radio
+        self.x_circulo = 0
+        self.y_circulo = 0
+        #self.sprite.radius = self.radio
 
     def imprimir(self, pantalla):
-        x_circulo = int(self.x+self.sprite.rect.width/2.0)
-        y_circulo = int(self.y + self.sprite.rect.height / 2.0)
+        self.x_circulo = int(self.x+self.sprite.rect.width/2.0)
+        self.y_circulo = int(self.y + self.sprite.rect.height / 2.0)
         pygame.draw.rect(pantalla, green, self.sprite.rect)
-        pygame.draw.circle(pantalla, red, (x_circulo, y_circulo), self.radio, 2)
+        pygame.draw.circle(pantalla, red, (self.x_circulo, self.y_circulo), self.radio, 2)
         radio2 = 0
         if self.tamx<self.tamy:
             radio2=self.tamx/2
         else:
             radio2=self.tamy/2
-        pygame.draw.circle(pantalla, red, (x_circulo, y_circulo), radio2, 2)
+        pygame.draw.circle(pantalla, red, (self.x_circulo, self.y_circulo), radio2, 2)
 
     def posicion(self, x, y):
         self.x=self.sprite.rect.left = x
@@ -139,4 +142,12 @@ class Circulo(object):
 
         #circle(Surface, color, pos, radius, width=0)
 
+    def colicion(self, circulo2):
+        return collision(self.x, self.y, self.tamx, self.tamy, circulo2.x_circulo, circulo2.y_circulo, circulo2.radio)
+
+
+
+def circuloRectangulo(radio):
+    a = radio/math.sqrt(2)
+    cuadrado=Rect(0, 0, a, a)
 main()
