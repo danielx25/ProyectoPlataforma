@@ -37,7 +37,7 @@ def main():
     plataforma.setXY(0, 554)
     plataforma.setTamRect(800, 70)
 
-    puntero = Rect(0, 0, 100, 100)
+    puntero = Circulo()#
 
     rect1 = Rect(0, 0, 300, 200)
     rect2 = Rect(300, 200, 500, 100)
@@ -46,22 +46,12 @@ def main():
     rect3 = Rect(0, 0, 100, 100)
 
     fuente = pygame.font.Font(None, 25)
-    texto1 = fuente.render("Texto de pruebas", 0, (255, 255, 255))
-
-    velocidad = 19
-    angulo = 45
-    gravedad = 9.8
-    altura = 0
-    tiempo = 0.9
-
-    veloActual=0
-    anguloActual=0
-
-    x , y = (0,0)
-
-    vx,vy = (0,0)
 
     circulo = Circulo()
+
+    grupo = pygame.sprite.Group()
+    grupo.add(circulo.sprite)
+    grupo.add(puntero.sprite)
 
     while True:
         # Posibles entradas del teclado y mouse
@@ -75,7 +65,8 @@ def main():
                 if rect1.colliderect(rect2):
                     print "estan colisionando"
 
-        puntero.left, puntero.top=pygame.mouse.get_pos()
+        x, y=pygame.mouse.get_pos()
+        puntero.posicion(x, y)
         p1.saltando()
         p1.actualizacionRec()
         p1.runGanancia2()
@@ -99,28 +90,19 @@ def main():
         pygame.draw.rect(screen, darkBlue, p2.rec3)
         pygame.draw.rect(screen, green, p2.rec2)
         pygame.draw.rect(screen, blue, p2.rec4)
-        pygame.draw.rect(screen, pink, puntero)
 
         pygame.draw.rect(screen, red, plataforma.rectangulo)
-
-        texto1 = fuente.render("Proyecto en plataforma", 0, (255, 255, 255))
-        texto2 = fuente.render("x: "+str(p1.getEjeX()), 0, (255, 255, 255))
-        texto3 = fuente.render("y: "+str(p1.getEjeY()), 0, (255, 255, 255))
-        texto4 = fuente.render("vx: " + str(p1.getStatus("velocidad x")), 0, (255, 255, 255))
-        texto5 = fuente.render("vy: " + str(p1.getStatus("velocidad y")), 0, (255, 255, 255))
-        texto6 = fuente.render("vActual: " + str(p1.getStatus("velocidad")), 0, (255, 255, 255))
-        texto7 = fuente.render("anguloActual: " + str(p1.getStatus("angulo")), 0, (255, 255, 255))
-        texto8 = fuente.render("gananciaxy: " + str(p1.getDiferenciaXY()), 0, (255, 255, 255))
-        screen.blit(texto1,(10,10))
-        screen.blit(texto2, (10, 30))
-        screen.blit(texto3, (10, 50))
-        screen.blit(texto4, (10, 70))
-        screen.blit(texto5, (10, 90))
-        screen.blit(texto6, (10, 110))
-        screen.blit(texto7, (10, 130))
-        screen.blit(texto8, (10, 150))
         #pygame.draw.rect(screen, blue, rect2)
         circulo.imprimir(screen)
+        puntero.imprimir(screen)
+
+        grupo.update()
+        lista = pygame.sprite.spritecollide(puntero.sprite, grupo, False, pygame.sprite.collide_circle_ratio(1.4))
+        print len(lista)
+        if len(lista)>1:#pygame.sprite.collide_circle(puntero.sprite, circulo.sprite):
+            pygame.draw.rect(screen, darkBlue, puntero.sprite.rect)
+
+
         pygame.display.flip()
         #print max_altura(velocidad, angulo, gravedad)
 
@@ -130,18 +112,30 @@ def main():
 class Circulo(object):
     def __init__(self):
         self.sprite = pygame.sprite.Sprite()
-
         self.radio = 100
         self.x = 100
         self.y = 200
-        self.sprite.rect = Rect(self.x, self.y, 100, 200)
+        self.tamx = 400
+        self.tamy = 400
+        self.sprite.rect = Rect(self.x, self.y, self.tamx, self.tamy)
         self.radio = int(math.sqrt(math.pow(self.sprite.rect.width,2)+math.pow(self.sprite.rect.height,2))/2.0)
+        self.sprite.radius = self.radio
 
     def imprimir(self, pantalla):
         x_circulo = int(self.x+self.sprite.rect.width/2.0)
         y_circulo = int(self.y + self.sprite.rect.height / 2.0)
         pygame.draw.rect(pantalla, green, self.sprite.rect)
         pygame.draw.circle(pantalla, red, (x_circulo, y_circulo), self.radio, 2)
+        radio2 = 0
+        if self.tamx<self.tamy:
+            radio2=self.tamx/2
+        else:
+            radio2=self.tamy/2
+        pygame.draw.circle(pantalla, red, (x_circulo, y_circulo), radio2, 2)
+
+    def posicion(self, x, y):
+        self.x=self.sprite.rect.left = x
+        self.y=self.sprite.rect.top = y
 
         #circle(Surface, color, pos, radius, width=0)
 
