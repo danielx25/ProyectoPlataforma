@@ -97,9 +97,9 @@ def main():
         #pygame.draw.rect(screen, blue, rect2)
 
         circulo.imprimir(screen)
-        puntero.imprimir(screen)
+        #puntero.imprimir(screen)
         circulo.creandoCirculo()
-        puntero.creandoCirculo()
+        #puntero.creandoCirculo()
 
         grupo.update()
         lista = pygame.sprite.spritecollide(puntero.sprite, grupo, False, pygame.sprite.collide_circle_ratio(1.4))
@@ -120,15 +120,15 @@ class Circulo(object):
         self.radio = 100
         self.x = 100
         self.y = 100
-        self.tamx = 200
-        self.tamy = 200
+        self.tamx = 400
+        self.tamy = 400
         self.sprite.rect = Rect(self.x, self.y, self.tamx, self.tamy)
         self.radio = int(math.sqrt(math.pow(self.sprite.rect.width,2)+math.pow(self.sprite.rect.height,2))/2.0)
         self.x_circulo = 0
         self.y_circulo = 0
         #self.sprite.radius = self.radio
         self.terminar = False
-        self.otro = Rect(0, 0, self.tamx, self.tamy)
+        self.otro = []#Rect(0, 0, self.tamx, self.tamy)]
 
     def imprimir(self, pantalla):
         self.x_circulo = int(self.x+self.sprite.rect.width/2.0)
@@ -141,25 +141,39 @@ class Circulo(object):
         else:
             radio2=self.tamy/2
         pygame.draw.circle(pantalla, red, (self.x_circulo, self.y_circulo), radio2, 2)
-        pygame.draw.rect(pantalla, white, self.otro, 1)
+        for i in self.otro:
+            pygame.draw.rect(pantalla, white, i, 1)
 
     def posicion(self, x, y):
         self.x=self.sprite.rect.left = x
         self.y=self.sprite.rect.top = y
 
-        #circle(Surface, color, pos, radius, width=0)
 
     def colicion(self, circulo2):
         return collision(self.x, self.y, self.tamx, self.tamy, circulo2.x_circulo, circulo2.y_circulo, circulo2.radio)
 
     def creandoCirculo(self):
         if self.terminar == False:
-            self.otro = None
             self.terminar = True
+            self.opuesto = 0
+            num_division = 5
 
-            opuesto = self.radio / 10
-            adyacente = math.sqrt(math.pow(self.radio, 2) - math.pow(opuesto, 2))
-            self.otro = Rect(self.x_circulo-self.radio, self.y_circulo-10, adyacente * 2, opuesto)
+            for i in range(num_division):
+                self.opuesto += self.radio / num_division
+                self.adyacente = math.sqrt(math.pow(self.radio, 2) - math.pow(self.opuesto, 2))
+                self.otro.append(
+                    Rect(self.x_circulo - self.adyacente, self.y_circulo, self.adyacente * 2,
+                         self.opuesto))
+            self.opuesto = 0
+            for i in range(num_division):
+                self.opuesto += self.radio / num_division
+                self.adyacente = math.sqrt(math.pow(self.radio, 2) - math.pow(self.opuesto, 2))
+                self.otro.append(
+                    Rect(self.x_circulo - self.adyacente, self.y_circulo - self.opuesto, self.adyacente * 2,
+                         self.opuesto))
+
+
+
 
 
 
