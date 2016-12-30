@@ -37,7 +37,7 @@ def main():
     plataforma.setXY(0, 554)
     plataforma.setTamRect(800, 70)
 
-    puntero = Circulo()#
+    puntero = Circulo(p1)#
 
     rect1 = Rect(0, 0, 300, 200)
     rect2 = Rect(300, 200, 500, 100)
@@ -47,7 +47,7 @@ def main():
 
     fuente = pygame.font.Font(None, 25)
 
-    circulo = Circulo()
+    circulo = Circulo(p2)
 
     grupo = pygame.sprite.Group()
     grupo.add(circulo.sprite)
@@ -115,17 +115,17 @@ def main():
 
 
 class Circulo(object):
-    def __init__(self):
+    def __init__(self, x, y, ancho, largo):
         self.sprite = pygame.sprite.Sprite()
         self.radio = 100
-        self.x = 100
-        self.y = 100
-        self.tamx = 400
-        self.tamy = 400
+        self.x = x
+        self.y = y
+        self.tamx = ancho
+        self.tamy = largo
         self.sprite.rect = Rect(self.x, self.y, self.tamx, self.tamy)
         self.radio = int(math.sqrt(math.pow(self.sprite.rect.width,2)+math.pow(self.sprite.rect.height,2))/2.0)
-        self.x_circulo = 0
-        self.y_circulo = 0
+        self.x_circulo = int(self.x + self.sprite.rect.width / 2.0)
+        self.y_circulo = int(self.y + self.sprite.rect.height / 2.0)
         #self.sprite.radius = self.radio
         self.terminar = False
         self.otro = []#Rect(0, 0, self.tamx, self.tamy)]
@@ -175,12 +175,61 @@ class Circulo(object):
 
 
 
+def deteccionEfectoTunel(personaje):
+    p1 = Circulo(personaje._x, personaje._y, personaje.ancho, personaje.largo)
+    p2 = Circulo(personaje.x_antes, personaje.y_antes, personaje.ancho, personaje.largo)
+
+    x1 = p1.x_circulo
+    y1 = p1.y_circulo
+    x2 = p2.x_circulo
+    y2 = p2.y_circulo
+    x_medio, y_medio = puntoMedioRecta(x1, y1, x2, y2)
+    radio = distanciaEntre2Puntos(x1, y2, x_medio, y_medio)+p1.radio
+    circulo = crearCirculo(radio, x_medio, y_medio)
+
+    # crear el circulo pequeño 1 posiciones anteriores
+    # crear un circulo con las nuevas posciones
+    # rescatar las cordenadas iniciales y finales de cada extremo
+    # una vez sacado el diamentro se crea un circulo gigante
+    # Si el circulo gigante esta colicionando entonces empezar a buscar de forma binaria
+    # se divide el circulo en dos y se vuelve a preguntar si los dos circulos estan colicionando entonces se encontro la colicion
+    # de lo contrario se elige el circulo en que se esta colicionando y se vuelve a devidir asi hasta encontrar la colision
+
+def distanciaEntre2Puntos(x1 , y1,  x2, y2):
+    dis = math.sqrt(math.pow((x2-x1),2)+math.pow((y2-y1),2))
+    return dis
 
 
+def puntoMedioRecta(x1 , y1,  x2, y2):
+    x = (x1+x2)/2
+    y = (y1+y2)/2
+    tupla = (x,y)
+    return tupla
+
+def crearCirculo(radio, x_circulo, y_circulo):
+    opuesto = 0
+    num_division = 5
+    otro =[]
+    for i in range(num_division):
+        opuesto += radio / num_division
+        adyacente = math.sqrt(math.pow(radio, 2) - math.pow(opuesto, 2))
+        otro.append(
+            Rect(x_circulo -adyacente, y_circulo, adyacente * 2,
+                 opuesto))
+    opuesto = 0
+    for i in range(num_division):
+        opuesto += radio / num_division
+        adyacente = math.sqrt(math.pow(radio, 2) - math.pow(opuesto, 2))
+        otro.append(
+            Rect(x_circulo - adyacente, y_circulo - opuesto, adyacente * 2,
+                 opuesto))
+    return  otro
 
 def circuloRectangulo(radio, division = 5.0):
     opuesto = radio/division
     adyacente = math.sqrt(math.pow(radio, 2)-math.pow(opuesto,2))
     cuadrado=Rect(0, 0, adyacente*2, opuesto)
     return  cuadrado
-main()
+
+print distanciaEntre2Puntos(2, 1, -3, 2)
+#main()
