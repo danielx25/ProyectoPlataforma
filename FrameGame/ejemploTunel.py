@@ -174,7 +174,7 @@ def deteccionEfectoTunel(personaje, rectangulo):
 
     if colicionCirculo(circulo, rectangulo):
         while True:
-            circulo1x, circulo1y = puntoMedioRecta(x1, y2, x_medio, y_medio)
+            circulo1x ,circulo1y = puntoMedioRecta(x1, y1, x_medio, y_medio)
             circulo2x ,circulo2y = puntoMedioRecta(x_medio, y_medio, x2, y2)
             radio1 = distanciaEntre2Puntos(x1, y2, x_medio, y_medio)
             radio2 = distanciaEntre2Puntos(x_medio, y_medio, x2, y2)
@@ -184,7 +184,20 @@ def deteccionEfectoTunel(personaje, rectangulo):
             if colicionCirculo(circulo1, rectangulo) and colicionCirculo(circulo2, rectangulo):
                 break
             else:
-                pass
+                if colicionCirculo(circulo1, rectangulo):
+                    x2 = x_medio
+                    y2 = y_medio
+                    x_medio =circulo1x
+                    y_medio =circulo1y
+
+                if colicionCirculo(circulo2, rectangulo):
+                    x1 = x_medio
+                    y1 = y_medio
+                    x_medio = circulo2x
+                    y_medio = circulo2y
+
+
+
 
 
 def colicionCirculo(circulo, rectangulo):
