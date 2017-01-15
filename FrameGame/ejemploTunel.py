@@ -21,21 +21,27 @@ def main():
     pygame.display.set_caption("tutorial pygame parte 2")
 
     p1 = Personaje()
-    p1._x =100
-    p1._y = 500
-    p1.tam_rectangulos((50,50))
+    p1.x_antes = 100
+    p1.y_antes = 400
+    p1._x =700
+    p1._y = 100
+    p1.tam_rectangulos((70,70))
     p1.actualizacionRec()
 
 
     p2 = Personaje()
     p2._x = 100
-    p2._y = 400
-    p2.tam_rectangulos((50, 50))
+    p2._y = 200
+    p2.tam_rectangulos((100, 100))
     p2.actualizacionRec()
 
     plataforma = Plataforma()
     plataforma.setXY(0, 554)
     plataforma.setTamRect(800, 70)
+
+    rectangulo = Plataforma()
+    rectangulo.setXY(400, 100)
+    rectangulo.setTamRect(70, 300)
 
     puntero = Circulo(p1._x, p1._y, p1.ancho, p1.largo)#
 
@@ -43,18 +49,16 @@ def main():
     rect2 = Rect(300, 200, 500, 100)
     print "ancho"+ str(rect2.size[0])
     print "alto" + str(rect2.size[1])
-    rect3 = Rect(0, 0, 100, 100)
 
     fuente = pygame.font.Font(None, 25)
 
-    circulo = Circulo(p2._x, p2._y, p2.ancho, p2.largo)
+
 
     grupo = pygame.sprite.Group()
-    grupo.add(circulo.sprite)
     grupo.add(puntero.sprite)
 
     #circulo.sprite.rect = circuloRectangulo(circulo.radio)
-
+    lista1 =[]
     while True:
         # Posibles entradas del teclado y mouse
         for event in pygame.event.get():
@@ -62,16 +66,18 @@ def main():
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
-                p1.setSalto(True)
-                p2.setCorrer(True, False)
-                if rect1.colliderect(rect2):
-                    print "estan colisionando"
+                lista1 =deteccionEfectoTunel(p1, rectangulo)
+
+                #p1.setSalto(True)
+                #p2.setCorrer(True, False)
+                #if rect1.colliderect(rect2):
+                #    print "estan colisionando"
 
         x, y=pygame.mouse.get_pos()
         puntero.posicion(x, y)
-        p1.saltando()
-        p1.actualizacionRec()
-        p1.runGanancia2()
+        #p1.saltando()
+        #p1.actualizacionRec()
+        #p1.runGanancia2()
         #p1.runGanancia2()
 
         p2.corriendo()
@@ -88,22 +94,22 @@ def main():
         pygame.draw.rect(screen, green, p1.rec2)
         pygame.draw.rect(screen, blue, p1.rec4)
 
-        pygame.draw.rect(screen, red, p2.rec1)
-        pygame.draw.rect(screen, darkBlue, p2.rec3)
-        pygame.draw.rect(screen, green, p2.rec2)
-        pygame.draw.rect(screen, blue, p2.rec4)
+
+        #pygame.draw.rect(screen, red, p2.rec1)
+        #pygame.draw.rect(screen, darkBlue, p2.rec3)
+        #pygame.draw.rect(screen, green, p2.rec2)
+        #pygame.draw.rect(screen, blue, p2.rec4)
+
+        for i in lista1:
+            pygame.draw.rect(screen, white, i, 1)
 
         pygame.draw.rect(screen, red, plataforma.rectangulo)
+        pygame.draw.rect(screen, red, rectangulo.rectangulo)
         #pygame.draw.rect(screen, blue, rect2)
-
-        circulo.imprimir(screen)
-        #puntero.imprimir(screen)
-        circulo.creandoCirculo()
         #puntero.creandoCirculo()
 
         grupo.update()
         lista = pygame.sprite.spritecollide(puntero.sprite, grupo, False, pygame.sprite.collide_circle_ratio(1.4))
-        print len(lista)
         if len(lista)>1:#pygame.sprite.collide_circle(puntero.sprite, circulo.sprite):
             pygame.draw.rect(screen, darkBlue, puntero.sprite.rect)
 
@@ -169,32 +175,35 @@ def deteccionEfectoTunel(personaje, rectangulo):
     x2 = p2.x_circulo
     y2 = p2.y_circulo
     x_medio, y_medio = puntoMedioRecta(x1, y1, x2, y2)
-    radio = distanciaEntre2Puntos(x1, y2, x_medio, y_medio)/2.0+p1.radio
+    print personaje._x, personaje._y
+    print personaje.x_antes, personaje.y_antes
+    radio = distanciaEntre2Puntos(x1, y1, x2, y2)/2.0+p1.radio
     circulo = crearCirculo(radio, x_medio, y_medio)
 
     if colicionCirculo(circulo, rectangulo):
-        while True:
-            circulo1x ,circulo1y = puntoMedioRecta(x1, y1, x_medio, y_medio)
-            circulo2x ,circulo2y = puntoMedioRecta(x_medio, y_medio, x2, y2)
-            radio1 = distanciaEntre2Puntos(x1, y2, x_medio, y_medio)
-            radio2 = distanciaEntre2Puntos(x_medio, y_medio, x2, y2)
-            circulo1 = crearCirculo(radio1, circulo1x, circulo1y)
-            circulo2 = crearCirculo(radio2, circulo2x, circulo2y)
+        print "colision777"
+        circulo1x ,circulo1y = puntoMedioRecta(x1, y1, x_medio, y_medio)
+        circulo2x ,circulo2y = puntoMedioRecta(x_medio, y_medio, x2, y2)
+        radio1 = distanciaEntre2Puntos(x1, y2, x_medio, y_medio)/2.0
+        radio2 = distanciaEntre2Puntos(x_medio, y_medio, x2, y2)/2.0
+        circulo1 = crearCirculo(radio1, circulo1x, circulo1y)
+        circulo2 = crearCirculo(radio2, circulo2x, circulo2y)
 
-            if colicionCirculo(circulo1, rectangulo) and colicionCirculo(circulo2, rectangulo):
-                break
-            else:
-                if colicionCirculo(circulo1, rectangulo):
-                    x2 = x_medio
-                    y2 = y_medio
-                    x_medio =circulo1x
-                    y_medio =circulo1y
+        if colicionCirculo(circulo1, rectangulo) and colicionCirculo(circulo2, rectangulo):
+            print "colicion"
+        else:
+            if colicionCirculo(circulo1, rectangulo):
+                x2 = x_medio
+                y2 = y_medio
+                x_medio =circulo1x
+                y_medio =circulo1y
 
-                if colicionCirculo(circulo2, rectangulo):
-                    x1 = x_medio
-                    y1 = y_medio
-                    x_medio = circulo2x
-                    y_medio = circulo2y
+            if colicionCirculo(circulo2, rectangulo):
+                x1 = x_medio
+                y1 = y_medio
+                x_medio = circulo2x
+                y_medio = circulo2y
+    return circulo2
 
 
 
@@ -202,7 +211,7 @@ def deteccionEfectoTunel(personaje, rectangulo):
 
 def colicionCirculo(circulo, rectangulo):
     for rect in circulo:
-        if rect.colliderect(rectangulo):
+        if rect.colliderect(rectangulo.rectangulo):
             return True
     return False
     # crear el circulo pequeno 1 posiciones anteriores
@@ -226,18 +235,26 @@ def puntoMedioRecta(x1 , y1,  x2, y2):
 
 def crearCirculo(radio, x_circulo, y_circulo):
     opuesto = 0
-    num_division = 5
+    num_division = 10
     otro =[]
     for i in range(num_division):
         opuesto += radio / num_division
-        adyacente = math.sqrt(math.pow(radio, 2) - math.pow(opuesto, 2))
+        try:
+            adyacente = math.sqrt(math.pow(radio, 2) - math.pow(opuesto, 2))
+        except ValueError:
+            print "radio: ",radio
+            print "opuesto; ", opuesto
         otro.append(
             Rect(x_circulo -adyacente, y_circulo, adyacente * 2,
                  opuesto))
     opuesto = 0
     for i in range(num_division):
         opuesto += radio / num_division
-        adyacente = math.sqrt(math.pow(radio, 2) - math.pow(opuesto, 2))
+        try:
+            adyacente = math.sqrt(math.pow(radio, 2) - math.pow(opuesto, 2))
+        except ValueError:
+            print "radio: ", radio
+            print "opuesto; ", opuesto
         otro.append(
             Rect(x_circulo - adyacente, y_circulo - opuesto, adyacente * 2,
                  opuesto))
