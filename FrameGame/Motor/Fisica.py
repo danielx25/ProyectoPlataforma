@@ -102,3 +102,14 @@ def instanAng((x1, y1),(x2, y2)):
     if y2 < y1:
         pendiente  = pendiente + 180
     return pendiente
+
+def distanciaEntre2Puntos(x1 , y1,  x2, y2):
+    dis = math.sqrt(math.pow((x2-x1),2)+math.pow((y2-y1),2))
+    return dis
+
+
+def puntoMedioRecta(x1 , y1,  x2, y2):
+    x = (x1+x2)/2
+    y = (y1+y2)/2
+    tupla = (x,y)
+    return tupla
