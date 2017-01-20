@@ -8,6 +8,13 @@ def deteccionColisiones(personajes, plataformas, TablaColsiones):
         y = personaje._y
         for plataforma in  plataformas:
 
+            if deteccionEfectoTunel(personaje, plataforma):
+                print "no deveria pero weenio"
+                personaje.setSalto(False)
+                personaje.setCorrer(False)
+                personaje.setCaminar(False)
+                personaje._y = plataforma._y - personaje.largo
+            """
             if personaje.rec1.top < plataforma._y:
                 if plataforma.rectangulo.colliderect(personaje.rec1):
                     print "asdasd"
@@ -36,7 +43,7 @@ def deteccionColisiones(personajes, plataformas, TablaColsiones):
                     personaje.setCorrer(False)
                     personaje.setCaminar(False)
                     personaje._y = plataforma._y + plataforma.largo
-
+"""
 
 """
             if angulo < 0 and angulo >= -90:
@@ -143,22 +150,26 @@ def restituir_pos(p, entorno, _lado, sentido=False):
 
 
 def deteccionEfectoTunel(personaje, rectangulo):
+    if(personaje._x == personaje.x_antes and personaje._y == personaje.y_antes):
+        return False
     p1 = Circulo(personaje._x, personaje._y, personaje.ancho, personaje.largo)
     p2 = Circulo(personaje.x_antes, personaje.y_antes, personaje.ancho, personaje.largo)
-
     x1 = p1.x_circulo
     y1 = p1.y_circulo
     x2 = p2.x_circulo
     y2 = p2.y_circulo
 
 
-    x_medio, y_medio = Fisica.puntoMedioRecta(x1, y1, x2, y2)
-    radio = Fisica.distanciaEntre2Puntos(x1, y1, x2, y2)/2.0+p1.radio
-    circulo = crearCirculo(radio, x_medio, y_medio)
+    print "lega aca!!!!"
 
+    contador = 0
     while True:
+        x_medio, y_medio = Fisica.puntoMedioRecta(x1, y1, x2, y2)
+        radio = Fisica.distanciaEntre2Puntos(x1, y1, x2, y2) / 2.0 + p1.radio
+        circulo = crearCirculo(radio, x_medio, y_medio)
+
         if colicionCirculo(circulo, rectangulo):
-            print "colision777"
+            print "contador: ",contador
             circulo1x ,circulo1y = Fisica.puntoMedioRecta(x1, y1, x_medio, y_medio)
             circulo2x ,circulo2y = Fisica.puntoMedioRecta(x_medio, y_medio, x2, y2)
             radio1 = Fisica.distanciaEntre2Puntos(x1, y2, x_medio, y_medio)/2.0+p1.radio
@@ -166,22 +177,30 @@ def deteccionEfectoTunel(personaje, rectangulo):
             circulo1 = crearCirculo(radio1, circulo1x, circulo1y)
             circulo2 = crearCirculo(radio2, circulo2x, circulo2y)
 
-            if colicionCirculo(circulo1, rectangulo) and colicionCirculo(circulo2, rectangulo):
+            if radio1 < p1.radio:
+                return False
+            boolCirculo1 = colicionCirculo(circulo1, rectangulo)
+            boolCirculo2 = colicionCirculo(circulo2, rectangulo)
+            if boolCirculo1 == False and boolCirculo2 == False:
+                return False
+
+            if boolCirculo1 and boolCirculo2:
                 return [circulo, circulo1, circulo2]
             else:
-                if colicionCirculo(circulo1, rectangulo):
+                if boolCirculo1:
                     x2 = x_medio
                     y2 = y_medio
                     x_medio =circulo1x
                     y_medio =circulo1y
 
-                if colicionCirculo(circulo2, rectangulo):
+                if boolCirculo2:
                     x1 = x_medio
                     y1 = y_medio
                     x_medio = circulo2x
                     y_medio = circulo2y
+            contador+=1
         else:
-            return None
+            return False
 
 
 

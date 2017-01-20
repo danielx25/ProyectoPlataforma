@@ -73,6 +73,7 @@ def main():
                 #if rect1.colliderect(rect2):
                 #    print "estan colisionando"
 
+        lista1 = deteccionEfectoTunel(p1, rectangulo)
         x, y=pygame.mouse.get_pos()
         puntero.posicion(x, y)
         #p1.saltando()
@@ -86,7 +87,7 @@ def main():
         p2.actualizacionRec()
         p2.runGanancia2()
 
-        deteccionColisiones([p1,p2], [plataforma], None)
+        #deteccionColisiones([p1,p2], [plataforma], None)
 
         screen.fill((0,0,240))
         pygame.draw.rect(screen, red, p1.rec1)
@@ -102,9 +103,9 @@ def main():
 
         pygame.draw.rect(screen, red, plataforma.rectangulo)
         pygame.draw.rect(screen, red, rectangulo.rectangulo)
-        for i in lista1:
-            for l in i:
-                pygame.draw.rect(screen, white, l, 1)
+        #for i in lista1:
+        #    for l in i:
+        #        pygame.draw.rect(screen, white, l, 1)
 
 
         #pygame.draw.rect(screen, blue, rect2)
@@ -164,7 +165,7 @@ class Circulo(object):
 
 
 
-def deteccionEfectoTunel(personaje, rectangulo):
+def deteccionEfectoTunel1(personaje, rectangulo):
     p1 = Circulo(personaje._x, personaje._y, personaje.ancho, personaje.largo)
     p2 = Circulo(personaje.x_antes, personaje.y_antes, personaje.ancho, personaje.largo)
 
