@@ -49,6 +49,7 @@ class Personaje(object):
         self.agente = None
 
         #el personaje esta compuesto por cuatro rectangulos
+        self.rectangulo = Rect(0,0,0,0)#cuerpo completo
         self.rec1 = Rect(0, 0, 0, 0)#bajo
         self.rec2 = Rect(0, 0, 0, 0)#izquierda
         self.rec3 = Rect(0, 0, 0, 0)#derecha
@@ -97,6 +98,7 @@ class Personaje(object):
 
     def tam_rectangulos(self, rec_size):
         self.ancho, self.largo=rec_size
+        self.rectangulo.width, self.rectangulo.height = (rec_size[0], rec_size[1])
         self.rec1.width, self.rec1.height = (rec_size[0] / 2.0, rec_size[1] / 4.0)
         self.rec2.width, self.rec2.height = (rec_size[0] / 4.0, rec_size[1] / 2.0)
         self.rec3.width, self.rec3.height = (rec_size[0] / 4.0, rec_size[1] / 2.0)
@@ -105,6 +107,7 @@ class Personaje(object):
     def pos_rectangulos(self, coor, tam):
         x, y = coor
         ancho, largo = tam
+        self.rectangulo.left, self.rectangulo.top = (x, y)
         (self.rec1.left, self.rec1.top) = (x + (ancho / 4.0),y + largo - self.rec1.height)  # + 3*(largo/4.0))#abajo
         (self.rec2.left, self.rec2.top) = (x, y + (largo / 4.0))
         (self.rec3.left, self.rec3.top) = (x + ancho - self.rec3.width,y + (largo / 4.0))

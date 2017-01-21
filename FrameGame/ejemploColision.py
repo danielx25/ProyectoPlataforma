@@ -66,7 +66,7 @@ def main():
     x , y = (0,0)
 
     vx,vy = (0,0)
-
+    motorD = GestionDeteccionColisiones()
     while True:
         # Posibles entradas del teclado y mouse
         for event in pygame.event.get():
@@ -90,7 +90,8 @@ def main():
         p2.actualizacionRec()
         p2.runGanancia2()
 
-        deteccionColisiones([p1,p2], [plataforma, plataforma1, plataforma2, plataforma3], None)
+        motorD.deteccionColisionEntrePersonajesYPlatafromas([p1,p2], [plataforma, plataforma1, plataforma2, plataforma3])
+        #deteccionColisiones([p2], [plataforma, plataforma1, plataforma2, plataforma3], None)
 
         screen.fill((0,0,240))
         pygame.draw.rect(screen, red, p1.rec1)
