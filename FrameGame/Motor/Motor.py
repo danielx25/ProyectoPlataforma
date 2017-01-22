@@ -7,10 +7,11 @@ import EjecucionActividades
 import Camara
 
 from pygame import Rect
+import threading
 
-class MotorVideojuego(object):
+class MotorVideojuego(threading.Thread):
     def __init__(self):
-
+        threading.Thread.__init__(self)
         self.salirJuego = False
 
         self.tablaImagenes = {}
@@ -34,6 +35,8 @@ class MotorVideojuego(object):
         self.controlEventos = Eventos.Eventos_Protagonista()
         self.camara = Camara.Camara(self.campoAccion)
 
+    def run(self):
+        pass
 
     def cicloVideojuego(self):
 
