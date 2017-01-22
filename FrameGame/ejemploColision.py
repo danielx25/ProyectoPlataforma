@@ -67,6 +67,7 @@ def main():
 
     vx,vy = (0,0)
     motorD = GestionDeteccionColisiones()
+    reloj1 = pygame.time.Clock()
     while True:
         # Posibles entradas del teclado y mouse
         for event in pygame.event.get():
@@ -127,7 +128,9 @@ def main():
         screen.blit(texto8, (10, 150))
         #pygame.draw.rect(screen, blue, rect2)
 
-        pygame.display.flip()
+        #pygame.display.flip()
+        reloj1.tick(30)
+        pygame.display.update()
         #print max_altura(velocidad, angulo, gravedad)
 
 
