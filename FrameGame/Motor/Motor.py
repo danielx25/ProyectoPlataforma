@@ -1,4 +1,4 @@
-import Personaje
+import Personaje_
 import Plataforma
 import AdminRecursos
 import Eventos
@@ -7,6 +7,7 @@ import EjecucionActividades
 import Camara
 
 from pygame import Rect
+from pygame import time
 import threading
 
 class MotorVideojuego(threading.Thread):
@@ -28,15 +29,16 @@ class MotorVideojuego(threading.Thread):
         self.protagonista = None
 
         self.reloj = None
-        self.tiempoLimite = 10 #10 minutos
+        self.tiempoLimite = 10000 #en milisegundos
 
         self.campoAccion = Rect(0, 0, 800, 600)
-        self.eventosUsuario = None
+        self.eventosUsuario = []
         self.controlEventos = Eventos.Eventos_Protagonista()
         self.camara = Camara.Camara(self.campoAccion)
 
     def run(self):
-        pass
+        self.protagonista = self.conjuntoPersonajes[0]
+        self.cicloVideojuego()
 
     def cicloVideojuego(self):
 
@@ -49,7 +51,10 @@ class MotorVideojuego(threading.Thread):
             EjecucionActividades.ejecutarScripts(self.diccionarioScripts)#falta tabla de colisones, personajes etc
             EjecucionActividades.ejecutarPersonajes(self.conjuntoPersonajes)
             EjecucionActividades.ejecutarSonidos(self.tablaSonidos)#falta musica
-            self.camara.centrado(self.conjuntoPersonajes, self.conjuntoPlataformas)
+            #self.camara.centrado(self.conjuntoPersonajes, self.conjuntoPlataformas)
+            self.reloj = time.get_ticks()
+            #print "reloj: ",self.reloj
+        print "termino"
 
 
     def entradaPersonajes(self, personajes):

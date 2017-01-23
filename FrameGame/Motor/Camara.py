@@ -1,6 +1,5 @@
 from tiempo import Tiempo
-from ..Interfaz.Fisica import*
-
+from Fisica import *
 MOVAUTONOMO = "autonomo"
 MOVAUTONOMO_DERECHA = "derecha"
 MOVAUTONOMO_IZQ = "izquierda"

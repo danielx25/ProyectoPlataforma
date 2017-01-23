@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
-from Motor.Personaje import *
+from Motor.Personaje_ import *
 from Motor.Plataforma import *
 from Motor.DeteccionColisiones import *
 from Motor.Fisica import *

@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
-from Motor.Personaje import *
+from Motor.Personaje_ import *
 from Motor.Fisica import *
 red = (255,0,0)
 green = (0,255,0)

@@ -8,6 +8,8 @@ def ejecutarPersonajes(conjuntoPersonajes):
         p.saltando()
         p.corriendo()
         p.caminando()
+        p.runGanancia2()
+        p.actualizacionRec()
 
 def ejecutarSonidos(tablaSonidos):
     pass

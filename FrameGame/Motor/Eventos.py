@@ -21,7 +21,6 @@ class Eventos_Protagonista(object):
 
         self.velocidad = VELOCIDAD
 
-        self.musica = music.entornoMusic()
         """self.arriba = False
         self.abajo = False
         self.izquierda = False
