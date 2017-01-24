@@ -39,6 +39,8 @@ def main():
     motor.start()
     start = pygame.time.get_ticks()/1000
     print start
+    contador = 0
+    li = 1000
     while salir == False:
 
         lista=pygame.event.get()#((pygame.KEYDOWN, pygame.KEYUP, pygame.QUIT, pygame.MOUSEBUTTONDOWN))
@@ -51,9 +53,13 @@ def main():
                     p1.setSalto(True)
                     print "SAlta"
         pantalla.fill((0,0,240))
-
+        contador+=1
+        if pygame.time.get_ticks() > li:
+            print "->: ",contador
+            contador = 0
+            li+=1000
         pygame.draw.rect(pantalla, red, p1.rectangulo)
-        reloj1.tick(30)
+        reloj1.tick(15)
         pygame.display.update()
     motor.salirJuego = True
     pygame.quit()
