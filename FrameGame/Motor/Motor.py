@@ -29,7 +29,7 @@ class MotorVideojuego(threading.Thread):
         self.protagonista = None
 
         self.reloj = None
-        self.tiempoLimite = 10000 #en milisegundos
+        self.tiempoLimite = 20000 #en milisegundos
 
         self.campoAccion = Rect(0, 0, 800, 600)
         self.eventosUsuario = []
