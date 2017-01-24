@@ -23,8 +23,8 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1._x = 700
-    p1._y = 100
+    p1._x = 300
+    p1._y = 300
     p1.tam_rectangulos((70, 70))
     p1.actualizacionRec()
 
@@ -38,7 +38,8 @@ def main():
     motor.conjuntoPersonajes = [p1, p2]
     motor.start()
     start = pygame.time.get_ticks()/1000
-    print start
+    iter=0
+    limit=1000
     while salir == False:
 
         lista=pygame.event.get()#((pygame.KEYDOWN, pygame.KEYUP, pygame.QUIT, pygame.MOUSEBUTTONDOWN))
@@ -51,9 +52,13 @@ def main():
                     p1.setSalto(True)
                     print "SAlta"
         pantalla.fill((0,0,240))
-
+        if pygame.time.get_ticks()>limit:
+            print iter
+            limit+=1000
+            iter=0
+        iter+=1
         pygame.draw.rect(pantalla, red, p1.rectangulo)
-        reloj1.tick(30)
+        reloj1.tick(120)
         pygame.display.update()
     motor.salirJuego = True
     pygame.quit()
