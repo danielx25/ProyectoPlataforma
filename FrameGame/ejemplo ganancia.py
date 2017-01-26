@@ -57,7 +57,7 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 p1.setSalto(True)
-                p2.setCorrer(True, False)
+                #p2.setCorrer(True, True)
                 if rect1.colliderect(rect2):
                     print "estan colisionando"
 

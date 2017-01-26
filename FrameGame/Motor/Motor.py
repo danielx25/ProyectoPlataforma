@@ -1,5 +1,5 @@
 import Personaje_
-import Plataforma
+import Plataforma_
 import AdminRecursos
 import Eventos
 import DeteccionColisiones

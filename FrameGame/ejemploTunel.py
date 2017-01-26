@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import sys
 from Motor.Personaje_ import *
-from Motor.Plataforma import *
+from Motor.Plataforma_ import *
 from Motor.DeteccionColisiones import *
 from Motor.Fisica import *
 red = (255,0,0)
