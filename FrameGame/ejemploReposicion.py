@@ -9,6 +9,12 @@ def reposicion(personaje, rectangulo):
     ancho = personaje.ancho
     largo = personaje.largo
 
+    infx = min([x, x_antes])
+    supx = max([x, x_antes])
+
+    infy = min([y, y_antes])
+    supy = max([y, y_antes])
+
     x1 = x
     y1 = rectangulo._y + rectangulo.largo
 
@@ -27,20 +33,38 @@ def reposicion(personaje, rectangulo):
     c = x*b
     d = y*a
 
+    cuadros=[float('inf'), float('inf'), float('inf'), float('inf')]
+
     if b != 0:
         x1 = funcionx(a,b,c,d,y1)
         x3 = funcionx(a, b, c, d, y3)
 
+        if infx <= x1 < supx and  infy<= y1 < supy:
+            cuadros[0] = distanciaEntre2Puntos(x1, y1, x, y)
+            print "y: ", y
+            print "y1: ", y1
+            print "y_antes: ", y_antes
+        if  infx <= x3 < supx and infy<= y3 < supy:
+            cuadros[2] = distanciaEntre2Puntos(x3, y3, x, y)
+
+
     if a != 0:
         y2 = funciony(a,b,c,d,x2)
         y4 = funciony(a,b,c,d,x4)
+
+        if infx <= x2 < supx and  infy<= y2 < supy:
+            cuadros[1] = distanciaEntre2Puntos(x2, y2, x, y)
+        if infx <= x4 < supx and  infy<= y4 < supy:
+            cuadros[3] = distanciaEntre2Puntos(x4, y4, x, y)
+
+    cuadro = cuadros.index(min(cuadros))
 
     l = []
     l.append(Rect(x1, y1, ancho, largo))
     l.append(Rect(x2, y2, ancho, largo))
     l.append(Rect(x3, y3, ancho, largo))
     l.append(Rect(x4, y4, ancho, largo))
-    return l
+    return [l[cuadro]]
 
 def funcionx(a, b, c, d, y):
     return (a*y-d+c)/b
@@ -74,8 +98,8 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1._x = 300
-    p1._y = 300
+    p1._x = 230
+    p1._y = 150
     p1.x_antes = 50
     p1.y_antes = 50
     p1.tam_rectangulos((70, 70))
@@ -123,7 +147,7 @@ def main():
 
         pantalla.fill((0,0,240))
         if pygame.time.get_ticks()>limit:
-            print iter
+            #print iter
             limit+=1000
             iter=0
         iter+=1
