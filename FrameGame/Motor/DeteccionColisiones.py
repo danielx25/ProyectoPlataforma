@@ -14,13 +14,14 @@ class GestionDeteccionColisiones(object):
             for plataforma in plataformas:
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
+                    reposicion(personaje, plataforma)
                 else:
                     if deteccionEfectoTunel(personaje, plataforma):
                         colision = True
+                        reposicion(personaje, plataforma)
             if colision:
                 personaje.setSalto(False)
                 personaje.setCorrer(False)
-                personaje.setCaminar(False)
                 personaje.setCaminar(False)
 
     def deteccionColisionEntrePersonajes(self):
@@ -302,3 +303,93 @@ def colicionCirculo(circulo, rectangulo):
         if rect.colliderect(rectangulo.rectangulo):
             return True
     return False
+
+def reposicion(personaje, rectangulo):
+    x = personaje._x
+    y = personaje._y
+    x_antes = personaje.x_antes
+    y_antes = personaje.y_antes
+    ancho = personaje.ancho
+    largo = personaje.largo
+
+    infx = min([x, x_antes])
+    supx = max([x, x_antes])
+
+    infy = min([y, y_antes])
+    supy = max([y, y_antes])
+
+    x1 = x
+    y1 = rectangulo._y + rectangulo.largo
+
+    x2 = rectangulo._x - ancho
+    y2 = y
+
+    x3 = x
+    y3 = rectangulo._y - largo
+
+    x4 = rectangulo._x + rectangulo.ancho
+    y4 = y
+
+
+    a = x - x_antes
+    b = y - y_antes
+    c = x*b
+    d = y*a
+
+    cuadros=[float('inf'), float('inf'), float('inf'), float('inf')]
+
+    if b != 0:
+        x1 = funcionx(a,b,c,d,y1)
+        x3 = funcionx(a, b, c, d, y3)
+
+        if infx <= x1 < supx and  infy<= y1 < supy:
+            cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x, y)
+            print "y: ", y
+            print "y1: ", y1
+            print "y_antes: ", y_antes
+        if  infx <= x3 < supx and infy<= y3 < supy:
+            cuadros[2] = Fisica.distanciaEntre2Puntos(x3, y3, x, y)
+
+
+    if a != 0:
+        y2 = funciony(a,b,c,d,x2)
+        y4 = funciony(a,b,c,d,x4)
+
+        if infx <= x2 < supx and  infy<= y2 < supy:
+            cuadros[1] = Fisica.distanciaEntre2Puntos(x2, y2, x, y)
+        if infx <= x4 < supx and  infy<= y4 < supy:
+            cuadros[3] = Fisica.distanciaEntre2Puntos(x4, y4, x, y)
+
+    if b != 0:
+        x1 = funcionx(a,b,c,d,y1)
+        x3 = funcionx(a, b, c, d, y3)
+
+    if a != 0:
+        y2 = funciony(a,b,c,d,x2)
+        y4 = funciony(a,b,c,d,x4)
+
+    if rectangulo._x <= x1 <= rectangulo._x + rectangulo.ancho or rectangulo._x <= x1 + ancho <= rectangulo._x + rectangulo.ancho:
+        cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x_antes, y_antes)
+    if rectangulo._y <= y2 <= rectangulo._y + rectangulo.largo or rectangulo._y <= y2 + largo <= rectangulo._y + rectangulo.largo:
+        cuadros[1] = Fisica.distanciaEntre2Puntos(x2, y2, x_antes, y_antes)
+    if rectangulo._x <= x3 <= rectangulo._x + rectangulo.ancho or rectangulo._x <= x3 + ancho <= rectangulo._x + rectangulo.ancho:
+        cuadros[2] = Fisica.distanciaEntre2Puntos(x3, y3, x_antes, y_antes)
+    if rectangulo._y <= y4 <= rectangulo._y + rectangulo.largo or rectangulo._y <= y4 + largo <= rectangulo._y + rectangulo.largo:
+        cuadros[3] = Fisica.distanciaEntre2Puntos(x4, y4, x_antes, y_antes)
+
+    cuadro = cuadros.index(min(cuadros))
+
+    l = []
+    l.append((x1,y1))
+    l.append((x2, y2))
+    l.append((x3, y3))
+    l.append((x4, y4))
+    if cuadro != float('inf'):
+        personaje._x = l[cuadro][0]
+        personaje._y = l[cuadro][1]
+
+def funcionx(a, b, c, d, y):
+    return (a*y-d+c)/b
+
+def funciony(a, b, c, d, x):
+    return (b*x-c+d)/a

@@ -39,24 +39,19 @@ def reposicion(personaje, rectangulo):
         x1 = funcionx(a,b,c,d,y1)
         x3 = funcionx(a, b, c, d, y3)
 
-        if infx <= x1 < supx and  infy<= y1 < supy:
-            cuadros[0] = distanciaEntre2Puntos(x1, y1, x, y)
-            print "y: ", y
-            print "y1: ", y1
-            print "y_antes: ", y_antes
-        if  infx <= x3 < supx and infy<= y3 < supy:
-            cuadros[2] = distanciaEntre2Puntos(x3, y3, x, y)
-
-
     if a != 0:
         y2 = funciony(a,b,c,d,x2)
         y4 = funciony(a,b,c,d,x4)
 
-        if infx <= x2 < supx and  infy<= y2 < supy:
-            cuadros[1] = distanciaEntre2Puntos(x2, y2, x, y)
-        if infx <= x4 < supx and  infy<= y4 < supy:
-            cuadros[3] = distanciaEntre2Puntos(x4, y4, x, y)
 
+    if rectangulo._x<=x1<=rectangulo._x+rectangulo.ancho or rectangulo._x<=x1+ancho<=rectangulo._x+rectangulo.ancho:
+        cuadros[0] = distanciaEntre2Puntos(x1, y1, x_antes, y_antes)
+    if rectangulo._y<=y2<=rectangulo._y+rectangulo.largo or rectangulo._y<=y2+largo<=rectangulo._y+rectangulo.largo:
+        cuadros[1] = distanciaEntre2Puntos(x2, y2, x_antes, y_antes)
+    if rectangulo._x<=x3<=rectangulo._x+rectangulo.ancho or rectangulo._x<=x3+ancho<=rectangulo._x+rectangulo.ancho:
+        cuadros[2] = distanciaEntre2Puntos(x3, y3, x_antes, y_antes)
+    if rectangulo._y<=y4<=rectangulo._y+rectangulo.largo or rectangulo._y<=y4+largo<=rectangulo._y+rectangulo.largo:
+        cuadros[3] = distanciaEntre2Puntos(x4, y4, x_antes, y_antes)
     cuadro = cuadros.index(min(cuadros))
 
     l = []
@@ -65,6 +60,7 @@ def reposicion(personaje, rectangulo):
     l.append(Rect(x3, y3, ancho, largo))
     l.append(Rect(x4, y4, ancho, largo))
     return [l[cuadro]]
+    return l
 
 def funcionx(a, b, c, d, y):
     return (a*y-d+c)/b
@@ -98,8 +94,8 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1._x = 230
-    p1._y = 150
+    p1._x = 430
+    p1._y = 180
     p1.x_antes = 50
     p1.y_antes = 50
     p1.tam_rectangulos((70, 70))
@@ -113,7 +109,7 @@ def main():
 
     plataforma2 = Plataforma()
     plataforma2.setXY(250, 200)
-    plataforma2.setTamRect(300, 300)
+    plataforma2.setTamRect(300, 100)
 
     p1_antes = Rect(p1.x_antes, p1.y_antes, 70, 70)
 

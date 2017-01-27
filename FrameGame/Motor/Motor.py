@@ -35,6 +35,7 @@ class MotorVideojuego(threading.Thread):
         self.eventosUsuario = []
         self.controlEventos = Eventos.Eventos_Protagonista()
         self.camara = Camara.Camara(self.campoAccion)
+        self.gestionColisiones = DeteccionColisiones.GestionDeteccionColisiones()
 
     def run(self):
         self.protagonista = self.conjuntoPersonajes[0]
@@ -47,7 +48,8 @@ class MotorVideojuego(threading.Thread):
             AdminRecursos.AdministrarRecursosPlataformas(self.universoPlataformas)
             self.controlEventos.eventos(self.eventosUsuario)
             self.controlEventos.comportamientoPRO(self.protagonista)
-            DeteccionColisiones.deteccionColisiones(self.conjuntoPersonajes, self.conjuntoPlataformas, self.tablaColisiones)
+            #DeteccionColisiones.deteccionColisiones(self.conjuntoPersonajes, self.conjuntoPlataformas, self.tablaColisiones)
+            self.gestionColisiones.deteccionColisionEntrePersonajesYPlatafromas(self.conjuntoPersonajes, self.conjuntoPlataformas)
             EjecucionActividades.ejecutarScripts(self.diccionarioScripts)#falta tabla de colisones, personajes etc
             EjecucionActividades.ejecutarPersonajes(self.conjuntoPersonajes)
             EjecucionActividades.ejecutarSonidos(self.tablaSonidos)#falta musica

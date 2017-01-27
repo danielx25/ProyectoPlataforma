@@ -19,7 +19,7 @@ def main():
 
     p1 = Personaje()
     p1._x =100
-    p1._y = 500
+    p1._y = 480
     p1.tam_rectangulos((50,50))
     p1.actualizacionRec()
 

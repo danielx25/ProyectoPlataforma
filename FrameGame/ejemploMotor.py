@@ -34,8 +34,17 @@ def main():
     p2.tam_rectangulos((100, 100))
     p2.actualizacionRec()
 
+    plataforma = Plataforma()
+    plataforma.setXY(0, 554)
+    plataforma.setTamRect(800, 70)
+
+    plataforma1 = Plataforma()
+    plataforma1.setXY(200, 400)
+    plataforma1.setTamRect(800, 2)
+
     motor = MotorVideojuego()
-    motor.conjuntoPersonajes = [p1, p2]
+    motor.conjuntoPersonajes = [p1, p2,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()]
+    motor.conjuntoPlataformas = [plataforma, plataforma1]
     motor.start()
     start = pygame.time.get_ticks()/1000
 
@@ -58,8 +67,11 @@ def main():
             limit+=1000
             iter=0
         iter+=1
-        pygame.draw.rect(pantalla, red, p1.rectangulo)
-        reloj1.tick(120)
+
+        pygame.draw.rect(pantalla, red, plataforma.rectangulo)
+        pygame.draw.rect(pantalla, red, plataforma1.rectangulo)
+        pygame.draw.rect(pantalla, white, p1.rectangulo)
+        reloj1.tick(60)
         pygame.display.update()
     motor.salirJuego = True
     pygame.quit()
