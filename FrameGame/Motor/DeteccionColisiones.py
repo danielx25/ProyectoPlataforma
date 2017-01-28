@@ -4,13 +4,15 @@ import Fisica
 
 
 class GestionDeteccionColisiones(object):
-    def __init__(self):
+    def __init__(self, tablacolisiones):
         self.colisionesEntrePersonajes = False
         self.colisionElastica = False
+        self.tablaColisiones = tablacolisiones
 
     def deteccionColisionEntrePersonajesYPlatafromas(self, personajes, plataformas):
         for personaje in personajes:
             colision = False
+            self.tablaColisiones[personaje.id] = []
             for plataforma in plataformas:
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
@@ -19,10 +21,11 @@ class GestionDeteccionColisiones(object):
                     if deteccionEfectoTunel(personaje, plataforma):
                         colision = True
                         reposicion(personaje, plataforma)
-            if colision:
-                personaje.setSalto(False)
-                personaje.setCorrer(False)
-                personaje.setCaminar(False)
+                if colision:
+                    self.tablaColisiones[personaje.id].append(plataforma.id)
+                    personaje.setSalto(False)
+                    personaje.setCorrer(False)
+                    personaje.setCaminar(False)
 
     def deteccionColisionEntrePersonajes(self):
         pass
@@ -202,13 +205,6 @@ def deteccionEfectoTunel(personaje, rectangulo):
             circulo1 = crearCirculo(radio1, circulo1x, circulo1y)
             circulo2 = crearCirculo(radio2, circulo2x, circulo2y)
 
-            print "contador: ", contador
-            print "p1x, p1y = ", (personaje._x, personaje._y)
-            print "p1_antesx, p1_antesy = ", (personaje.x_antes, personaje.y_antes)
-
-            print "radio: ", radio
-            print "radio1: ",radio1
-            print  "p1.radio: ",p1.radio
             if Fisica.distanciaEntre2Puntos(circulo1x, circulo1y, circulo2x, circulo2y)<=p1.radio:
                 return False
             boolCirculo1 = colicionCirculo(circulo1, rectangulo)

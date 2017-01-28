@@ -35,7 +35,7 @@ class MotorVideojuego(threading.Thread):
         self.eventosUsuario = []
         self.controlEventos = Eventos.Eventos_Protagonista()
         self.camara = Camara.Camara(self.campoAccion)
-        self.gestionColisiones = DeteccionColisiones.GestionDeteccionColisiones()
+        self.gestionColisiones = DeteccionColisiones.GestionDeteccionColisiones(self.tablaColisiones)
 
     def run(self):
         self.protagonista = self.conjuntoPersonajes[0]
@@ -55,12 +55,18 @@ class MotorVideojuego(threading.Thread):
             EjecucionActividades.ejecutarSonidos(self.tablaSonidos)#falta musica
             #self.camara.centrado(self.conjuntoPersonajes, self.conjuntoPlataformas)
             self.reloj = time.get_ticks()
+
+            for i in self.tablaColisiones:
+                if len(self.tablaColisiones[i]) > 0:
+                    print "colisiono"
             #print "reloj: ",self.reloj
         print "termino"
 
 
     def entradaPersonajes(self, personajes):
-        self.universoPersonajes = personajes
+        for p in personajes:
+            self.tablaColisiones[p.id] = []
+            self.universoPersonajes[p.id] = p
 
     def entradaProtaganista(self, protagonista):
         self.protagonista = protagonista

@@ -15,7 +15,7 @@ class Personaje(object):
     def __init__(self):
 
         #identinficacion
-        self.id = uuid.uuid1()
+        self.id = uuid.uuid1().hex
 
         self._x = 0
         self._y = 0
