@@ -62,6 +62,8 @@ def main():
                 if event.button == 1:
                     p1.setSalto(True)
                     print "SAlta"
+
+        motor.controlEventos.eventos(lista)
         pantalla.fill((0,0,240))
         if pygame.time.get_ticks()>limit:
             print iter

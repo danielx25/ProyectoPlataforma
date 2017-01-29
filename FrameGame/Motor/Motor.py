@@ -46,7 +46,7 @@ class MotorVideojuego(threading.Thread):
         while self.reloj < self.tiempoLimite and self.salirJuego == False:
             AdminRecursos.AdministrarRecursosPersonaje(self.universoPersonajes)
             AdminRecursos.AdministrarRecursosPlataformas(self.universoPlataformas)
-            self.controlEventos.eventos(self.eventosUsuario)
+            #self.controlEventos.eventos(self.eventosUsuario)
             self.controlEventos.comportamientoPRO(self.protagonista)
             #DeteccionColisiones.deteccionColisiones(self.conjuntoPersonajes, self.conjuntoPlataformas, self.tablaColisiones)
             self.gestionColisiones.deteccionColisionEntrePersonajesYPlatafromas(self.conjuntoPersonajes, self.conjuntoPlataformas)

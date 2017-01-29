@@ -120,14 +120,14 @@ class Eventos_Protagonista(object):
 
                         if self.derecha:
 
-                            if protagonista.getDirec() == False and protagonista.getCaminar() == True:
+                            if protagonista.getSentido == False and protagonista.getCaminar() == True:
                                 protagonista.setCaminar(False)
 
                             if protagonista.getCaminar() == False:
                                 protagonista.reseteo()
                                 protagonista.setCaminar(True, True)
                         else:
-                            if protagonista.getDirec() == True and protagonista.getCaminar() == True:
+                            if protagonista.getSentido == True and protagonista.getCaminar() == True:
                                 protagonista.setCaminar(False)
 
                             if protagonista.getCaminar() == False:
@@ -135,14 +135,14 @@ class Eventos_Protagonista(object):
                                 protagonista.setCaminar(True, False)
                     else:
                         if self.orden:#primero derecha
-                            if protagonista.getDirec() == False and protagonista.getCaminar() == True:
+                            if protagonista.getSentido == False and protagonista.getCaminar() == True:
                                 protagonista.setCaminar(False)
 
                             if protagonista.getCaminar() == False:
                                 protagonista.reseteo()
                                 protagonista.setCaminar(True, True)
                         else:
-                            if protagonista.getDirec() == True and protagonista.getCaminar() == True:
+                            if protagonista.getSentido == True and protagonista.getCaminar() == True:
                                 protagonista.setCaminar(False)
 
                             if protagonista.getCaminar() == False:
@@ -168,14 +168,14 @@ class Eventos_Protagonista(object):
 
                         if self.derecha:
 
-                            if protagonista.getDirec() == False and protagonista.getCorrer() == True:
+                            if protagonista.getSentido == False and protagonista.getCorrer() == True:
                                 protagonista.setCorrer(False)
 
                             if protagonista.getCorrer() == False:
                                 protagonista.reseteo()
                                 protagonista.setCorrer(True, True)
                         else:
-                            if protagonista.getDirec() == True and protagonista.getCorrer() == True:
+                            if protagonista.getSentido == True and protagonista.getCorrer() == True:
                                 protagonista.setCorrer(False)
 
                             if protagonista.getCorrer() == False:
@@ -183,14 +183,14 @@ class Eventos_Protagonista(object):
                                 protagonista.setCorrer(True, False)
                     else:
                         if self.orden:#primero derecha
-                            if protagonista.getDirec() == False and protagonista.getCorrer() == True:
+                            if protagonista.getSentido == False and protagonista.getCorrer() == True:
                                 protagonista.setCorrer(False)
 
                             if protagonista.getCorrer() == False:
                                 protagonista.reseteo()
                                 protagonista.setCorrer(True, True)
                         else:
-                            if protagonista.getDirec() == True and protagonista.getCorrer() == True:
+                            if protagonista.getSentido == True and protagonista.getCorrer() == True:
                                 protagonista.setCorrer(False)
 
                             if protagonista.getCorrer() == False:
@@ -200,25 +200,25 @@ class Eventos_Protagonista(object):
 
         if protagonista.getSalto():
             if self._left == True or  self._right == True:
-                (p1vx, p1vy) = protagonista.Info[3]
+                p1vx = protagonista.status["velocidad x"]
+                p1vy =  protagonista.status["velocidad y"]
                 angulo1 = math.degrees(math.atan2(p1vy, p1vx))
                 velo_p1 = math.sqrt(math.pow(p1vx,2)+math.pow(p1vy,2))
                 if self._right:
 
                     if p1vy > 0:
-                        protagonista.condicion=(None, velo_p1, 65, 9.8)
+                        protagonista.status["parabola"] = (velo_p1, 65)
                     else:
-                        protagonista.condicion=(None, velo_p1, 295, 9.8)
-
+                        protagonista.status["parabola"] = (velo_p1, 295)
                     protagonista.reseteo()
 
                     self._right = False
                 else:
 
                     if p1vy > 0:
-                        protagonista.condicion=(None, velo_p1, 115, 9.8)
+                        protagonista.status["parabola"] = (velo_p1, 115)
                     else:
-                        protagonista.condicion=(None, velo_p1, 245, 9.8)
+                        protagonista.status["parabola"] = (velo_p1, 245)
 
                     protagonista.reseteo()
                     #protagonista.condicion=(None, 40, 245, 9.8)
@@ -234,25 +234,25 @@ class Eventos_Protagonista(object):
                 if self.derecha == False and self.izquierda == False:
                     protagonista.setSalto(True)
                     protagonista.reseteo()
-                    protagonista.condicion=(None, 60, 90, 9.8)
+                    protagonista.status["parabola"] = (60, 90)
                 else:
                     if self.derecha == False or  self.izquierda == False:
                         if self.derecha:
                             protagonista.setSalto(True)
                             protagonista.reseteo()
-                            protagonista.condicion=(None, 60, 65, 9.8)
+                            protagonista.status["parabola"] = (60, 65)
                         else:
                             protagonista.setSalto(True)
                             protagonista.reseteo()
-                            protagonista.condicion=(None, 60, 115, 9.8)
+                            protagonista.status["parabola"] = (60, 115)
                     else:
                         if self.orden:#primero derecha
                             protagonista.setSalto(True)
                             protagonista.reseteo()
-                            protagonista.condicion=(None, 60, 65, 9.8)
+                            protagonista.status["parabola"] = (60, 65)
                         else:
                             protagonista.setSalto(True)
                             protagonista.reseteo()
-                            protagonista.condicion=(None, 60, 115, 9.8)
+                            protagonista.status["parabola"] = (60, 115)
 
 
