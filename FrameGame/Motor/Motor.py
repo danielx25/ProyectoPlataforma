@@ -18,7 +18,7 @@ class MotorVideojuego(threading.Thread):
         self.tablaImagenes = {}
         self.tablaSonidos = {}
         self.tablaMusica = {}
-        self.tablaColisiones = {}
+        self.tablaColisiones = {}#id personaje:[]
 
         self.diccionarioScripts = []
 
