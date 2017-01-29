@@ -15,7 +15,7 @@ class Personaje(object):
     def __init__(self):
 
         #identinficacion
-        self.id = uuid.uuid1()
+        self.id = uuid.uuid1().hex
 
         self._x = 0
         self._y = 0
@@ -54,6 +54,11 @@ class Personaje(object):
         self.rec2 = Rect(0, 0, 0, 0)#izquierda
         self.rec3 = Rect(0, 0, 0, 0)#derecha
         self.rec4 = Rect(0, 0, 0, 0)#arriba
+
+        self.ady_left = False
+        self.ady_right = False
+        self.ady_down = False
+        self.ady_up = False
 
         self.tic = Tiempo()
         self.status={}

@@ -4,25 +4,59 @@ import Fisica
 
 
 class GestionDeteccionColisiones(object):
-    def __init__(self):
+    def __init__(self, tablacolisiones):
         self.colisionesEntrePersonajes = False
         self.colisionElastica = False
+        self.tablaColisiones = tablacolisiones
 
     def deteccionColisionEntrePersonajesYPlatafromas(self, personajes, plataformas):
         for personaje in personajes:
             colision = False
+            self.tablaColisiones[personaje.id] = []
             for plataforma in plataformas:
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
-                    reposicion(personaje, plataforma)
                 else:
                     if deteccionEfectoTunel(personaje, plataforma):
                         colision = True
-                        reposicion(personaje, plataforma)
-            if colision:
-                personaje.setSalto(False)
-                personaje.setCorrer(False)
-                personaje.setCaminar(False)
+
+                if colision:
+                    self.tablaColisiones[personaje.id].append(plataforma.id)
+                    reposicion(personaje, plataforma)
+                    personaje.setSalto(False)
+                    personaje.setCorrer(False)
+                    personaje.setCaminar(False)
+
+                personaje.rectangulo.top+=1
+                if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                    personaje.ady_down = True
+                else:
+                    personaje.ady_down = False
+                personaje.rectangulo.top-=1
+
+                personaje.rectangulo.top -= 1
+                if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                    personaje.ady_up = True
+                else:
+                    personaje.ady_up = False
+                personaje.rectangulo.top += 1
+
+                personaje.rectangulo.left += 1
+                if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                    personaje.ady_right= True
+                else:
+                    personaje.ady_right = False
+                personaje.rectangulo.left -= 1
+
+                personaje.rectangulo.left -= 1
+                if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                    personaje.ady_left = True
+                else:
+                    personaje.ady_left = False
+                personaje.rectangulo.left += 1
+
+
+
 
     def deteccionColisionEntrePersonajes(self):
         pass
@@ -202,13 +236,6 @@ def deteccionEfectoTunel(personaje, rectangulo):
             circulo1 = crearCirculo(radio1, circulo1x, circulo1y)
             circulo2 = crearCirculo(radio2, circulo2x, circulo2y)
 
-            print "contador: ", contador
-            print "p1x, p1y = ", (personaje._x, personaje._y)
-            print "p1_antesx, p1_antesy = ", (personaje.x_antes, personaje.y_antes)
-
-            print "radio: ", radio
-            print "radio1: ",radio1
-            print  "p1.radio: ",p1.radio
             if Fisica.distanciaEntre2Puntos(circulo1x, circulo1y, circulo2x, circulo2y)<=p1.radio:
                 return False
             boolCirculo1 = colicionCirculo(circulo1, rectangulo)

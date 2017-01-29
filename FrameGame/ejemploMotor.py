@@ -43,7 +43,8 @@ def main():
     plataforma1.setTamRect(800, 2)
 
     motor = MotorVideojuego()
-    motor.conjuntoPersonajes = [p1, p2,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()]
+    motor.entradaPersonajes([p1, p2,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()])
+    motor.conjuntoPersonajes = [p1]
     motor.conjuntoPlataformas = [plataforma, plataforma1]
     motor.start()
     start = pygame.time.get_ticks()/1000
