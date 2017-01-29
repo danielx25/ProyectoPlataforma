@@ -55,6 +55,11 @@ class Personaje(object):
         self.rec3 = Rect(0, 0, 0, 0)#derecha
         self.rec4 = Rect(0, 0, 0, 0)#arriba
 
+        self.ady_left = False
+        self.ady_right = False
+        self.ady_down = False
+        self.ady_up = False
+
         self.tic = Tiempo()
         self.status={}
         self.status["angulo"] = 0

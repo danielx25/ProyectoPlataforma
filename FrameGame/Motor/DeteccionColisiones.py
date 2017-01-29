@@ -16,16 +16,47 @@ class GestionDeteccionColisiones(object):
             for plataforma in plataformas:
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
-                    reposicion(personaje, plataforma)
                 else:
                     if deteccionEfectoTunel(personaje, plataforma):
                         colision = True
-                        reposicion(personaje, plataforma)
+
                 if colision:
                     self.tablaColisiones[personaje.id].append(plataforma.id)
+                    reposicion(personaje, plataforma)
                     personaje.setSalto(False)
                     personaje.setCorrer(False)
                     personaje.setCaminar(False)
+
+                personaje.rectangulo.top+=1
+                if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                    personaje.ady_down = True
+                else:
+                    personaje.ady_down = False
+                personaje.rectangulo.top-=1
+
+                personaje.rectangulo.top -= 1
+                if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                    personaje.ady_up = True
+                else:
+                    personaje.ady_up = False
+                personaje.rectangulo.top += 1
+
+                personaje.rectangulo.left += 1
+                if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                    personaje.ady_right= True
+                else:
+                    personaje.ady_right = False
+                personaje.rectangulo.left -= 1
+
+                personaje.rectangulo.left -= 1
+                if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                    personaje.ady_left = True
+                else:
+                    personaje.ady_left = False
+                personaje.rectangulo.left += 1
+
+
+
 
     def deteccionColisionEntrePersonajes(self):
         pass
