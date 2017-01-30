@@ -253,7 +253,7 @@ class Personaje(object):
         self.tiempo=0
         self.x_inicial=self._x
         self.y_inicial=self._y
-        self.sistema_cerradox[0] = self.sistema_cerradox[1] = 0
-        self.sistema_cerradoy[0] = self.sistema_cerradoy[1] = 0
-        self.actualizacionRec()
+        #self.sistema_cerradox[0] = self.sistema_cerradox[1] = 0
+        #self.sistema_cerradoy[0] = self.sistema_cerradoy[1] = 0
+        #self.actualizacionRec()
         self.tic.modPasivo()

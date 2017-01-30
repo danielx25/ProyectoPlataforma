@@ -11,7 +11,7 @@ class GestionDeteccionColisiones(object):
 
     def deteccionColisionEntrePersonajesYPlatafromas(self, personajes, plataformas):
         for personaje in personajes:
-            colision = False
+
             self.tablaColisiones[personaje.id] = []
 
             personaje.ady_left = False
@@ -20,6 +20,7 @@ class GestionDeteccionColisiones(object):
             personaje.ady_up = False
 
             for plataforma in plataformas:
+                colision = False
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
                 #else:

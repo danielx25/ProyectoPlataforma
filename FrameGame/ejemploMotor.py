@@ -39,7 +39,7 @@ def main():
     plataforma.setTamRect(800, 70)
 
     plataforma1 = Plataforma()
-    plataforma1.setXY(200, 400)
+    plataforma1.setXY(300, 400)
     plataforma1.setTamRect(800, 2)
 
     motor = MotorVideojuego()
