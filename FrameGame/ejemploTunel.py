@@ -76,6 +76,7 @@ def main():
         lista1 = deteccionEfectoTunel(p1, rectangulo)
         x, y=pygame.mouse.get_pos()
         puntero.posicion(x, y)
+
         #p1.saltando()
         #p1.actualizacionRec()
         #p1.runGanancia2()
@@ -110,6 +111,7 @@ def main():
 
         #pygame.draw.rect(screen, blue, rect2)
         #puntero.creandoCirculo()
+        puntero.imprimir(screen)
 
         grupo.update()
         lista = pygame.sprite.spritecollide(puntero.sprite, grupo, False, pygame.sprite.collide_circle_ratio(1.4))

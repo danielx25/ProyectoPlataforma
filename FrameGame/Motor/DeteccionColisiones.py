@@ -13,47 +13,59 @@ class GestionDeteccionColisiones(object):
         for personaje in personajes:
             colision = False
             self.tablaColisiones[personaje.id] = []
+
+            personaje.ady_left = False
+            personaje.ady_right = False
+            personaje.ady_down = False
+            personaje.ady_up = False
+
             for plataforma in plataformas:
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
-                else:
-                    if deteccionEfectoTunel(personaje, plataforma):
-                        colision = True
+                #else:
+                #    if deteccionEfectoTunel(personaje, plataforma):
+                #        colision = True
 
                 if colision:
                     self.tablaColisiones[personaje.id].append(plataforma.id)
                     reposicion(personaje, plataforma)
-                    personaje.setSalto(False)
-                    personaje.setCorrer(False)
                     personaje.setCaminar(False)
+                    personaje.setCorrer(False)
+                    personaje.setSalto(False)
 
-                personaje.rectangulo.top+=1
-                if plataforma.rectangulo.colliderect(personaje.rectangulo):
-                    personaje.ady_down = True
-                else:
-                    personaje.ady_down = False
-                personaje.rectangulo.top-=1
+                if personaje.ady_down == False:
+                    personaje.rectangulo.top+=1
+                    if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                        personaje.ady_down = True
+                    personaje.rectangulo.top-=1
 
-                personaje.rectangulo.top -= 1
-                if plataforma.rectangulo.colliderect(personaje.rectangulo):
-                    personaje.ady_up = True
-                else:
-                    personaje.ady_up = False
-                personaje.rectangulo.top += 1
+                if personaje.ady_up == False:
+                    personaje.rectangulo.top -= 1
+                    if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                        personaje.ady_up = True
+                    personaje.rectangulo.top += 1
 
-                personaje.rectangulo.left += 1
-                if plataforma.rectangulo.colliderect(personaje.rectangulo):
-                    personaje.ady_right= True
-                else:
-                    personaje.ady_right = False
-                personaje.rectangulo.left -= 1
+                if personaje.ady_right == False:
+                    personaje.rectangulo.left += 1
+                    if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                        personaje.ady_right= True
+                    personaje.rectangulo.left -= 1
 
-                personaje.rectangulo.left -= 1
-                if plataforma.rectangulo.colliderect(personaje.rectangulo):
-                    personaje.ady_left = True
-                else:
-                    personaje.ady_left = False
-                personaje.rectangulo.left += 1
+                if personaje.ady_left == False:
+                    personaje.rectangulo.left -= 1
+                    if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                        personaje.ady_left = True
+                    personaje.rectangulo.left += 1
+
+        self.gravedadActua(personajes)
+    def gravedadActua(self, personajes):
+        for personaje in personajes:
+            if personaje.getSalto() == False and personaje.ady_down == False:
+                personaje.setCaminar(False)
+                personaje.setCorrer(False)
+                personaje.setSalto(True)
+                personaje.status["parabola"] = (60, 270)
+                personaje.reseteo()
 
 
 
@@ -271,6 +283,12 @@ class Circulo(object):
         self.tamx = ancho
         self.tamy = largo
         self.radio = int(math.sqrt(math.pow(self.tamx,2)+math.pow(self.tamy,2))/2.0)
+
+        if self.tamx < self.tamy:
+            self.radio = self.tamx / 2
+        else:
+            self.radio = self.tamy / 2
+
         self.x_circulo = int(self.x + self.tamx / 2.0)
         self.y_circulo = int(self.y + self.tamy / 2.0)
         #self.sprite.radius = self.radio

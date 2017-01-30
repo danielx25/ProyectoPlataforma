@@ -24,7 +24,7 @@ def main():
 
     p1 = Personaje()
     p1._x = 300
-    p1._y = 300
+    p1._y = 100
     p1.tam_rectangulos((70, 70))
     p1.actualizacionRec()
 
@@ -60,10 +60,14 @@ def main():
                 salir = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    p1.setSalto(True)
+                    #p1.setSalto(True)
+                    p1.setCaminar(True, False)
                     print "SAlta"
+                if event.button == 2:
+                    motor.conjuntoPlataformas[1].setXY(400,400)
 
-        motor.controlEventos.eventos(lista)
+
+        #motor.controlEventos.eventos(lista)
         pantalla.fill((0,0,240))
         if pygame.time.get_ticks()>limit:
             print iter
@@ -71,9 +75,13 @@ def main():
             iter=0
         iter+=1
 
+
         pygame.draw.rect(pantalla, red, plataforma.rectangulo)
         pygame.draw.rect(pantalla, red, plataforma1.rectangulo)
-        pygame.draw.rect(pantalla, white, p1.rectangulo)
+        if p1.ady_down == True:
+            pygame.draw.rect(pantalla, white, p1.rectangulo)
+        else:
+            pygame.draw.rect(pantalla, green, p1.rectangulo)
         reloj1.tick(60)
         pygame.display.update()
     motor.salirJuego = True
