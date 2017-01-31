@@ -23,7 +23,7 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1._x = 300
+    p1._x = 400
     p1._y = 100
     p1.tam_rectangulos((70, 70))
     p1.actualizacionRec()
@@ -67,7 +67,7 @@ def main():
                     motor.conjuntoPlataformas[1].setXY(400,400)
 
 
-        #motor.controlEventos.eventos(lista)
+        motor.controlEventos.eventos(lista)
         pantalla.fill((0,0,240))
         if pygame.time.get_ticks()>limit:
             print iter
