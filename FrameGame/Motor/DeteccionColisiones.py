@@ -9,6 +9,12 @@ class GestionDeteccionColisiones(object):
         self.colisionElastica = False
         self.tablaColisiones = tablacolisiones
 
+    def deteccionColisiones(self, personajes, plataformas):
+        self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas)
+        self.deteccionColisionEntrePersonajes(personajes)
+        self.gravedadActua(personajes)
+
+
     def deteccionColisionEntrePersonajesYPlatafromas(self, personajes, plataformas):
         for personaje in personajes:
 
@@ -58,7 +64,6 @@ class GestionDeteccionColisiones(object):
                         personaje.ady_left = True
                     personaje.rectangulo.left += 1
 
-        self.gravedadActua(personajes)
     def gravedadActua(self, personajes):
         for personaje in personajes:
             if personaje.getSalto() == False and personaje.ady_down == False:
@@ -74,16 +79,8 @@ class GestionDeteccionColisiones(object):
         for personaje in personajes:
 
             self.tablaColisiones[personaje.id] = []
-
-            personaje.ady_left = False
-            personaje.ady_right = False
-            personaje.ady_down = False
-            personaje.ady_up = False
-
             for personajeAux in personajes:
                 if personaje.id != personajeAux.id:
-
-
                     colision = False
                     if personajeAux.rectangulo.colliderect(personaje.rectangulo):
                         colision = True
@@ -97,30 +94,6 @@ class GestionDeteccionColisiones(object):
                         personaje.setCaminar(False)
                         personaje.setCorrer(False)
                         personaje.setSalto(False)
-
-                    if personaje.ady_down == False:
-                        personaje.rectangulo.top += 1
-                        if personajeAux.rectangulo.colliderect(personaje.rectangulo):
-                            personaje.ady_down = True
-                        personaje.rectangulo.top -= 1
-
-                    if personaje.ady_up == False:
-                        personaje.rectangulo.top -= 1
-                        if personajeAux.rectangulo.colliderect(personaje.rectangulo):
-                            personaje.ady_up = True
-                        personaje.rectangulo.top += 1
-
-                    if personaje.ady_right == False:
-                        personaje.rectangulo.left += 1
-                        if personajeAux.rectangulo.colliderect(personaje.rectangulo):
-                            personaje.ady_right = True
-                        personaje.rectangulo.left -= 1
-
-                    if personaje.ady_left == False:
-                        personaje.rectangulo.left -= 1
-                        if personajeAux.rectangulo.colliderect(personaje.rectangulo):
-                            personaje.ady_left = True
-                        personaje.rectangulo.left += 1
 
 
 

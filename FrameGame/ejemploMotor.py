@@ -44,7 +44,7 @@ def main():
 
     motor = MotorVideojuego()
     motor.entradaPersonajes([p1, p2,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()])
-    motor.conjuntoPersonajes = [p1]
+    motor.conjuntoPersonajes = [p1, p2]
     motor.conjuntoPlataformas = [plataforma, plataforma1]
     motor.start()
     start = pygame.time.get_ticks()/1000
@@ -78,10 +78,11 @@ def main():
 
         pygame.draw.rect(pantalla, red, plataforma.rectangulo)
         pygame.draw.rect(pantalla, red, plataforma1.rectangulo)
-        if p1.ady_down == True:
-            pygame.draw.rect(pantalla, white, p1.rectangulo)
-        else:
-            pygame.draw.rect(pantalla, green, p1.rectangulo)
+        for p in motor.conjuntoPersonajes:
+            if p.ady_down == True:
+                pygame.draw.rect(pantalla, white, p.rectangulo)
+            else:
+                pygame.draw.rect(pantalla, green, p.rectangulo)
         reloj1.tick(60)
         pygame.display.update()
     motor.salirJuego = True
