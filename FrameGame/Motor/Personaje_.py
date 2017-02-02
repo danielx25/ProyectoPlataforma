@@ -163,7 +163,7 @@ class Personaje(object):
             self.sistema_cerradox[0] = self.sistema_cerradox[1] = 0
             self.sistema_cerradoy[0] = self.sistema_cerradoy[1] = 0
 
-        if self.correr == True and self.saltar == False and self.caminar == False:  # aceleracion |            disancia inicial | velocidad inicial
+        if self.correr == True and self.saltar == False and self.caminar == False:
             t = self.tic.cronometroC()
 
             self.sistema_cerradox[0] = self.sistema_cerradox[1]
@@ -211,7 +211,7 @@ class Personaje(object):
                 velocidad *= -1
             self.status["angulo"] = self.angulo
 
-            x = mov_recUniforme(t, velocidad)  # 0.5* 20* self.tiempo*self.tiempo + self.x_inicial + 60*self.tiempo
+            x = mov_recUniforme(t, velocidad)
             self.sistema_cerradox[1]=x
 
     def getEjeX(self):

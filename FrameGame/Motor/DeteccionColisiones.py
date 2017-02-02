@@ -7,18 +7,17 @@ class GestionDeteccionColisiones(object):
     def __init__(self, tablacolisiones):
         self.colisionesEntrePersonajes = False
         self.colisionElastica = False
-        self.tablaColisiones = tablacolisiones
 
-    def deteccionColisiones(self, personajes, plataformas):
-        self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas)
-        self.deteccionColisionEntrePersonajes(personajes)
+    def deteccionColisiones(self, personajes, plataformas, tablaColisiones):
+        self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas, tablaColisiones)
+        self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
         self.gravedadActua(personajes)
 
 
-    def deteccionColisionEntrePersonajesYPlatafromas(self, personajes, plataformas):
+    def deteccionColisionEntrePersonajesYPlatafromas(self, personajes, plataformas, tablaColisiones):
         for personaje in personajes:
 
-            self.tablaColisiones[personaje.id] = []
+            tablaColisiones[personaje.id] = []
 
             personaje.ady_left = False
             personaje.ady_right = False
@@ -34,11 +33,11 @@ class GestionDeteccionColisiones(object):
                         colision = True
 
                 if colision:
-                    self.tablaColisiones[personaje.id].append(plataforma.id)
+                    tablaColisiones[personaje.id].append(plataforma)
                     reposicion(personaje, plataforma)
-                    personaje.setCaminar(False)
-                    personaje.setCorrer(False)
-                    personaje.setSalto(False)
+                    #personaje.setCaminar(False)
+                    #personaje.setCorrer(False)
+                    #personaje.setSalto(False)
 
                 if personaje.ady_down == False:
                     personaje.rectangulo.top+=1
@@ -74,11 +73,9 @@ class GestionDeteccionColisiones(object):
                 personaje.reseteo()
 
 
-    def deteccionColisionEntrePersonajes(self, personajes):
+    def deteccionColisionEntrePersonajes(self, personajes, tablaColisiones):
 
         for personaje in personajes:
-
-            self.tablaColisiones[personaje.id] = []
             for personajeAux in personajes:
                 if personaje.id != personajeAux.id:
                     colision = False
@@ -89,12 +86,32 @@ class GestionDeteccionColisiones(object):
                             colision = True
 
                     if colision:
-                        self.tablaColisiones[personaje.id].append(personajeAux.id)
+                        tablaColisiones[personaje.id].append(personajeAux)
                         reposicion(personaje, personajeAux)
-                        personaje.setCaminar(False)
-                        personaje.setCorrer(False)
-                        personaje.setSalto(False)
 
+                    if personaje.ady_down == False:
+                        personaje.rectangulo.top += 1
+                        if personajeAux.rectangulo.colliderect(personaje.rectangulo):
+                            personaje.ady_down = True
+                        personaje.rectangulo.top -= 1
+
+                    if personaje.ady_up == False:
+                        personaje.rectangulo.top -= 1
+                        if personajeAux.rectangulo.colliderect(personaje.rectangulo):
+                            personaje.ady_up = True
+                        personaje.rectangulo.top += 1
+
+                    if personaje.ady_right == False:
+                        personaje.rectangulo.left += 1
+                        if personajeAux.rectangulo.colliderect(personaje.rectangulo):
+                            personaje.ady_right = True
+                        personaje.rectangulo.left -= 1
+
+                    if personaje.ady_left == False:
+                        personaje.rectangulo.left -= 1
+                        if personajeAux.rectangulo.colliderect(personaje.rectangulo):
+                            personaje.ady_left = True
+                        personaje.rectangulo.left += 1
 
 
 def deteccionColisiones(personajes, plataformas, TablaColsiones):
@@ -384,7 +401,6 @@ def reposicion(personaje, rectangulo):
 
     infy = min([y, y_antes])
     supy = max([y, y_antes])
-
     x1 = x
     y1 = rectangulo._y + rectangulo.largo
 
@@ -411,9 +427,6 @@ def reposicion(personaje, rectangulo):
 
         if infx <= x1 < supx and  infy<= y1 < supy:
             cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x, y)
-            print "y: ", y
-            print "y1: ", y1
-            print "y_antes: ", y_antes
         if  infx <= x3 < supx and infy<= y3 < supy:
             cuadros[2] = Fisica.distanciaEntre2Puntos(x3, y3, x, y)
 
@@ -454,6 +467,8 @@ def reposicion(personaje, rectangulo):
     if cuadro != float('inf'):
         personaje._x = l[cuadro][0]
         personaje._y = l[cuadro][1]
+    print cuadro
+    return cuadro
 
 def funcionx(a, b, c, d, y):
     return (a*y-d+c)/b
