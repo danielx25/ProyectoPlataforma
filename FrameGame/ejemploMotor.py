@@ -23,14 +23,14 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1._x = 400
+    p1._x = 500
     p1._y = 100
     p1.tam_rectangulos((70, 70))
     p1.actualizacionRec()
 
     p2 = Personaje()
-    p2._x = 100
-    p2._y = 200
+    p2._x = 20
+    p2._y = 100
     p2.tam_rectangulos((100, 100))
     p2.actualizacionRec()
 
@@ -42,10 +42,14 @@ def main():
     plataforma1.setXY(300, 400)
     plataforma1.setTamRect(800, 2)
 
+    plataforma3 = Plataforma()
+    plataforma3.setXY(0, 2)
+    plataforma3.setTamRect(20, 800)
+
     motor = MotorVideojuego()
     motor.entradaPersonajes([p1, p2,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()])
     motor.conjuntoPersonajes = [p1, p2]
-    motor.conjuntoPlataformas = [plataforma, plataforma1]
+    motor.conjuntoPlataformas = [plataforma, plataforma1, plataforma3]
     motor.start()
     start = pygame.time.get_ticks()/1000
 
@@ -78,8 +82,9 @@ def main():
 
         pygame.draw.rect(pantalla, red, plataforma.rectangulo)
         pygame.draw.rect(pantalla, red, plataforma1.rectangulo)
+        pygame.draw.rect(pantalla, red, plataforma3.rectangulo)
         for p in motor.conjuntoPersonajes:
-            if p.ady_down == True:
+            if p.ady_left == True:
                 pygame.draw.rect(pantalla, white, p.rectangulo)
             else:
                 pygame.draw.rect(pantalla, green, p.rectangulo)
