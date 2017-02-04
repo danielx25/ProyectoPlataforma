@@ -121,6 +121,12 @@ class Personaje(object):
     def actualizacionRec(self):
         self.pos_rectangulos((self._x, self._y),(self.ancho, self.largo))
 
+    def setXY(self, x, y):
+        self._x = self.x_antes = x
+        self._y = self.y_antes = y
+        self.actualizacionRec()
+
+
     def saltando(self,):
         self.x_antes = self._x
         self.y_antes = self._y
@@ -225,6 +231,7 @@ class Personaje(object):
 
     def setSalto(self, salto):
         self.saltar = salto
+        self.status["angulo"] = self.status["parabola"][1]
 
     def getSalto(self):
         return self.saltar

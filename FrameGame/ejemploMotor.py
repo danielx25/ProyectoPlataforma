@@ -23,16 +23,17 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1._x = 500
-    p1._y = 100
+    p1.setXY(500, 100)
     p1.tam_rectangulos((70, 70))
     p1.actualizacionRec()
 
     p2 = Personaje()
-    p2._x = 20
-    p2._y = 100
+    p2.setXY(60,100)
     p2.tam_rectangulos((100, 100))
     p2.actualizacionRec()
+
+    p1.id = "daniel"
+    p2.id = "pedro"
 
     plataforma = Plataforma()
     plataforma.setXY(0, 554)

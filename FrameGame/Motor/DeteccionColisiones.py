@@ -28,9 +28,9 @@ class GestionDeteccionColisiones(object):
                 colision = False
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
-                #else:
-                #    if deteccionEfectoTunel(personaje, plataforma):
-                #        colision = True
+                else:
+                    if deteccionEfectoTunel(personaje, plataforma):
+                        colision = True
 
                 if colision:
                     lado = reposicion(personaje, plataforma)
@@ -54,14 +54,14 @@ class GestionDeteccionColisiones(object):
                     personaje.rectangulo.left += 1
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_right= True
-                        tablaColisiones[personaje.id].append((plataforma, 1))
+                        tablaColisiones[personaje.id].append((plataforma, 3))
                     personaje.rectangulo.left -= 1
 
                 if personaje.ady_left == False:
                     personaje.rectangulo.left -= 1
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_left = True
-                        tablaColisiones[personaje.id].append((plataforma, 3))
+                        tablaColisiones[personaje.id].append((plataforma, 1))
                     personaje.rectangulo.left += 1
 
     def gravedadActua(self, personajes):
@@ -82,9 +82,9 @@ class GestionDeteccionColisiones(object):
                     colision = False
                     if personajeAux.rectangulo.colliderect(personaje.rectangulo):
                         colision = True
-                    else:
-                        if deteccionEfectoTunel(personaje, personajeAux):
-                            colision = True
+                    #else:
+                    #    if deteccionEfectoTunel(personaje, personajeAux):
+                    #        colision = True
 
                     if colision:
                         lado = reposicion(personaje, personajeAux)
@@ -105,13 +105,13 @@ class GestionDeteccionColisiones(object):
                     if personaje.ady_right == False:
                         personaje.rectangulo.left += 1
                         if personajeAux.rectangulo.colliderect(personaje.rectangulo):
-                            tablaColisiones[personaje.id].append((personajeAux, 1))
+                            tablaColisiones[personaje.id].append((personajeAux, 3))
                         personaje.rectangulo.left -= 1
 
                     if personaje.ady_left == False:
                         personaje.rectangulo.left -= 1
                         if personajeAux.rectangulo.colliderect(personaje.rectangulo):
-                            tablaColisiones[personaje.id].append((personajeAux, 3))
+                            tablaColisiones[personaje.id].append((personajeAux, 1))
                         personaje.rectangulo.left += 1
 
 

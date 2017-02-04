@@ -57,9 +57,10 @@ class MotorVideojuego(threading.Thread):
             #self.camara.centrado(self.conjuntoPersonajes, self.conjuntoPlataformas)
             self.reloj = time.get_ticks()
 
-            for i in self.tablaColisiones:
-                if len(self.tablaColisiones[i]) > 0:
-                    print "colisiono"
+            for i in self.conjuntoPersonajes:
+                if i.ady_left:
+                    #print "ady_left"
+                    pass
             #print "reloj: ",self.reloj
         print "termino"
 
