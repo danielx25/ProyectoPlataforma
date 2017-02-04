@@ -3,7 +3,7 @@ from Plataforma_ import Plataforma
 import time
 
 def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
-    adyacencia(personajes, tablaColisiones)
+    #adyacencia(personajes, tablaColisiones)
     for personaje in personajes:
         lista_objetos = tablaColisiones[personaje.id]
         for objeto in lista_objetos:

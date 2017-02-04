@@ -75,7 +75,7 @@ def main():
         motor.controlEventos.eventos(lista)
         pantalla.fill((0,0,240))
         if pygame.time.get_ticks()>limit:
-            print iter
+            #print iter
             limit+=1000
             iter=0
         iter+=1
