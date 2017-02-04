@@ -23,14 +23,19 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1.setXY(500, 100)
-    p1.tam_rectangulos((70, 70))
+    p1.setXY(20, 454)
+    p1.tam_rectangulos((100, 100))
     p1.actualizacionRec()
 
     p2 = Personaje()
-    p2.setXY(60,100)
+    p2.setXY(120,454)
     p2.tam_rectangulos((100, 100))
     p2.actualizacionRec()
+
+    p3 = Personaje()
+    p3.setXY(220, 454)
+    p3.tam_rectangulos((100, 100))
+    p3.actualizacionRec()
 
     p1.id = "daniel"
     p2.id = "pedro"
@@ -48,8 +53,8 @@ def main():
     plataforma3.setTamRect(20, 800)
 
     motor = MotorVideojuego()
-    motor.entradaPersonajes([p1, p2,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()])
-    motor.conjuntoPersonajes = [p1, p2]
+    motor.entradaPersonajes([p1, p2,p3,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()])
+    motor.conjuntoPersonajes = [p1, p2, p3]
     motor.conjuntoPlataformas = [plataforma, plataforma1, plataforma3]
     motor.start()
     start = pygame.time.get_ticks()/1000
@@ -69,7 +74,9 @@ def main():
                     p1.setCaminar(True, False)
                     print "SAlta"
                 if event.button == 2:
-                    motor.conjuntoPlataformas[1].setXY(400,400)
+                    print "daniel: ", p1.getXY()
+                    print "pedro: ", p2.getXY()
+                    #motor.conjuntoPlataformas[1].setXY(400,400)
 
 
         motor.controlEventos.eventos(lista)
@@ -85,10 +92,29 @@ def main():
         pygame.draw.rect(pantalla, red, plataforma1.rectangulo)
         pygame.draw.rect(pantalla, red, plataforma3.rectangulo)
         for p in motor.conjuntoPersonajes:
+            pygame.draw.rect(pantalla, green, p.rectangulo)
+            lista = motor.tablaColisiones[p.id]
+            """
+            for elemento in lista:
+                if elemento[1] == 1:
+                    pygame.draw.rect(pantalla, darkBlue, p.rec2)
+                if elemento[1] == 3:
+                    pygame.draw.rect(pantalla, darkBlue, p.rec3)
+                if elemento[1] == 0:
+                    pygame.draw.rect(pantalla, darkBlue, p.rec1)
+                if elemento[1] == 2:
+                    pygame.draw.rect(pantalla, darkBlue, p.rec4)
+
+            """
             if p.ady_left == True:
-                pygame.draw.rect(pantalla, white, p.rectangulo)
-            else:
-                pygame.draw.rect(pantalla, green, p.rectangulo)
+                pygame.draw.rect(pantalla, darkBlue, p.rec2)
+            if p.ady_right == True:
+                pygame.draw.rect(pantalla, darkBlue, p.rec3)
+            if p.ady_down == True:
+                pygame.draw.rect(pantalla, darkBlue, p.rec1)
+            if p.ady_up == True:
+                pygame.draw.rect(pantalla, darkBlue, p.rec4)
+
         reloj1.tick(60)
         pygame.display.update()
     motor.salirJuego = True

@@ -126,6 +126,9 @@ class Personaje(object):
         self._y = self.y_antes = y
         self.actualizacionRec()
 
+    def getXY(self):
+        return (self._x, self._y)
+
 
     def saltando(self,):
         self.x_antes = self._x

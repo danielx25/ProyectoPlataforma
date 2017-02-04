@@ -3,7 +3,7 @@ from Plataforma_ import Plataforma
 import time
 
 def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
-    #adyacencia(personajes, tablaColisiones)
+    adyacencia(personajes, tablaColisiones)
     for personaje in personajes:
         lista_objetos = tablaColisiones[personaje.id]
         for objeto in lista_objetos:
@@ -12,6 +12,7 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
                 se necesita mas informacion para tomar una desicion para esto se necesita la informacion que probenga de deteccion
                 """
                 #personaje.setGananciaXY(objeto.getGananciaXY())
+                personaje.setSalto(False)
                 personaje.setCaminar(False)
                 personaje.setCorrer(False)
             if isinstance(objeto[0], Plataforma):
@@ -24,10 +25,9 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
 
 def adyacencia(personajes, tablaColisiones):
     for personaje in personajes:
-        print personaje.id, len(tablaColisiones[personaje.id])
-        #personaje.ady_down = recursion(personaje, tablaColisiones, 0)
-        #personaje.ady_left = recursion(personaje, tablaColisiones,1)
-        #personaje.ady_up = recursion(personaje, tablaColisiones,2)
+        personaje.ady_down = recursion(personaje, tablaColisiones, 0)
+        personaje.ady_left = recursion(personaje, tablaColisiones,1)
+        personaje.ady_up = recursion(personaje, tablaColisiones,2)
         personaje.ady_right = recursion(personaje, tablaColisiones,3)
 
 
@@ -35,13 +35,12 @@ def recursion(personaje, tablaColisiones, lado):
     lista_objetos = tablaColisiones[personaje.id]
     for objeto in lista_objetos:
         if objeto[1] == lado:
-            print str(personaje.id)
-            print len(lista_objetos), " ============== ", objeto[1]
+            #print str(personaje.id)
+            #print len(lista_objetos), " ============== ", objeto[1]
             if isinstance(objeto[0], Plataforma):
                 return True
             else:
-                #time.sleep(10)
-                pass#return recursion(objeto[0], tablaColisiones, lado)
+                return recursion(objeto[0], tablaColisiones, lado)
     return False
 
 def ejecutarScripts(diccionarioScripts):
