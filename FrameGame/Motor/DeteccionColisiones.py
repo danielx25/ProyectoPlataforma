@@ -20,8 +20,9 @@ class GestionDeteccionColisiones(object):
                 for info in lista:
                     print "     id  : ", info[0].id
                     print "     lado: ", info[1]
+                print personaje.getXY()
                 print "---------------------------"
-                time.sleep(60)
+                exit()
 
 
 
@@ -45,6 +46,10 @@ class GestionDeteccionColisiones(object):
 
                 if colision:
                     lado = reposicion(personaje, plataforma)
+                    personaje.rectangulo.left = personaje._x
+                    personaje.rectangulo.top = personaje._y
+                    #problema gordo a quei solo cambiaba las coordenadas de x e y del personaje pero no actualizaba todos los componentes del personaje
+
                     #tablaColisiones[personaje.id].append((plataforma, lado))
 
                 if personaje.ady_down == False:
