@@ -2,7 +2,7 @@ import math
 from pygame import Rect
 import Fisica
 
-
+import time
 class GestionDeteccionColisiones(object):
     def __init__(self, tablacolisiones):
         self.colisionesEntrePersonajes = False
@@ -10,17 +10,19 @@ class GestionDeteccionColisiones(object):
 
     def deteccionColisiones(self, personajes, plataformas, tablaColisiones):
         self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas, tablaColisiones)
-        self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
+        #self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
         self.gravedadActua(personajes)
-        """
+
         for personaje in personajes:
             lista = tablaColisiones[personaje.id]
-            print "id: ", personaje.id
-            for info in lista:
-                print "     id  : ", info[0].id
-                print "     lado: ", info[1]
-            print "---------------------------"
-        """
+            if len(lista)>2 and personaje.id == "daniel":
+                print "id: ", personaje.id
+                for info in lista:
+                    print "     id  : ", info[0].id
+                    print "     lado: ", info[1]
+                print "---------------------------"
+                time.sleep(60)
+
 
 
     def deteccionColisionEntrePersonajesYPlatafromas(self, personajes, plataformas, tablaColisiones):
@@ -477,6 +479,7 @@ def reposicion(personaje, rectangulo):
     if cuadro != float('inf'):
         personaje._x = l[cuadro][0]
         personaje._y = l[cuadro][1]
+        #personaje.setXY(l[cuadro][0],l[cuadro][1])
     print "como?", cuadro
     return cuadro
 

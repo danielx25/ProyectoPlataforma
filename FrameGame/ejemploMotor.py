@@ -23,17 +23,17 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1.setXY(20, 454)
+    p1.setXY(20, 453)
     p1.tam_rectangulos((100, 100))
     p1.actualizacionRec()
 
     p2 = Personaje()
-    p2.setXY(120,454)
+    p2.setXY(140,454)
     p2.tam_rectangulos((100, 100))
     p2.actualizacionRec()
 
     p3 = Personaje()
-    p3.setXY(220, 454)
+    p3.setXY(240, 454)
     p3.tam_rectangulos((100, 100))
     p3.actualizacionRec()
 
@@ -54,7 +54,7 @@ def main():
 
     motor = MotorVideojuego()
     motor.entradaPersonajes([p1, p2,p3,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()])
-    motor.conjuntoPersonajes = [p1, p2, p3]
+    motor.conjuntoPersonajes = [p1]
     motor.conjuntoPlataformas = [plataforma, plataforma1, plataforma3]
     motor.start()
     start = pygame.time.get_ticks()/1000
