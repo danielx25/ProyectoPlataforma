@@ -43,6 +43,8 @@ class GestionDeteccionColisiones(object):
 
                 if colision:
                     lado = reposicion(personaje, plataforma)
+                    personaje.rectangulo.left = personaje._x
+                    personaje.rectangulo.top = personaje._y
                     #tablaColisiones[personaje.id].append((plataforma, lado))
 
                 if personaje.ady_down == False:
@@ -97,6 +99,8 @@ class GestionDeteccionColisiones(object):
 
                     if colision:
                         lado = reposicion(personaje, personajeAux)
+                        personaje.rectangulo.left = personaje._x
+                        personaje.rectangulo.top = personaje._y
                         #tablaColisiones[personaje.id].append((pla, lado))
 
                     if personaje.ady_down == False:

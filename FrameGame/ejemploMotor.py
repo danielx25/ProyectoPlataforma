@@ -23,17 +23,17 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1.setXY(20, 454)
+    p1.setXY(20, 40)
     p1.tam_rectangulos((100, 100))
     p1.actualizacionRec()
 
     p2 = Personaje()
-    p2.setXY(120,454)
+    p2.setXY(20,160)
     p2.tam_rectangulos((100, 100))
     p2.actualizacionRec()
 
     p3 = Personaje()
-    p3.setXY(220, 454)
+    p3.setXY(20, 280)
     p3.tam_rectangulos((100, 100))
     p3.actualizacionRec()
 
@@ -70,8 +70,15 @@ def main():
                 salir = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
+                    x, y = pygame.mouse.get_pos()
+                    pn = Personaje()
+                    pn.setXY(x, y)
+                    pn.tam_rectangulos((50, 50))
+                    pn.actualizacionRec()
+                    motor.conjuntoPersonajes.append(pn)
+                    motor.tablaColisiones[pn.id] = []
                     #p1.setSalto(True)
-                    p1.setCaminar(True, False)
+                    #p1.setCaminar(True, False)
                     print "SAlta"
                 if event.button == 2:
                     print "daniel: ", p1.getXY()
