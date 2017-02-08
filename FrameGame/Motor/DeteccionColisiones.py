@@ -10,7 +10,7 @@ class GestionDeteccionColisiones(object):
 
     def deteccionColisiones(self, personajes, plataformas, tablaColisiones):
         self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas, tablaColisiones)
-        self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
+        #self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
         self.gravedadActua(personajes)
         """
         for personaje in personajes:
@@ -37,15 +37,16 @@ class GestionDeteccionColisiones(object):
                 colision = False
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
-                #else:
-                #    if deteccionEfectoTunel(personaje, plataforma):
-                #        colision = True
+                else:
+                    if deteccionEfectoTunel(personaje, plataforma):
+                        colision = True
 
                 if colision:
                     lado = reposicion(personaje, plataforma)
                     personaje.rectangulo.left = personaje._x
                     personaje.rectangulo.top = personaje._y
-                    #tablaColisiones[personaje.id].append((plataforma, lado))
+                    if lado == 0 or lado == 1 or lado == 3:
+                        personaje.setGananciaXY(plataforma.getGananciaXY())
 
                 if personaje.ady_down == False:
                     personaje.rectangulo.top+=1

@@ -3,18 +3,12 @@ from Plataforma_ import Plataforma
 import time
 
 def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
-    adyacencia(personajes, tablaColisiones)
+    #adyacencia(personajes, tablaColisiones)
     for personaje in personajes:
         lista_objetos = tablaColisiones[personaje.id]
         for objeto in lista_objetos:
             if isinstance(objeto[0], Personaje):
-                """
-                se necesita mas informacion para tomar una desicion para esto se necesita la informacion que probenga de deteccion
-                """
-                #personaje.setGananciaXY(objeto.getGananciaXY())
-                personaje.setSalto(False)
-                personaje.setCaminar(False)
-                personaje.setCorrer(False)
+                pass
             if isinstance(objeto[0], Plataforma):
                 if personaje.ady_left == True or personaje.ady_right == True:
                     personaje.setCaminar(False)
