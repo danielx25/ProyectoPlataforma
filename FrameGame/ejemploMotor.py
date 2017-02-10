@@ -23,7 +23,7 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1.setXY(20, 40)
+    p1.setXY(120, 40)
     p1.tam_rectangulos((100, 100))
     p1.actualizacionRec()
 
@@ -46,7 +46,8 @@ def main():
 
     plataforma1 = Plataforma()
     plataforma1.setXY(300, 400)
-    plataforma1.setTamRect(800, 2)
+    plataforma1.setTamRect(50, 50)
+    plataforma1.id = "cuadrado"
 
     plataforma3 = Plataforma()
     plataforma3.setXY(0, 2)
@@ -54,8 +55,9 @@ def main():
 
     motor = MotorVideojuego()
     motor.entradaPersonajes([p1, p2,p3,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()])
-    motor.conjuntoPersonajes = [p1, p2, p3]
-    motor.conjuntoPlataformas = [plataforma, plataforma1, plataforma3]
+    motor.entradaPlataformas([plataforma, plataforma3, plataforma1])
+    motor.conjuntoPersonajes = [p1]#, p2, p3]
+    motor.conjuntoPlataformas = [plataforma, plataforma3, plataforma1]
     motor.start()
     start = pygame.time.get_ticks()/1000
 
@@ -69,6 +71,7 @@ def main():
             if event.type == pygame.QUIT:
                 salir = True
             if event.type == pygame.MOUSEBUTTONDOWN:
+
                 if event.button == 1:
                     x, y = pygame.mouse.get_pos()
                     pn = Personaje()
@@ -84,6 +87,11 @@ def main():
                     print "daniel: ", p1.getXY()
                     print "pedro: ", p2.getXY()
                     #motor.conjuntoPlataformas[1].setXY(400,400)
+            if event.type == pygame.MOUSEMOTION:
+                plataforma1.x_antes = plataforma1._x
+                plataforma1.y_antes = plataforma1._y
+                x, y = pygame.mouse.get_pos()
+                plataforma1.setXY(x, y)
 
 
         motor.controlEventos.eventos(lista)

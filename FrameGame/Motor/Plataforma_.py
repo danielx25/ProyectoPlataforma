@@ -40,8 +40,8 @@ class Plataforma(object):
         return self.enviarGanancia_x, self.enviarGanancia_y
 
     def setXY(self, x, y):
-        self._x = self.x_antes = x
-        self._y = self.y_antes = y
+        self._x = x#self.x_antes = x
+        self._y = y#self.y_antes = y
         self.setPosRect(self._x,self._y)
 
     def getEjeX(self):

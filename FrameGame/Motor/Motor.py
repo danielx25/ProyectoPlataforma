@@ -20,7 +20,7 @@ class MotorVideojuego(threading.Thread):
         self.tablaMusica = {}
         self.tablaColisiones = {}#id personaje:[]
 
-        self.diccionarioScripts = []
+        self.diccionarioScripts = {}
 
         self.universoPersonajes = {}
         self.universoPlataformas = {}
@@ -76,7 +76,8 @@ class MotorVideojuego(threading.Thread):
     def entradaPlataformas(self, plataformas):
         for p in plataformas:
             self.universoPlataformas[p.id] = p
-        self.universoPlataformas = plataformas
+            self.diccionarioScripts[p.id] = []
+        #self.universoPlataformas = plataformas
 
     def entradaImagenes(self, imagenes):
         self.tablaImagenes = imagenes

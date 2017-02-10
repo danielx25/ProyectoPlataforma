@@ -75,7 +75,7 @@ def instanAng2((x1, y1), (x2, y2)):
     yDiff = y2 - y1
     return math.degrees(math.atan2(yDiff, xDiff))
 
-#print GetAngleOfLineBetweenTwoPoints( (400,300),(52,371))
+print instanAng2((1,1),(2,1))
 
 def instanAng((x1, y1),(x2, y2)):
     if x1 == x2 and y1 == y2:
