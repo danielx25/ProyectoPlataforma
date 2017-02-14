@@ -408,6 +408,12 @@ def colicionCirculo(circulo, rectangulo):
     return False
 
 def reposicion(personaje, rectangulo):
+
+    if personaje._x == personaje.x_antes and personaje._y == personaje.y_antes:
+        aux = rectangulo
+        rectangulo = personaje
+        personaje = aux
+
     x = personaje._x
     y = personaje._y
     x_antes = personaje.x_antes
