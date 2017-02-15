@@ -408,11 +408,10 @@ def colicionCirculo(circulo, rectangulo):
     return False
 
 def reposicion(personaje, rectangulo):
-
+    intercambio = False
     if personaje._x == personaje.x_antes and personaje._y == personaje.y_antes:
-        aux = rectangulo
-        rectangulo = personaje
-        personaje = aux
+
+        intercambio = True
 
     x = personaje._x
     y = personaje._y
@@ -483,6 +482,33 @@ def reposicion(personaje, rectangulo):
         cuadros[3] = Fisica.distanciaEntre2Puntos(x4, y4, x_antes, y_antes)
 
     cuadro = cuadros.index(min(cuadros))
+    if intercambio:
+        aux = personaje
+        personaje = rectangulo
+        rectangulo = aux
+
+        x = personaje._x
+        y = personaje._y
+        x_antes = personaje.x_antes
+        y_antes = personaje.y_antes
+        ancho = personaje.ancho
+        largo = personaje.largo
+
+        if cuadro == 0:
+            x2 = rectangulo._x - ancho
+            y2 = y
+
+        if cuadro == 1:
+            x3 = x
+            y3 = rectangulo._y - largo
+
+        if cuadro == 2:
+            x1 = x
+            y1 = rectangulo._y + rectangulo.largo
+
+        if cuadro == 3:
+            x4 = rectangulo._x + rectangulo.ancho
+            y4 = y
 
     l = []
     l.append((x1,y1))
