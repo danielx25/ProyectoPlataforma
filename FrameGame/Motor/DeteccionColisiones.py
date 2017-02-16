@@ -67,7 +67,7 @@ class GestionDeteccionColisiones(object):
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_right= True
                         tablaColisiones[personaje.id].append((plataforma, 3))
-                        personaje.setGananciaXY((-10,0))
+                        #personaje.setGananciaXY((-10,0))
                     personaje.rectangulo.left -= 1
 
                 if personaje.ady_left == False:
@@ -75,7 +75,7 @@ class GestionDeteccionColisiones(object):
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_left = True
                         tablaColisiones[personaje.id].append((plataforma, 1))
-                        personaje.setGananciaXY((plataforma.getGananciaXY()[0],0))
+                        #personaje.setGananciaXY((plataforma.getGananciaXY()[0],0))
                     personaje.rectangulo.left += 1
 
 
@@ -518,8 +518,9 @@ def reposicion(personaje, rectangulo, roce = False):
             y0 = y
             cuadro = 1
 
-        personaje._x = x0
-        personaje._y = y0
+        rectangulo._x = 10
+        rectangulo._y = 10
+        print "como1?", cuadro
         return cuadro
 
     l = []
