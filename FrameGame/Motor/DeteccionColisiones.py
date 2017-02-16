@@ -407,7 +407,7 @@ def colicionCirculo(circulo, rectangulo):
             return True
     return False
 
-def reposicion(personaje, rectangulo):
+def reposicion(personaje, rectangulo, roce = False):
     intercambio = False
     if personaje._x == personaje.x_antes and personaje._y == personaje.y_antes:
 
@@ -494,21 +494,33 @@ def reposicion(personaje, rectangulo):
         ancho = personaje.ancho
         largo = personaje.largo
 
+        a = x - x_antes
+        b = y - y_antes
+        c = x * b
+        d = y * a
+
         if cuadro == 0:
-            x2 = rectangulo._x - ancho
-            y2 = y
+            x0 = x
+            y0 = rectangulo._y + rectangulo.largo
+            cuadro = 2
+        elif cuadro == 1:
+            x0 = rectangulo._x - ancho
+            y0 = y
+            cuadro = 3
+        elif cuadro == 2:
+            x0 = x
+            y0 = rectangulo._y - largo
+            if roce == True and b != 0:
+                x0 = funcionx(a, b, c, d, y0)
+            cuadro = 0
+        elif cuadro == 3:
+            x0 = rectangulo._x + rectangulo.ancho
+            y0 = y
+            cuadro = 1
 
-        if cuadro == 1:
-            x3 = x
-            y3 = rectangulo._y - largo
-
-        if cuadro == 2:
-            x1 = x
-            y1 = rectangulo._y + rectangulo.largo
-
-        if cuadro == 3:
-            x4 = rectangulo._x + rectangulo.ancho
-            y4 = y
+        personaje._x = x0
+        personaje._y = y0
+        return cuadro
 
     l = []
     l.append((x1,y1))
