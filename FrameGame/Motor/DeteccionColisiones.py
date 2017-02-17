@@ -35,10 +35,11 @@ class GestionDeteccionColisiones(object):
 
             for plataforma in plataformas:
                 colision = False
-                if plataforma.rectangulo.colliderect(personaje.rectangulo):
+                if deteccionEfectoTunel(personaje, plataforma):#plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
                 #else:
                 #    if deteccionEfectoTunel(personaje, plataforma):
+                #        print "colsicion tunel"
                 #        colision = True
 
                 if colision:
@@ -528,7 +529,7 @@ def reposicion(personaje, rectangulo, roce = False):
             y0 = rectangulo._y + rectangulo.largo
             cuadro = 0
         elif cuadro == 3:
-            print "derecha"
+            #print "derecha"
             #x0 = rectangulo._x + rectangulo.ancho
             #y0 = y
             x0 = rectangulo._x - ancho
