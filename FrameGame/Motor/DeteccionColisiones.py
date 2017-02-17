@@ -103,7 +103,7 @@ class GestionDeteccionColisiones(object):
                     #        colision = True
 
                     if colision:
-                        lado = reposicion(personaje, personajeAux)
+                        lado = reposicion(personaje, personajeAux, True)
                         personaje.rectangulo.left = personaje._x
                         personaje.rectangulo.top = personaje._y
                         #tablaColisiones[personaje.id].append((pla, lado))
@@ -503,8 +503,13 @@ def reposicion(personaje, rectangulo, roce = False):
 
         if cuadro == 0:
             print "abajo"
+            #x0 = x
+            #y0 = rectangulo._y + rectangulo.largo
             x0 = x
-            y0 = rectangulo._y + rectangulo.largo
+            y0 = rectangulo._y - largo
+            if roce == True and b != 0:
+                x0 = funcionx(a, b, c, d, y0)
+
             cuadro = 2
         elif cuadro == 1:
             #print "izquierdo"
@@ -515,14 +520,18 @@ def reposicion(personaje, rectangulo, roce = False):
             cuadro = 3
         elif cuadro == 2:
             print "arriba"
+            #x0 = x
+            #y0 = rectangulo._y - largo
+            #if roce == True and b != 0:
+            #    x0 = funcionx(a, b, c, d, y0)
             x0 = x
-            y0 = rectangulo._y - largo
-            if roce == True and b != 0:
-                x0 = funcionx(a, b, c, d, y0)
+            y0 = rectangulo._y + rectangulo.largo
             cuadro = 0
         elif cuadro == 3:
             print "derecha"
-            x0 = rectangulo._x + rectangulo.ancho
+            #x0 = rectangulo._x + rectangulo.ancho
+            #y0 = y
+            x0 = rectangulo._x - ancho
             y0 = y
             cuadro = 1
 
