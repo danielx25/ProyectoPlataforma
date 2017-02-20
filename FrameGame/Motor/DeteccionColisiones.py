@@ -43,6 +43,7 @@ class GestionDeteccionColisiones(object):
                 #        colision = True
 
                 if colision:
+                    print "colision"
                     lado = reposicion(personaje, plataforma)
                     personaje.rectangulo.left = personaje._x
                     personaje.rectangulo.top = personaje._y
