@@ -23,7 +23,7 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1.setXY(320, 40)
+    p1.setXY(320, 200)
     p1.tam_rectangulos((100, 100))
     p1.actualizacionRec()
 
