@@ -10,6 +10,10 @@ black = (0,0,0)
 pink = (255,200,200)
 
 
+def ejemploScript(plataforma):
+    plataforma._x+=0.1
+
+
 
 def main():
 
@@ -61,6 +65,9 @@ def main():
     motor.start()
     start = pygame.time.get_ticks()/1000
 
+    #==============
+    motor.diccionarioScripts[plataforma1.id].append(ejemploScript)
+
     iter=0
     limit=1000
     while salir == False:
@@ -88,10 +95,11 @@ def main():
                     print "pedro: ", p2.getXY()
                     #motor.conjuntoPlataformas[1].setXY(400,400)
             if event.type == pygame.MOUSEMOTION:
-                plataforma1.x_antes = plataforma1._x
-                plataforma1.y_antes = plataforma1._y
-                x, y = pygame.mouse.get_pos()
-                plataforma1.setXY(x, y)
+                pass
+                #plataforma1.x_antes = plataforma1._x
+                #plataforma1.y_antes = plataforma1._y
+                #x, y = pygame.mouse.get_pos()
+                #plataforma1.setXY(x, y)
 
 
         motor.controlEventos.eventos(lista)

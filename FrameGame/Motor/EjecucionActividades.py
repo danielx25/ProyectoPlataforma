@@ -37,8 +37,21 @@ def recursion(personaje, tablaColisiones, lado):
                 return recursion(objeto[0], tablaColisiones, lado)
     return False
 
-def ejecutarScripts(diccionarioScripts):
-    pass
+def ejecutarScripts(diccionarioScripts, diccionarioPersonajes, diccionarioPlataformas):
+    for clave, funciones in diccionarioScripts.items():
+        for funcion in funciones:
+            if diccionarioPersonajes.has_key(clave):
+                personaje = diccionarioPersonajes[clave]
+                funcion(personaje)
+            if diccionarioPlataformas.has_key(clave):
+                plataforma = diccionarioPlataformas[clave]
+                funcion(plataforma)
+
+def ejecutarActividadesPlataformas(conjuntoPlataformas):
+    for p in conjuntoPlataformas:
+        p.estado()
+        p.actualizacionRec()
+
 
 def ejecutarActividadesPersonajes(conjuntoPersonajes):
     for p in conjuntoPersonajes:
