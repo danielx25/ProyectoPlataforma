@@ -11,8 +11,8 @@ pink = (255,200,200)
 
 
 def ejemploScript(plataforma):
-    pass
-    #plataforma._x+=0.01
+    plataforma.x_antes = plataforma._x
+    plataforma._x+=0.01
 
 
 
