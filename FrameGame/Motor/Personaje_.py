@@ -44,6 +44,8 @@ class Personaje(object):
         #sentido
         self.sentido = False
 
+        self.activarGanancia = False
+
         self.protagonista = False
         self.iA = False
         self.agente = None
@@ -85,8 +87,9 @@ class Personaje(object):
         self._y += self.recibirGanancia_y
         self.enviarGanancia_x = self._x - self.x_antes
         self.enviarGanancia_y = self._y - self.y_antes
-        self.recibirGanancia_x = 0
-        self.recibirGanancia_y = 0
+        if self.activarGanancia:
+            self.recibirGanancia_x = 0
+            self.recibirGanancia_y = 0
 
     def getDiferenciaXY(self):
         x = self._x - self.x_antes
