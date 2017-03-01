@@ -542,6 +542,15 @@ def reposicion(personaje, rectangulo, roce = False):
         personaje._x = l[cuadro][0]
         personaje._y = l[cuadro][1]
     print "como?", cuadro
+    if cuadro == 0:
+        print x, y
+        print x_antes, y_antes
+        print cuadros
+        print x1,y1
+        print x2, y2
+        print x3, y3
+        print x4, y4
+
     return cuadro
 
 def funcionx(a, b, c, d, y):
