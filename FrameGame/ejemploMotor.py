@@ -11,6 +11,7 @@ pink = (255,200,200)
 
 
 def ejemploScript(plataforma):
+    #pass
     plataforma.x_antes = plataforma._x
     plataforma._x+=0.01
 
@@ -60,9 +61,9 @@ def main():
 
     motor = MotorVideojuego()
     motor.entradaPersonajes([p1, p2,p3,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()])
-    motor.entradaPlataformas([plataforma1])
+    motor.entradaPlataformas([plataforma1, plataforma, plataforma3])
     motor.conjuntoPersonajes = [p1]#, p2, p3]
-    motor.conjuntoPlataformas = [ plataforma1]
+    motor.conjuntoPlataformas = [ plataforma1, plataforma, plataforma3]
     motor.start()
     start = pygame.time.get_ticks()/1000
 

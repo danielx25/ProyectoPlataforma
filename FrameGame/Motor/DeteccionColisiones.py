@@ -44,10 +44,10 @@ class GestionDeteccionColisiones(object):
 
                 if colision:
                     print "colision"
-                    #lado = reposicion(personaje, plataforma)
-                    #personaje.rectangulo.left = personaje._x
-                    #personaje.rectangulo.top = personaje._y
-                    #personaje.setSalto(False)
+                    lado = reposicion(personaje, plataforma)
+                    personaje.rectangulo.left = personaje._x
+                    personaje.rectangulo.top = personaje._y
+                    personaje.setSalto(False)
                     #if lado == 0 or lado == 1 or lado == 3:
                     #    personaje.setGananciaXY(plataforma.getGananciaXY())
 
