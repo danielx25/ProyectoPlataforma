@@ -4,7 +4,8 @@ def radianes(x): # convierte angulo a radianes
     x = math.radians(x)
     return x
 
-
+def truncate(f, n=0):#truncar numeros decimales
+    return math.floor(f * 10 ** n) / 10 ** n
 #tan a = Vy/Vx = (vo.sen a ?g.t)/ (vo.cos a)= vo.sen a / (vo.cos a) - g.t /(vo.cos a) = tan a   - g.t /(vo.cos a)
 
 
