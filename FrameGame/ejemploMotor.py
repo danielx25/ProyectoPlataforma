@@ -13,7 +13,10 @@ pink = (255,200,200)
 def ejemploScript(plataforma):
     #pass
     plataforma.x_antes = plataforma._x
-    plataforma._x+=0.01
+    plataforma._x+=5
+
+    plataforma.y_antes = plataforma._y
+    plataforma._y += 1
 
 
 
@@ -64,12 +67,12 @@ def main():
     motor.entradaPlataformas([plataforma1, plataforma, plataforma3])
     motor.conjuntoPersonajes = [p1]#, p2, p3]
     motor.conjuntoPlataformas = [ plataforma1, plataforma, plataforma3]
-    motor.start()
+    #motor.start()
     start = pygame.time.get_ticks()/1000
 
     #==============
     motor.diccionarioScripts[plataforma1.id].append(ejemploScript)
-
+    motor.protagonista = motor.conjuntoPersonajes[0]
     iter=0
     limit=1000
     while salir == False:
@@ -105,6 +108,7 @@ def main():
 
 
         motor.controlEventos.eventos(lista)
+        motor.procesoVideoJuego()
         pantalla.fill((0,0,240))
         if pygame.time.get_ticks()>limit:
             #print iter
@@ -140,7 +144,7 @@ def main():
             if p.ady_up == True:
                 pygame.draw.rect(pantalla, darkBlue, p.rec4)
 
-        reloj1.tick(60)
+        reloj1.tick(30)
         pygame.display.update()
     motor.salirJuego = True
     pygame.quit()

@@ -65,6 +65,26 @@ class MotorVideojuego(threading.Thread):
             #print "reloj: ",self.reloj
         print "termino"
 
+    def procesoVideoJuego(self):
+
+        if self.reloj < self.tiempoLimite and self.salirJuego == False:
+            AdminRecursos.AdministrarRecursosPersonaje(self.universoPersonajes)
+            AdminRecursos.AdministrarRecursosPlataformas(self.universoPlataformas)
+            # self.controlEventos.eventos(self.eventosUsuario)
+            self.controlEventos.comportamientoPRO(self.protagonista)
+            # DeteccionColisiones.deteccionColisiones(self.conjuntoPersonajes, self.conjuntoPlataformas, self.tablaColisiones)
+            # EjecucionActividades.ejecutarAccionesColisionesDetectadas(self.conjuntoPersonajes, self.tablaColisiones)
+            EjecucionActividades.ejecutarScripts(self.diccionarioScripts, self.universoPersonajes,
+                                                 self.universoPlataformas)  # falta tabla de colisones, personajes etc
+            EjecucionActividades.ejecutarActividadesPlataformas(self.conjuntoPlataformas)
+
+            self.gestionColisiones.deteccionColisiones(self.conjuntoPersonajes, self.conjuntoPlataformas,
+                                                       self.tablaColisiones)
+            EjecucionActividades.ejecutarActividadesPersonajes(self.conjuntoPersonajes)
+            ##EjecucionActividades.ejecutarSonidos(self.tablaSonidos)#falta musica
+            # self.camara.centrado(self.conjuntoPersonajes, self.conjuntoPlataformas)
+            self.reloj = time.get_ticks()
+
 
     def entradaPersonajes(self, personajes):
         for p in personajes:
