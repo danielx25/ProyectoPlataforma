@@ -11,7 +11,7 @@ class GestionDeteccionColisiones(object):
     def deteccionColisiones(self, personajes, plataformas, tablaColisiones):
         self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas, tablaColisiones)
         #self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
-        self.gravedadActua(personajes)
+        #self.gravedadActua(personajes)
         """
         for personaje in personajes:
             lista = tablaColisiones[personaje.id]
@@ -48,6 +48,7 @@ class GestionDeteccionColisiones(object):
                     personaje.rectangulo.left = personaje._x
                     personaje.rectangulo.top = personaje._y
                     personaje.setSalto(False)
+                    personaje.setGananciaXY((0,0))
                     #if lado == 0 or lado == 1 or lado == 3:
                     #    personaje.setGananciaXY(plataforma.getGananciaXY())
 
@@ -71,6 +72,9 @@ class GestionDeteccionColisiones(object):
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_right= True
                         tablaColisiones[personaje.id].append((plataforma, 3))
+                        gananciax = plataforma.getGananciaXY()[0]
+                        if gananciax != 0:
+                            personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
                     personaje.rectangulo.left -= 1
 
                 if personaje.ady_left == False:
@@ -78,7 +82,9 @@ class GestionDeteccionColisiones(object):
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_left = True
                         tablaColisiones[personaje.id].append((plataforma, 1))
-                        personaje.setGananciaXY((plataforma.getGananciaXY()[0],0))
+                        gananciax = plataforma.getGananciaXY()[0]
+                        if gananciax != 0:
+                            personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
                     personaje.rectangulo.left += 1
 
 
@@ -256,31 +262,6 @@ def deteccionColisiones(personajes, plataformas, TablaColsiones):
             if plataforma.rectangulo.colliderect(personaje.rec4):
                 pass"""
 
-
-def restituir_pos(p, entorno, _lado, sentido=False):
-
-    if sentido == True:
-        if _lado == 1:
-            _lado = 4
-
-        elif _lado == 2:
-            _lado = 3
-
-        elif _lado == 3:
-            _lado = 2
-
-        elif _lado == 4:
-            _lado = 1
-
-    if _lado == 1:
-        p._y = entorno._y - p.largo
-    elif _lado == 2:
-        p.imagen.sprite.rect.left = entorno.imagen.sprite.rect.left + entorno.imagen.sprite.rect.size[0] + 3
-    elif _lado == 3:
-        p.imagen.sprite.rect.left = entorno.imagen.sprite.rect.left - p.imagen.sprite.rect.size[0] - 3
-    elif _lado == 4:
-        p.imagen.sprite.rect.top  = entorno.imagen.sprite.rect.top + entorno.imagen.sprite.rect.size[1] + 2
-    p.pos_rectangulos()
 
 
 def deteccionEfectoTunel(personaje, rectangulo):
