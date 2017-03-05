@@ -24,7 +24,7 @@ def ejemploScript(plataforma):
 def main():
 
     pygame.init()
-    pantalla=pygame.display.set_mode((800,600))
+    pantalla=pygame.display.set_mode((1000,800))
     pygame.FULLSCREEN
 
 

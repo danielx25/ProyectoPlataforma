@@ -1,7 +1,7 @@
 import math
 from pygame import Rect
 import Fisica
-
+import time
 
 class GestionDeteccionColisiones(object):
     def __init__(self, tablacolisiones):
@@ -73,7 +73,7 @@ class GestionDeteccionColisiones(object):
                         personaje.ady_right= True
                         tablaColisiones[personaje.id].append((plataforma, 3))
                         gananciax = plataforma.getGananciaXY()[0]
-                        if gananciax != 0:
+                        if gananciax < 0:
                             personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
                     personaje.rectangulo.left -= 1
 
@@ -83,7 +83,7 @@ class GestionDeteccionColisiones(object):
                         personaje.ady_left = True
                         tablaColisiones[personaje.id].append((plataforma, 1))
                         gananciax = plataforma.getGananciaXY()[0]
-                        if gananciax != 0:
+                        if gananciax > 0:
                             personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
                     personaje.rectangulo.left += 1
 
@@ -391,9 +391,20 @@ def colicionCirculo(circulo, rectangulo):
             return True
     return False
 
+def reposicion_inteligente(personaje, rectangulo):
+    pass
+
 def reposicion(personaje, rectangulo, roce = False):
     intercambio = False
     if personaje._x == personaje.x_antes and personaje._y == personaje.y_antes:
+        aux = rectangulo
+        rectangulo = personaje
+        personaje = aux
+        intercambio = True
+
+    
+    if (personaje._x != personaje.x_antes or personaje._y != personaje.y_antes) and\
+            (rectangulo._x != rectangulo.x_antes or rectangulo._y != rectangulo.y_antes):
         aux = rectangulo
         rectangulo = personaje
         personaje = aux
@@ -405,6 +416,10 @@ def reposicion(personaje, rectangulo, roce = False):
     y_antes = Fisica.truncate(personaje.y_antes)
     ancho = personaje.ancho
     largo = personaje.largo
+    
+    recx = Fisica.truncate(rectangulo._x)
+    recy = Fisica.truncate(rectangulo._y)
+    
 
     infx = min([x, x_antes])
     supx = max([x, x_antes])
@@ -412,15 +427,15 @@ def reposicion(personaje, rectangulo, roce = False):
     infy = min([y, y_antes])
     supy = max([y, y_antes])
     x1 = x
-    y1 = Fisica.truncate(rectangulo._y) + rectangulo.largo
+    y1 = recy + rectangulo.largo
 
-    x2 = Fisica.truncate(rectangulo._x) - ancho
+    x2 = recx - ancho
     y2 = y
 
     x3 = x
-    y3 = Fisica.truncate(rectangulo._y) - largo
+    y3 = recy - largo
 
-    x4 = Fisica.truncate(rectangulo._x) + rectangulo.ancho
+    x4 = recx + rectangulo.ancho
     y4 = y
 
 
@@ -467,13 +482,13 @@ def reposicion(personaje, rectangulo, roce = False):
         y2 = funciony(a,b,c,d,x2)
         y4 = funciony(a,b,c,d,x4)
 
-    if Fisica.truncate(rectangulo._x) <= x1 <= Fisica.truncate(rectangulo._x) + rectangulo.ancho or Fisica.truncate(rectangulo._x) <= x1 + ancho <= Fisica.truncate(rectangulo._x) + rectangulo.ancho:
+    if recx <= x1 <= recx + rectangulo.ancho or recx <= x1 + ancho <= recx + rectangulo.ancho:
         cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x_antes, y_antes)
-    if Fisica.truncate(rectangulo._y) <= y2 <= Fisica.truncate(rectangulo._y) + rectangulo.largo or Fisica.truncate(rectangulo._y) <= y2 + largo <= Fisica.truncate(rectangulo._y) + rectangulo.largo:
+    if recy <= y2 <= recy + rectangulo.largo or recy <= y2 + largo <= recy + rectangulo.largo:
         cuadros[1] = Fisica.distanciaEntre2Puntos(x2, y2, x_antes, y_antes)
-    if Fisica.truncate(rectangulo._x) <= x3 <= Fisica.truncate(rectangulo._x) + rectangulo.ancho or Fisica.truncate(rectangulo._x) <= x3 + ancho <= Fisica.truncate(rectangulo._x) + rectangulo.ancho:
+    if recx <= x3 <= recx + rectangulo.ancho or recx <= x3 + ancho <= recx + rectangulo.ancho:
         cuadros[2] = Fisica.distanciaEntre2Puntos(x3, y3, x_antes, y_antes)
-    if Fisica.truncate(rectangulo._y) <= y4 <= Fisica.truncate(rectangulo._y) + rectangulo.largo or Fisica.truncate(rectangulo._y) <= y4 + largo <= Fisica.truncate(rectangulo._y) + rectangulo.largo:
+    if recy <= y4 <= recy + rectangulo.largo or recy <= y4 + largo <= recy + rectangulo.largo:
         cuadros[3] = Fisica.distanciaEntre2Puntos(x4, y4, x_antes, y_antes)
 
     cuadro = cuadros.index(min(cuadros))
@@ -482,12 +497,15 @@ def reposicion(personaje, rectangulo, roce = False):
         personaje = rectangulo
         rectangulo = aux
 
-        x = personaje._x
-        y = personaje._y
-        x_antes = personaje.x_antes
-        y_antes = personaje.y_antes
+        x = Fisica.truncate(personaje._x)
+        y = Fisica.truncate(personaje._y)
+        x_antes = Fisica.truncate(personaje.x_antes)
+        y_antes = Fisica.truncate(personaje.y_antes)
         ancho = personaje.ancho
         largo = personaje.largo
+
+        recx = Fisica.truncate(rectangulo._x)
+        recy = Fisica.truncate(rectangulo._y)
 
         a = x - x_antes
         b = y - y_antes
@@ -497,30 +515,30 @@ def reposicion(personaje, rectangulo, roce = False):
         if cuadro == 0:
             print "abajo"
             x0 = x
-            y0 = Fisica.truncate(rectangulo._y) - largo
+            y0 = recy - largo
             if roce == True and b != 0:
                 x0 = funcionx(a, b, c, d, y0)
 
             cuadro = 2
         elif cuadro == 1:
             print "izquierdo"
-            x0 = Fisica.truncate(rectangulo._x) + rectangulo.ancho
+            x0 = recx + rectangulo.ancho
             y0 = y
             cuadro = 3
         elif cuadro == 2:
             print "arriba"
             x0 = x
-            y0 = Fisica.truncate(rectangulo._y) + rectangulo.largo
+            y0 = recy + rectangulo.largo
             cuadro = 0
         elif cuadro == 3:
             print "derecha"
-            x0 = Fisica.truncate(rectangulo._x) - ancho
+            x0 = recx - ancho
             y0 = y
             cuadro = 1
 
         personaje._x = x0
         personaje._y = y0
-        print "como1?", cuadro
+        print "Rectangulo?", cuadro
         return cuadro
 
     l = []
@@ -531,8 +549,8 @@ def reposicion(personaje, rectangulo, roce = False):
     if cuadro != float('inf'):
         personaje._x = l[cuadro][0]
         personaje._y = l[cuadro][1]
-    print "como?", cuadro
-    if cuadro == 0:
+    print "Personaje?", cuadro
+    if cuadro == 3:
         print x, y
         print x_antes, y_antes
         print cuadros
@@ -540,6 +558,7 @@ def reposicion(personaje, rectangulo, roce = False):
         print x2, y2
         print x3, y3
         print x4, y4
+        #time.sleep(1)
 
     return cuadro
 
