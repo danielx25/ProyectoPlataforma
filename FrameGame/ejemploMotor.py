@@ -12,9 +12,9 @@ pink = (255,200,200)
 
 def ejemploScript(plataforma):
     #pass
-    #return 1
+    return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=5
+    plataforma._x+=2
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -1
@@ -107,8 +107,6 @@ def main():
                 #x, y = pygame.mouse.get_pos()
                 #plataforma1._x = x
                 #plataforma1._y = y
-
-
         motor.controlEventos.eventos(lista)
         motor.procesoVideoJuego()
         pantalla.fill((0,0,240))

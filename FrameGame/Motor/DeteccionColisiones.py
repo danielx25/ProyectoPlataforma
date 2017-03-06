@@ -95,7 +95,7 @@ class GestionDeteccionColisiones(object):
                 personaje.setCaminar(False)
                 personaje.setCorrer(False)
                 personaje.setSalto(True)
-                personaje.status["parabola"] = (60, 270)
+                personaje.status["parabola"] = (60, -90)
                 personaje.reseteo()
 
 
@@ -394,7 +394,7 @@ def colicionCirculo(circulo, rectangulo):
 def reposicion_inteligente(personaje, rectangulo):
     pass
 
-def reposicion(personaje, rectangulo, roce = False):
+def reposicion(personaje, rectangulo, roce = True):
     intercambio = False
     if personaje._x == personaje.x_antes and personaje._y == personaje.y_antes:
         aux = rectangulo
