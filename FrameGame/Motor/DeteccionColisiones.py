@@ -11,7 +11,7 @@ class GestionDeteccionColisiones(object):
     def deteccionColisiones(self, personajes, plataformas, tablaColisiones):
         self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas, tablaColisiones)
         #self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
-        #self.gravedadActua(personajes)
+        self.gravedadActua(personajes)
         """
         for personaje in personajes:
             lista = tablaColisiones[personaje.id]
@@ -402,7 +402,7 @@ def reposicion(personaje, rectangulo, roce = False):
         personaje = aux
         intercambio = True
 
-    
+
     if (personaje._x != personaje.x_antes or personaje._y != personaje.y_antes) and\
             (rectangulo._x != rectangulo.x_antes or rectangulo._y != rectangulo.y_antes):
         aux = rectangulo

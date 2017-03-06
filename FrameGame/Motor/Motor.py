@@ -82,7 +82,7 @@ class MotorVideojuego(threading.Thread):
                                                        self.tablaColisiones)
             EjecucionActividades.ejecutarActividadesPersonajes(self.conjuntoPersonajes)
             ##EjecucionActividades.ejecutarSonidos(self.tablaSonidos)#falta musica
-            # self.camara.centrado(self.conjuntoPersonajes, self.conjuntoPlataformas)
+            #self.camara.centrado(self.conjuntoPersonajes, self.conjuntoPlataformas)
             self.reloj = time.get_ticks()
 
 
