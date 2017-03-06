@@ -11,10 +11,10 @@ pink = (255,200,200)
 
 
 def ejemploScript(plataforma):
-    pass
+    #pass
     return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=5
+    plataforma._x+=2
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -1
@@ -102,12 +102,12 @@ def main():
                     #motor.conjuntoPlataformas[1].setXY(400,400)
             if event.type == pygame.MOUSEMOTION:
                 pass
-                plataforma1.x_antes = plataforma1._x
-                plataforma1.y_antes = plataforma1._y
-                x, y = pygame.mouse.get_pos()
-                plataforma1._x = x
-                plataforma1._y = y
-                #plataforma1.setXY(x, y)
+                #plataforma1.x_antes = plataforma1._x
+                #plataforma1.y_antes = plataforma1._y
+                #x, y = pygame.mouse.get_pos()
+                #plataforma1._x = x
+                #plataforma1._y = y
+
 
 
         motor.controlEventos.eventos(lista)

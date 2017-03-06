@@ -394,7 +394,7 @@ def colicionCirculo(circulo, rectangulo):
 def reposicion_inteligente(personaje, rectangulo):
     pass
 
-def reposicion(personaje, rectangulo, roce = False):
+def reposicion(personaje, rectangulo, roce = True):
     intercambio = False
     if personaje._x == personaje.x_antes and personaje._y == personaje.y_antes:
         aux = rectangulo
@@ -402,7 +402,7 @@ def reposicion(personaje, rectangulo, roce = False):
         personaje = aux
         intercambio = True
 
-    
+
     if (personaje._x != personaje.x_antes or personaje._y != personaje.y_antes) and\
             (rectangulo._x != rectangulo.x_antes or rectangulo._y != rectangulo.y_antes):
         aux = rectangulo
