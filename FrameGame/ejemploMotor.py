@@ -12,12 +12,15 @@ pink = (255,200,200)
 
 def ejemploScript(plataforma):
     #pass
-    return 1
+    #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=2
+    plataforma._x+=1
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -1
+
+    if plataforma._y < 20:
+        plataforma.setXY(plataforma._x, 400)
 
 
 
@@ -52,7 +55,7 @@ def main():
 
     plataforma = Plataforma()
     plataforma.setXY(0, 554)
-    plataforma.setTamRect(800, 70)
+    plataforma.setTamRect(800, 20)
 
     plataforma1 = Plataforma()
     plataforma1.setXY(300, 400)

@@ -49,8 +49,11 @@ class GestionDeteccionColisiones(object):
                     personaje.rectangulo.top = personaje._y
                     personaje.setSalto(False)
                     personaje.setGananciaXY((0,0))
+                    personaje.activarGanancia = False
                     #if lado == 0 or lado == 1 or lado == 3:
                     #    personaje.setGananciaXY(plataforma.getGananciaXY())
+                else:
+                    personaje.activarGanancia = True
 
                 if personaje.ady_down == False:
                     personaje.rectangulo.top+=1
