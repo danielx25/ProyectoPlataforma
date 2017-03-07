@@ -44,7 +44,9 @@ class Personaje(object):
         #sentido
         self.sentido = False
 
-        self.activarGanancia = False
+        self.inerciaGanancia = False #la inercia es una fuerza que produce al principio pero queda actuando
+        #por un tiempo indefinido, en este caso dice si al saltar se debe aplicar la ganacia de la plataforma desde donde salto
+        self.activarGanancia = True
 
         self.protagonista = False
         self.iA = False
@@ -83,12 +85,13 @@ class Personaje(object):
     def runGanancia2(self):
         self._x += self.sistema_cerradox[1] - self.sistema_cerradox[0]
         self._y += self.sistema_cerradoy[1] - self.sistema_cerradoy[0]
-        self._x += self.recibirGanancia_x
-        self._y += self.recibirGanancia_y
+        if self.activarGanancia:
+            self._x += self.recibirGanancia_x
+            self._y += self.recibirGanancia_y
         self.enviarGanancia_x = self._x - self.x_antes
         self.enviarGanancia_y = self._y - self.y_antes
 
-        if self.activarGanancia:
+        if self.inerciaGanancia:
             self.recibirGanancia_x = 0
             self.recibirGanancia_y = 0
 
