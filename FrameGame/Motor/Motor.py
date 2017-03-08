@@ -74,11 +74,11 @@ class MotorVideojuego(threading.Thread):
             self.controlEventos.comportamientoPRO(self.protagonista)
             # DeteccionColisiones.deteccionColisiones(self.conjuntoPersonajes, self.conjuntoPlataformas, self.tablaColisiones)
             # EjecucionActividades.ejecutarAccionesColisionesDetectadas(self.conjuntoPersonajes, self.tablaColisiones)
-            self.gestionColisiones.deteccionColisiones(self.conjuntoPersonajes, self.conjuntoPlataformas,
-                                                       self.tablaColisiones)
             EjecucionActividades.ejecutarScripts(self.diccionarioScripts, self.universoPersonajes,
                                                  self.universoPlataformas)  # falta tabla de colisones, personajes etc
             EjecucionActividades.ejecutarActividadesPlataformas(self.conjuntoPlataformas)
+            self.gestionColisiones.deteccionColisiones(self.conjuntoPersonajes, self.conjuntoPlataformas,
+                                                       self.tablaColisiones)
 
 
             EjecucionActividades.ejecutarActividadesPersonajes(self.conjuntoPersonajes)
