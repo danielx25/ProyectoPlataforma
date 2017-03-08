@@ -14,10 +14,10 @@ def ejemploScript(plataforma):
     #pass
     #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=1
+    plataforma._x+=0
 
     plataforma.y_antes = plataforma._y
-    plataforma._y += -1
+    plataforma._y += -5
 
     if plataforma._y < 20:
         plataforma.setXY(plataforma._x, 400)

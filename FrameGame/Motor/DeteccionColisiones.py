@@ -50,8 +50,6 @@ class GestionDeteccionColisiones(object):
                     personaje.setSalto(False)
                     personaje.setGananciaXY((0,0))
                     personaje.activarGanancia = False
-                    #if lado == 0 or lado == 1 or lado == 3:
-                    #    personaje.setGananciaXY(plataforma.getGananciaXY())
                 else:
                     personaje.activarGanancia = True
 
@@ -95,6 +93,7 @@ class GestionDeteccionColisiones(object):
     def gravedadActua(self, personajes):
         for personaje in personajes:
             if personaje.getSalto() == False and personaje.ady_down == False:
+                print "ACTUA GRAVEDAD"
                 personaje.setCaminar(False)
                 personaje.setCorrer(False)
                 personaje.setSalto(True)
