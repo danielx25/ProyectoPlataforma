@@ -88,8 +88,7 @@ class Personaje(object):
         if self.activarGanancia:
             self._x += self.recibirGanancia_x
             self._y += self.recibirGanancia_y
-        else:
-            print "88888888888888888888888888888888888888888"
+
         self.enviarGanancia_x = self._x - self.x_antes
         self.enviarGanancia_y = self._y - self.y_antes
 
