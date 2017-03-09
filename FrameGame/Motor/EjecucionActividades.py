@@ -6,16 +6,29 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
     #adyacencia(personajes, tablaColisiones)
     for personaje in personajes:
         lista_objetos = tablaColisiones[personaje.id]
+        xGanancia = 0
+        yGanancia = 0
         for objeto in lista_objetos:
             if isinstance(objeto[0], Personaje):
                 pass
             if isinstance(objeto[0], Plataforma):
-                if personaje.ady_left == True or personaje.ady_right == True:
-                    personaje.setCaminar(False)
-                    personaje.setCorrer(False)
-                if personaje.ady_down == True or personaje.ady_up == True:
-                    if 180<personaje.status["angulo"]<360 or -180<personaje.status["angulo"]<0:
-                        personaje.setSalto(False)
+                plataforma = objeto[0]
+                lado = objeto[1]
+                if lado == 0:
+                    xGanancia+= plataforma.getGananciaXY()[0]
+                    yGanancia += plataforma.getGananciaXY()[1]
+        if len(lista_objetos) > 0:
+            personaje.setGananciaXY((xGanancia, yGanancia))
+        """
+        if personaje.ady_left == True or personaje.ady_right == True:
+            personaje.setCaminar(False)
+            personaje.setCorrer(False)
+        if personaje.ady_down == True or personaje.ady_up == True:
+            if 180<personaje.status["angulo"]<360 or -180<personaje.status["angulo"]<0:
+                personaje.setSalto(False)
+        """
+
+
 
 def adyacencia(personajes, tablaColisiones):
     for personaje in personajes:

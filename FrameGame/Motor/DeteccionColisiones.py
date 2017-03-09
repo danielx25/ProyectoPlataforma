@@ -49,16 +49,17 @@ class GestionDeteccionColisiones(object):
                     personaje.rectangulo.top = personaje._y
                     personaje.setSalto(False)
                     personaje.setGananciaXY((0,0))
-                    personaje.activarGanancia = False
+                    #personaje.activarGanancia = False
                 else:
-                    personaje.activarGanancia = True
+                    pass
+                    #personaje.activarGanancia = True
 
                 if personaje.ady_down == False:
                     personaje.rectangulo.top+=1
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_down = True
                         tablaColisiones[personaje.id].append((plataforma, 0))
-                        personaje.setGananciaXY((plataforma.getGananciaXY()))
+                        #personaje.setGananciaXY((plataforma.getGananciaXY()))
                     personaje.rectangulo.top-=1
 
                 if personaje.ady_up == False:
@@ -73,9 +74,9 @@ class GestionDeteccionColisiones(object):
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_right= True
                         tablaColisiones[personaje.id].append((plataforma, 3))
-                        gananciax = plataforma.getGananciaXY()[0]
-                        if gananciax < 0:
-                            personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
+                        #gananciax = plataforma.getGananciaXY()[0]
+                        #if gananciax < 0:
+                        #    personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
                     personaje.rectangulo.left -= 1
 
                 if personaje.ady_left == False:
@@ -83,9 +84,9 @@ class GestionDeteccionColisiones(object):
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_left = True
                         tablaColisiones[personaje.id].append((plataforma, 1))
-                        gananciax = plataforma.getGananciaXY()[0]
-                        if gananciax > 0:
-                            personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
+                        #gananciax = plataforma.getGananciaXY()[0]
+                        #if gananciax > 0:
+                        #    personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
                     personaje.rectangulo.left += 1
 
 

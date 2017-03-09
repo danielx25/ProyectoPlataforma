@@ -105,6 +105,11 @@ class Personaje(object):
         self.recibirGanancia_x=g[0]
         self.recibirGanancia_y=g[1]
 
+    def addGananciaXY(self, g):
+        self.recibirGanancia_x+= g[0]
+        self.recibirGanancia_y+= g[1]
+
+
     def getGananciaXY(self):
         return self.enviarGanancia_x, self.enviarGanancia_y
     
