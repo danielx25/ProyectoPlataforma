@@ -117,7 +117,7 @@ def main():
                 #plataforma1._x = x
                 #plataforma1._y = y
         motor.controlEventos.eventos(lista)
-        if contador < 4:
+        if contador < 3:
             motor.procesoVideoJuego()
         contador+=1
         pantalla.fill((0,0,240))
