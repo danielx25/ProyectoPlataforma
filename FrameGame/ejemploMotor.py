@@ -14,10 +14,10 @@ def ejemploScript(plataforma):
     #pass
     #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=0
+    plataforma._x+=10
 
     plataforma.y_antes = plataforma._y
-    plataforma._y += -5
+    plataforma._y += -3
 
     if plataforma._y < 20:
         plataforma.setXY(plataforma._x, 400)
@@ -36,7 +36,7 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1.setXY(300, 300)
+    p1.setXY(300, 250)
     p1.tam_rectangulos((100, 100))
     p1.actualizacionRec()
 
@@ -79,6 +79,7 @@ def main():
     motor.protagonista = motor.conjuntoPersonajes[0]
     iter=0
     limit=1000
+    contador =0
     while salir == False:
 
         lista=pygame.event.get()#((pygame.KEYDOWN, pygame.KEYUP, pygame.QUIT, pygame.MOUSEBUTTONDOWN))
@@ -86,6 +87,11 @@ def main():
             #----------Escuchando Eventos del Usuario-#
             if event.type == pygame.QUIT:
                 salir = True
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT:
+                    motor.procesoVideoJuego()
+                    contador+=1
             if event.type == pygame.MOUSEBUTTONDOWN:
 
                 if event.button == 1:
@@ -111,7 +117,9 @@ def main():
                 #plataforma1._x = x
                 #plataforma1._y = y
         motor.controlEventos.eventos(lista)
-        motor.procesoVideoJuego()
+        if contador < 4:
+            motor.procesoVideoJuego()
+        contador+=1
         pantalla.fill((0,0,240))
         if pygame.time.get_ticks()>limit:
             #print iter

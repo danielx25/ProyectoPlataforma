@@ -539,6 +539,15 @@ def reposicion(personaje, rectangulo, roce = True):
             y0 = y
             cuadro = 1
 
+        if cuadro == 3:
+            print x, y
+            print x_antes, y_antes
+            print cuadros
+            print x1, y1
+            print x2, y2
+            print x3, y3
+            print x4, y4
+
         personaje._x = x0
         personaje._y = y0
         print "Rectangulo?", cuadro
