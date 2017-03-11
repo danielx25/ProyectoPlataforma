@@ -44,7 +44,7 @@ class Personaje(object):
         #sentido
         self.sentido = False
 
-        self.inerciaGanancia = False #la inercia es una fuerza que produce al principio pero queda actuando
+        self.inerciaGanancia = True #la inercia es una fuerza que produce al principio pero queda actuando
         #por un tiempo indefinido, en este caso dice si al saltar se debe aplicar la ganacia de la plataforma desde donde salto
         self.activarGanancia = True
 
