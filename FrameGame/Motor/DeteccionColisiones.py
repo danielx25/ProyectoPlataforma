@@ -399,15 +399,33 @@ def reposicion_inteligente(personaje, rectangulo):
 
 def reposicion(personaje, rectangulo, roce = True):
     intercambio = False
-    if personaje._x == personaje.x_antes and personaje._y == personaje.y_antes:
-        aux = rectangulo
-        rectangulo = personaje
-        personaje = aux
+    rec1 = Rect(personaje._x, personaje._y, personaje.ancho, personaje.largo)#Personaje
+
+    rec2 = Rect(rectangulo._x, rectangulo._y, rectangulo.ancho, rectangulo.largo)
+    rec3 = Rect(rectangulo.x_antes, rectangulo.y_antes, rectangulo.ancho, rectangulo.largo)
+
+    resPuntoPersonaje = rec1.colliderect(rec2) and rec1.colliderect(rec3)
+
+    rec1 = Rect(rectangulo._x, rectangulo._y, rectangulo.ancho, rectangulo.largo)#Rectangulo
+
+    rec2 = Rect(personaje._x, personaje._y, personaje.ancho, personaje.largo)
+    rec3 = Rect(personaje.x_antes, personaje.y_antes, personaje.ancho, personaje.largo)
+
+    resPuntoRectangulo = rec1.colliderect(rec2) and rec1.colliderect(rec3)
+    intercambio = False
+
+    if resPuntoPersonaje == False and resPuntoRectangulo == True:
         intercambio = True
 
+    if resPuntoPersonaje == False and resPuntoRectangulo == False:
+        if personaje._x == personaje.x_antes and personaje._y == personaje.y_antes:
+            intercambio = True
 
-    if (personaje._x != personaje.x_antes or personaje._y != personaje.y_antes) and\
-            (rectangulo._x != rectangulo.x_antes or rectangulo._y != rectangulo.y_antes):
+        if (personaje._x != personaje.x_antes or personaje._y != personaje.y_antes) and \
+                (rectangulo._x != rectangulo.x_antes or rectangulo._y != rectangulo.y_antes):
+            intercambio = True
+
+    if intercambio:
         aux = rectangulo
         rectangulo = personaje
         personaje = aux
