@@ -425,6 +425,9 @@ def reposicion(personaje, rectangulo, roce = True):
                 (rectangulo._x != rectangulo.x_antes or rectangulo._y != rectangulo.y_antes):
             intercambio = True
 
+    if rectangulo._x == rectangulo.x_antes and rectangulo._y == rectangulo.y_antes:
+        intercambio = False
+
     if intercambio:
         aux = rectangulo
         rectangulo = personaje
