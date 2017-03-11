@@ -59,7 +59,7 @@ def reposicion(personaje, rectangulo):
     l.append(Rect(x2, y2, ancho, largo))
     l.append(Rect(x3, y3, ancho, largo))
     l.append(Rect(x4, y4, ancho, largo))
-    #return [l[cuadro]]
+    return [l[cuadro]]
     return l
 
 def funcionx(a, b, c, d, y):

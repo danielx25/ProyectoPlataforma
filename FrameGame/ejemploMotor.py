@@ -117,7 +117,7 @@ def main():
                 #plataforma1._x = x
                 #plataforma1._y = y
         motor.controlEventos.eventos(lista)
-        if contador < 3:
+        if contador < 4:
             motor.procesoVideoJuego()
         contador+=1
         pantalla.fill((0,0,240))
@@ -154,7 +154,12 @@ def main():
                 pygame.draw.rect(pantalla, darkBlue, p.rec1)
             if p.ady_up == True:
                 pygame.draw.rect(pantalla, darkBlue, p.rec4)
+            desmarcar = 200
 
+            pygame.draw.rect(pantalla, red, (desmarcar + 300, 318, 100, 100))
+            pygame.draw.rect(pantalla, green, (desmarcar + 300, 282, 100, 100),3)
+            pygame.draw.rect(pantalla, green, (desmarcar + 320, 394, 50, 50),3)
+            pygame.draw.rect(pantalla, black, (desmarcar + 330, 391, 50, 50))
         reloj1.tick(60)
         pygame.display.update()
     motor.salirJuego = True

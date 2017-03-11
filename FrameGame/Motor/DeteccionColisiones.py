@@ -503,6 +503,9 @@ def reposicion(personaje, rectangulo, roce = True):
     print "x2, y2: ",x2, y2
     print "x3, y3: ",x3, y3
     print "x4, y4: ",x4, y4
+    print "        RECTANGULO"
+    print "x, y: ", recx, recy
+    print "x_antes, y_antes: ", rectangulo.x_antes, rectangulo.y_antes
 
     if intercambio:
         aux = personaje
