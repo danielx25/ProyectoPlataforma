@@ -155,11 +155,11 @@ def main():
             if p.ady_up == True:
                 pygame.draw.rect(pantalla, darkBlue, p.rec4)
             desmarcar = 200
-
-            pygame.draw.rect(pantalla, red, (desmarcar + 300, 318, 100, 100))
-            pygame.draw.rect(pantalla, green, (desmarcar + 300, 282, 100, 100),3)
-            pygame.draw.rect(pantalla, green, (desmarcar + 320, 394, 50, 50),3)
-            pygame.draw.rect(pantalla, black, (desmarcar + 330, 391, 50, 50))
+            des = 100
+            pygame.draw.rect(pantalla, red, (desmarcar + 402.0 ,-13.0+des, 100, 100))
+            pygame.draw.rect(pantalla, green, (desmarcar + 403.0 ,15.0+des, 100, 100),3)
+            pygame.draw.rect(pantalla, green, (desmarcar + 405.0 ,85.0+des, 50, 50),3)
+            pygame.draw.rect(pantalla, black, (desmarcar + 404 ,88+des, 50, 50))
         reloj1.tick(60)
         pygame.display.update()
     motor.salirJuego = True

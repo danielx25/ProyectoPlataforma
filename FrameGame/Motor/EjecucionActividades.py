@@ -19,6 +19,9 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
                     yGanancia += plataforma.getGananciaXY()[1]
         if len(lista_objetos) > 0:
             personaje.setGananciaXY((xGanancia, yGanancia))
+        #    print "PRIMERO"
+        #else:
+        #    print "SEGUNDO: ",personaje.recibirGanancia_x, personaje.recibirGanancia_y
         """
         if personaje.ady_left == True or personaje.ady_right == True:
             personaje.setCaminar(False)

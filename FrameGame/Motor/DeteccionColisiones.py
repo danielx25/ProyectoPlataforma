@@ -398,14 +398,15 @@ def reposicion_inteligente(personaje, rectangulo):
     pass
 
 def reposicion(personaje, rectangulo, roce = True):
-    intercambio = False
     rec1 = Rect(personaje._x, personaje._y, personaje.ancho, personaje.largo)#Personaje
 
     rec2 = Rect(rectangulo._x, rectangulo._y, rectangulo.ancho, rectangulo.largo)
     rec3 = Rect(rectangulo.x_antes, rectangulo.y_antes, rectangulo.ancho, rectangulo.largo)
 
     resPuntoPersonaje = rec1.colliderect(rec2) and rec1.colliderect(rec3)
-
+    #cuando el avance del personaje coliciona con las dos plataformas la del presente y pasado entonces
+    #entonces la reposicion tiene que ser desde el personaje
+    #pasa los mismo con la plataforma
     rec1 = Rect(rectangulo._x, rectangulo._y, rectangulo.ancho, rectangulo.largo)#Rectangulo
 
     rec2 = Rect(personaje._x, personaje._y, personaje.ancho, personaje.largo)
@@ -413,6 +414,9 @@ def reposicion(personaje, rectangulo, roce = True):
 
     resPuntoRectangulo = rec1.colliderect(rec2) and rec1.colliderect(rec3)
     intercambio = False
+
+    print "resPuntoPersonaje:  ", resPuntoPersonaje
+    print "resPuntoRectangulo: ",resPuntoRectangulo
 
     if resPuntoPersonaje == False and resPuntoRectangulo == True:
         intercambio = True
@@ -427,6 +431,9 @@ def reposicion(personaje, rectangulo, roce = True):
 
     if rectangulo._x == rectangulo.x_antes and rectangulo._y == rectangulo.y_antes:
         intercambio = False
+
+    if resPuntoPersonaje == True and resPuntoRectangulo == True:
+        intercambio = True
 
     if intercambio:
         aux = rectangulo
