@@ -17,7 +17,7 @@ def ejemploScript(plataforma):
     plataforma._x+=1
 
     plataforma.y_antes = plataforma._y
-    plataforma._y += -3
+    plataforma._y += -0
 
     if plataforma._y < 20:
         plataforma.setXY(plataforma._x, 400)
@@ -58,7 +58,7 @@ def main():
     plataforma.setTamRect(800, 20)
 
     plataforma1 = Plataforma()
-    plataforma1.setXY(300, 400)
+    plataforma1.setXY(200, 504)
     plataforma1.setTamRect(50, 50)
     plataforma1.id = "cuadrado"
 

@@ -16,7 +16,14 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
                 lado = objeto[1]
                 if lado == 0:
                     xGanancia+= plataforma.getGananciaXY()[0]
-                    yGanancia += plataforma.getGananciaXY()[1]
+                    yGanancia+= plataforma.getGananciaXY()[1]
+                if lado == 1:
+                    if plataforma.getGananciaXY()[0] > 0:
+                        xGanancia += plataforma.getGananciaXY()[0]
+                if lado == 3:
+                    if plataforma.getGananciaXY()[0] < 0:
+                        xGanancia += plataforma.getGananciaXY()[0]
+
         if len(lista_objetos) > 0:
             personaje.setGananciaXY((xGanancia, yGanancia))
         #    print "PRIMERO"
