@@ -11,16 +11,25 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
         for objeto in lista_objetos:
             if isinstance(objeto[0], Personaje):
                 pass
-            if isinstance(objeto[0], Plataforma):
+            if isinstance(objeto[0], Plataforma):#traspasando la ganancia en caso de la plataforma
                 plataforma = objeto[0]
                 lado = objeto[1]
                 if lado == 0:
                     xGanancia+= plataforma.getGananciaXY()[0]
                     yGanancia+= plataforma.getGananciaXY()[1]
-                if lado == 1:
+                if lado == 1:#izquierda
+                    if personaje.getCaminar() and personaje.getSentido() == False:
+                        personaje.setCaminar(False)
+
+                    if personaje.getSalto() and personaje.status["angulo"]>90:
+                        personaje.setSalto(False)
+
                     if plataforma.getGananciaXY()[0] > 0:
                         xGanancia += plataforma.getGananciaXY()[0]
-                if lado == 3:
+                if lado == 3:#derecha
+                    if personaje.getCaminar() and personaje.getSentido():
+                        personaje.setCaminar(False)
+
                     if plataforma.getGananciaXY()[0] < 0:
                         xGanancia += plataforma.getGananciaXY()[0]
 

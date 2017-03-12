@@ -11,7 +11,7 @@ class GestionDeteccionColisiones(object):
     def deteccionColisiones(self, personajes, plataformas, tablaColisiones):
         self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas, tablaColisiones)
         #self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
-        self.gravedadActua(personajes)
+        #self.gravedadActua(personajes)
         """
         for personaje in personajes:
             lista = tablaColisiones[personaje.id]
@@ -37,29 +37,27 @@ class GestionDeteccionColisiones(object):
                 colision = False
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
-                #else:
-                #    if deteccionEfectoTunel(personaje, plataforma):
-                #        print "colsicion tunel"
-                #        colision = True
+                else:
+                    if deteccionEfectoTunel(personaje, plataforma):
+                        print "colsicion tunel"
+                        colision = True
 
                 if colision:
                     print "colision"
                     lado = reposicion(personaje, plataforma)
                     personaje.rectangulo.left = personaje._x
                     personaje.rectangulo.top = personaje._y
+
                     personaje.setSalto(False)
+                    personaje.setCaminar(False)
+                    personaje.setCorrer(False)
                     personaje.setGananciaXY((0,0))
-                    #personaje.activarGanancia = False
-                else:
-                    pass
-                    #personaje.activarGanancia = True
 
                 if personaje.ady_down == False:
                     personaje.rectangulo.top+=1
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_down = True
                         tablaColisiones[personaje.id].append((plataforma, 0))
-                        #personaje.setGananciaXY((plataforma.getGananciaXY()))
                     personaje.rectangulo.top-=1
 
                 if personaje.ady_up == False:
@@ -74,9 +72,6 @@ class GestionDeteccionColisiones(object):
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_right= True
                         tablaColisiones[personaje.id].append((plataforma, 3))
-                        #gananciax = plataforma.getGananciaXY()[0]
-                        #if gananciax < 0:
-                        #    personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
                     personaje.rectangulo.left -= 1
 
                 if personaje.ady_left == False:
@@ -84,9 +79,6 @@ class GestionDeteccionColisiones(object):
                     if plataforma.rectangulo.colliderect(personaje.rectangulo):
                         personaje.ady_left = True
                         tablaColisiones[personaje.id].append((plataforma, 1))
-                        #gananciax = plataforma.getGananciaXY()[0]
-                        #if gananciax > 0:
-                        #    personaje.setGananciaXY((plataforma.getGananciaXY()[0], 0))
                     personaje.rectangulo.left += 1
 
 
@@ -94,7 +86,6 @@ class GestionDeteccionColisiones(object):
     def gravedadActua(self, personajes):
         for personaje in personajes:
             if personaje.getSalto() == False and personaje.ady_down == False:
-                print "ACTUA GRAVEDAD"
                 personaje.setCaminar(False)
                 personaje.setCorrer(False)
                 personaje.setSalto(True)
@@ -143,129 +134,6 @@ class GestionDeteccionColisiones(object):
                         if personajeAux.rectangulo.colliderect(personaje.rectangulo):
                             tablaColisiones[personaje.id].append((personajeAux, 1))
                         personaje.rectangulo.left += 1
-
-
-def deteccionColisiones(personajes, plataformas, TablaColsiones):
-    for personaje in  personajes:
-        angulo = personaje.status["angulo"]
-        x = personaje._x
-        y = personaje._y
-        for plataforma in  plataformas:
-
-            if deteccionEfectoTunel(personaje, plataforma):
-                print "no deveria pero weenio"
-                personaje.setSalto(False)
-                personaje.setCorrer(False)
-                personaje.setCaminar(False)
-            """
-            if personaje.rec1.top < plataforma._y:
-                if plataforma.rectangulo.colliderect(personaje.rec1):
-                    print "asdasd"
-                    personaje.setSalto(False)
-                    personaje.setCorrer(False)
-                    personaje.setCaminar(False)
-                    #personaje._y = plataforma._y - personaje.largo
-
-            if personaje.rec2.left + personaje.rec2.width > plataforma._x + plataforma.ancho:
-                if plataforma.rectangulo.colliderect(personaje.rec2):
-                    personaje.setSalto(False)
-                    personaje.setCorrer(False)
-                    personaje.setCaminar(False)
-                    personaje._x = plataforma._x + plataforma.ancho
-
-            if personaje.rec3.left < plataforma._x:
-                if plataforma.rectangulo.colliderect(personaje.rec3):
-                    personaje.setSalto(False)
-                    personaje.setCorrer(False)
-                    personaje.setCaminar(False)
-                    personaje._x = plataforma._x - personaje.ancho
-
-            if personaje.rec4.top + personaje.rec4.height > plataforma._y + plataforma.largo:
-                if plataforma.rectangulo.colliderect(personaje.rec4):
-                    personaje.setSalto(False)
-                    personaje.setCorrer(False)
-                    personaje.setCaminar(False)
-                    personaje._y = plataforma._y + plataforma.largo
-"""
-
-"""
-            if angulo < 0 and angulo >= -90:
-                if personaje.rec1.top < plataforma._y:
-                    if plataforma.rectangulo.colliderect(personaje.rec1):
-                        personaje.setSalto(False)
-                        personaje.setCorrer(False)
-                        personaje.setCaminar(False)
-                        personaje._y = plataforma._y - personaje.largo
-
-                if personaje.rec3.left < plataforma._x:
-                    if plataforma.rectangulo.colliderect(personaje.rec3):
-                        personaje.setSalto(False)
-                        personaje.setCorrer(False)
-                        personaje.setCaminar(False)
-                        personaje._x = plataforma._x - personaje.ancho
-
-            if (angulo <-90 and angulo >= -180) or angulo == 180:
-                if personaje.rec1.top < plataforma._y:
-                    if plataforma.rectangulo.colliderect(personaje.rec1):
-                        personaje.setSalto(False)
-                        personaje.setCorrer(False)
-                        personaje.setCaminar(False)
-                        personaje._y = plataforma._y - personaje.largo
-
-                if personaje.rec2.left+personaje.rec2.width > plataforma._x+plataforma.ancho:
-                    if plataforma.rectangulo.colliderect(personaje.rec2):
-                        personaje.setSalto(False)
-                        personaje.setCorrer(False)
-                        personaje.setCaminar(False)
-                        personaje._x = plataforma._x + plataforma.ancho
-
-
-            if angulo < 180 and angulo >=90:
-                if personaje.rec2.left + personaje.rec2.width > plataforma._x + plataforma.ancho:
-                    if plataforma.rectangulo.colliderect(personaje.rec2):
-                        personaje.setSalto(False)
-                        personaje.setCorrer(False)
-                        personaje.setCaminar(False)
-                        personaje._x = plataforma._x + plataforma.ancho
-
-                if personaje.rec4.top+personaje.rec4.height>plataforma._y+plataforma.largo:
-                    if plataforma.rectangulo.colliderect(personaje.rec4):
-                        personaje.setSalto(False)
-                        personaje.setCorrer(False)
-                        personaje.setCaminar(False)
-                        personaje._y = plataforma._y+plataforma.largo
-
-            if angulo < 90 and angulo >=0:
-                if personaje.rec4.top + personaje.rec4.height > plataforma._y + plataforma.largo:
-                    if plataforma.rectangulo.colliderect(personaje.rec4):
-                        personaje.setSalto(False)
-                        personaje.setCorrer(False)
-                        personaje.setCaminar(False)
-                        personaje._y = plataforma._y + plataforma.largo
-
-                if personaje.rec3.left < plataforma._x:
-                    if plataforma.rectangulo.colliderect(personaje.rec3):
-                        personaje.setSalto(False)
-                        personaje.setCorrer(False)
-                        personaje.setCaminar(False)
-                        personaje._x = plataforma._x - personaje.ancho
-
-            if plataforma.rectangulo.colliderect(personaje.rec1):
-                personaje.setSalto(False)
-                personaje._y = plataforma._y - personaje.largo
-
-            if plataforma.rectangulo.colliderect(personaje.rec2):
-                personaje.setSalto(False)
-                personaje._x = plataforma._x+plataforma.ancho
-
-            if plataforma.rectangulo.colliderect(personaje.rec3):
-                personaje.setSalto(False)
-                personaje.x = plataforma.x-personaje.ancho
-
-            if plataforma.rectangulo.colliderect(personaje.rec4):
-                pass"""
-
-
 
 def deteccionEfectoTunel(personaje, rectangulo):
     if(personaje._x == personaje.x_antes and personaje._y == personaje.y_antes):
@@ -318,8 +186,6 @@ def deteccionEfectoTunel(personaje, rectangulo):
         else:
             return False
 
-
-
 class Circulo(object):
     def __init__(self, x, y, ancho, largo):
         self.radio = 100
@@ -362,8 +228,6 @@ class Circulo(object):
         if self.terminar == False:
             self.terminar = True
             self.otro=crearCirculo(self.radio, self.x_circulo, self.y_circulo)
-
-
 
 def crearCirculo(radio, x_circulo, y_circulo):
     opuesto = 0

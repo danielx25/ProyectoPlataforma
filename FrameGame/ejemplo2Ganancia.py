@@ -14,14 +14,25 @@ def ejemploScript(plataforma):
     #pass
     #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=1
+    plataforma._x+=0.5
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -0
 
-    if plataforma._y < 20:
-        plataforma.setXY(plataforma._x, 400)
+    #if plataforma._x < 20:
+    #    plataforma.setXY(plataforma._x, 400)
 
+def ejemploScript1(plataforma):
+    #pass
+    #return 1
+    plataforma.x_antes = plataforma._x
+    plataforma._x+=0
+
+    plataforma.y_antes = plataforma._y
+    plataforma._y += -0.5
+
+    #if plataforma._y < 20:
+    #    plataforma.setXY(plataforma._x, 400)
 
 
 def main():
@@ -75,7 +86,8 @@ def main():
     start = pygame.time.get_ticks()/1000
 
     #==============
-    motor.diccionarioScripts[plataforma1.id].append(ejemploScript)
+    #motor.diccionarioScripts[plataforma.id].append(ejemploScript1)
+    motor.diccionarioScripts[plataforma3.id].append(ejemploScript)
     motor.protagonista = motor.conjuntoPersonajes[0]
     iter=0
     limit=1000
@@ -154,12 +166,7 @@ def main():
                 pygame.draw.rect(pantalla, darkBlue, p.rec1)
             if p.ady_up == True:
                 pygame.draw.rect(pantalla, darkBlue, p.rec4)
-            desmarcar = 200
-            des = 0
-            pygame.draw.rect(pantalla, red, (desmarcar + 224.0 ,2.0+des, 20, 800))
-            pygame.draw.rect(pantalla, green, (desmarcar + 225.0 ,2.0+des, 20, 800),3)
-            pygame.draw.rect(pantalla, green, (desmarcar + 232.0 ,284.0+des, 100, 100),3)
-            pygame.draw.rect(pantalla, black, (desmarcar + 244.5 ,311.0+des, 100, 100))
+
         reloj1.tick(60)
         pygame.display.update()
     motor.salirJuego = True
