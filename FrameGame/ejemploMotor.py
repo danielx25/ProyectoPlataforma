@@ -14,7 +14,7 @@ def ejemploScript(plataforma):
     #pass
     #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=1
+    plataforma._x+=3
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -0
@@ -156,10 +156,10 @@ def main():
                 pygame.draw.rect(pantalla, darkBlue, p.rec4)
             desmarcar = 200
             des = 0
-            pygame.draw.rect(pantalla, red, (desmarcar + 224.0 ,2.0+des, 20, 800))
-            pygame.draw.rect(pantalla, green, (desmarcar + 225.0 ,2.0+des, 20, 800),3)
-            pygame.draw.rect(pantalla, green, (desmarcar + 232.0 ,284.0+des, 100, 100),3)
-            pygame.draw.rect(pantalla, black, (desmarcar + 244.5 ,311.0+des, 100, 100))
+            pygame.draw.rect(pantalla, red, (desmarcar + 243.0 ,2.0+des, 20, 800))
+            pygame.draw.rect(pantalla, green, (desmarcar + 246.0 ,2.0+des, 20, 800),1)
+            pygame.draw.rect(pantalla, green, (desmarcar + 253.0 ,273.0+des, 100, 100),1)
+            pygame.draw.rect(pantalla, black, (desmarcar + 263.5 ,300+des, 100, 100))
         reloj1.tick(60)
         pygame.display.update()
     motor.salirJuego = True
