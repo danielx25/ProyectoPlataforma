@@ -398,7 +398,7 @@ def reposicion(personaje, rectangulo, roce = True):
     print "        RECTANGULO"
     print "x, y: ", recx, recy
     print "x_antes, y_antes: ", rectangulo.x_antes, rectangulo.y_antes
-
+    print "Cuadro Antes: ", cuadro
     if intercambio:
         aux = personaje
         personaje = rectangulo

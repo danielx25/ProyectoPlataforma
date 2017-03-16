@@ -94,22 +94,26 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1._x = 430
-    p1._y = 180
-    p1.x_antes = 50
-    p1.y_antes = 50
-    p1.tam_rectangulos((70, 70))
+    p1._x = 253
+    p1._y = 273
+    p1.x_antes = 263
+    p1.y_antes = 300
+    p1.tam_rectangulos((100, 100))
     p1.actualizacionRec()
 
     p2 = Personaje()
-    p2._x = 100
-    p2._y = 200
-    p2.tam_rectangulos((100, 100))
+    p2._x = 243
+    p2._y = 2
+    p2.tam_rectangulos((20, 800))
     p2.actualizacionRec()
 
     plataforma2 = Plataforma()
-    plataforma2.setXY(250, 200)
-    plataforma2.setTamRect(300, 100)
+    plataforma2._x = 243
+    plataforma2._y = 2
+    plataforma2.x_antes = 246
+    plataforma2.y_antes = 2
+    plataforma2.actualizacionRec()
+    plataforma2.setTamRect(20, 800)
 
     p1_antes = Rect(p1.x_antes, p1.y_antes, 70, 70)
 
@@ -134,12 +138,13 @@ def main():
                     p1.setSalto(True)
                     print "SAlta"
             if event.type == pygame.MOUSEMOTION:
-                xy=pygame.mouse.get_pos()
-                p1.x_antes = xy[0]
-                p1.y_antes = xy[1]
-                p1_antes.left = xy[0]
-                p1_antes.top = xy[1]
-                l = reposicion(p1, plataforma2)
+                pass
+                #xy=pygame.mouse.get_pos()
+                #p1.x_antes = xy[0]
+                #p1.y_antes = xy[1]
+                #p1_antes.left = xy[0]
+                #p1_antes.top = xy[1]
+                #l = reposicion(p1, plataforma2)
 
         pantalla.fill((0,0,240))
         if pygame.time.get_ticks()>limit:

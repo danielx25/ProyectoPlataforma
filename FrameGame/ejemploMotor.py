@@ -157,9 +157,9 @@ def main():
             desmarcar = 200
             des = 0
             pygame.draw.rect(pantalla, red, (desmarcar + 243.0 ,2.0+des, 20, 800))
-            pygame.draw.rect(pantalla, green, (desmarcar + 246.0 ,2.0+des, 20, 800),1)
-            pygame.draw.rect(pantalla, green, (desmarcar + 253.0 ,273.0+des, 100, 100),1)
             pygame.draw.rect(pantalla, black, (desmarcar + 263.5 ,300+des, 100, 100))
+            pygame.draw.rect(pantalla, green, (desmarcar + 246.0, 2.0 + des, 20, 800), 1)
+            pygame.draw.rect(pantalla, green, (desmarcar + 253.0, 273.0 + des, 100, 100), 1)
         reloj1.tick(60)
         pygame.display.update()
     motor.salirJuego = True
