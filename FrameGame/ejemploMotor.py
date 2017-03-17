@@ -162,7 +162,7 @@ def main():
             pygame.draw.rect(pantalla, green, (desmarcar + 219.0, 191.0 + des, 100, 100), 1)
 
             #pygame.draw.rect(pantalla, white, (desmarcar + 213.0, 291.0 + des, 20, 800),3)
-            pygame.draw.rect(pantalla, white, (desmarcar + 199.0, 2.0 + des, 20, 800),3)
+            pygame.draw.rect(pantalla, white, (desmarcar + 319.0, 2.0 + des, 20, 800),3)
             #pygame.draw.rect(pantalla, white, (desmarcar + 213.0, -609.0 + des, 20, 800),3)
             #pygame.draw.rect(pantalla, white, (desmarcar + 319.0, 2.0 + des, 20, 800),3)
 

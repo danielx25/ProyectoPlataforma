@@ -121,7 +121,8 @@ def reposicion(personaje, rectangulo, roce = True):
         print "xy2: ", x2, y2
         print "xy3: ", x3, y3
         print "xy4: ", x4, y4
-        print infx," <= ", x3," <= ",supx ," AND ", infy," <= ", y3," <= ",supy
+        print infx," <= ", x1," <= ",supx ," AND ", infy," <= ", y1," <= ",supy
+        print infx, " <= ", x3, " <= ", supx, " AND ", infy, " <= ", y3, " <= ", supy
 
         if infx <= x1 <= supx and infy <= y1 <= supy:
             cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x, y)
@@ -140,7 +141,7 @@ def reposicion(personaje, rectangulo, roce = True):
         print "xy3: ", x3, y3
         print "xy4: ", x4, y4
         print infx, " <= ", x2, " <= ", supx, " AND ", infy, " <= ", y2, " <= ", supy
-
+        print infx, " <= ", x4, " <= ", supx, " AND ", infy, " <= ", y4, " <= ", supy
         if infx <= x2 <= supx and infy <= y2 <= supy:
             print "entro aqui1"
             cuadros[1] = Fisica.distanciaEntre2Puntos(x2, y2, x, y)
@@ -156,6 +157,7 @@ def reposicion(personaje, rectangulo, roce = True):
         y2 = funciony(a, b, c, d, x2)
         y4 = funciony(a, b, c, d, x4)
 
+    print "->",cuadros
     if recx <= x1 <= recx + rectangulo.ancho or recx <= x1 + ancho <= recx + rectangulo.ancho:
         cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x_antes, y_antes)
     if recy <= y2 <= recy + rectangulo.largo or recy <= y2 + largo <= recy + rectangulo.largo:
