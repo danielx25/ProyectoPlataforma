@@ -94,10 +94,10 @@ def main():
     salir=False
 
     p1 = Personaje()
-    p1._x = 253
-    p1._y = 273
-    p1.x_antes = 263
-    p1.y_antes = 300
+    p1._x = 219
+    p1._y = 191
+    p1.x_antes = 231
+    p1.y_antes = 207
     p1.tam_rectangulos((100, 100))
     p1.actualizacionRec()
 
@@ -108,14 +108,18 @@ def main():
     p2.actualizacionRec()
 
     plataforma2 = Plataforma()
-    plataforma2._x = 243
+    plataforma2._x = 213
     plataforma2._y = 2
-    plataforma2.x_antes = 246
+    plataforma2.x_antes = 210
     plataforma2.y_antes = 2
     plataforma2.actualizacionRec()
     plataforma2.setTamRect(20, 800)
 
-    p1_antes = Rect(p1.x_antes, p1.y_antes, 70, 70)
+    aux = p1
+    p1 = plataforma2
+    plataforma2 = aux
+
+    p1_antes = Rect(p1.x_antes, p1.y_antes, p1.ancho, p1.largo)
 
     motor = MotorVideojuego()
     motor.conjuntoPersonajes = [p1, p2]
@@ -155,9 +159,10 @@ def main():
 
 
 
-        pygame.draw.rect(pantalla, green, plataforma2.rectangulo)
+
         pygame.draw.rect(pantalla, red, p1.rectangulo)
-        pygame.draw.rect(pantalla, red, p1_antes)
+        pygame.draw.rect(pantalla, white, p1_antes)
+        pygame.draw.rect(pantalla, green, plataforma2.rectangulo,3)
 
         for rec in l:
             pygame.draw.rect(pantalla, darkBlue, rec)
