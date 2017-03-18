@@ -158,6 +158,7 @@ def reposicion(personaje, rectangulo, roce = True):
         y4 = funciony(a, b, c, d, x4)
 
     print "->",cuadros
+    print "IF ", recx," <= ",x1," <= ",recx + rectangulo.ancho, " OR ", recx," <= ",x1+ancho," <= ",recx + rectangulo.ancho
     if recx <= x1 <= recx + rectangulo.ancho or recx <= x1 + ancho <= recx + rectangulo.ancho:
         cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x_antes, y_antes)
     if recy <= y2 <= recy + rectangulo.largo or recy <= y2 + largo <= recy + rectangulo.largo:
