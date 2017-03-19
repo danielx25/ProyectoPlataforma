@@ -39,12 +39,13 @@ def reposicion(personaje, rectangulo, roce = True):
     if resPuntoPersonaje == True and resPuntoRectangulo == True:
         intercambio = True
 
+    """
     if intercambio:
         aux = rectangulo
         rectangulo = personaje
         personaje = aux
         intercambio = True
-
+    """
     x = Fisica.truncate(personaje._x)
     y = Fisica.truncate(personaje._y)
     x_antes = Fisica.truncate(personaje.x_antes)
@@ -87,46 +88,6 @@ def reposicion(personaje, rectangulo, roce = True):
     print "c: ",c
     print "d: ",d
 
-    cuadros = [float('inf'), float('inf'), float('inf'), float('inf')]
-
-    if b != 0:
-        x1 = funcionx(a, b, c, d, y1)
-        x3 = funcionx(a, b, c, d, y3)
-
-        print "infx, supx: ", infx, supx
-        print "infy, supy: ", infy, supy
-        print "xy1: ", x1, y1
-        print "xy2: ", x2, y2
-        print "xy3: ", x3, y3
-        print "xy4: ", x4, y4
-        print infx," <= ", x1," <= ",supx ," AND ", infy," <= ", y1," <= ",supy
-        print infx, " <= ", x3, " <= ", supx, " AND ", infy, " <= ", y3, " <= ", supy
-
-        if infx <= x1 <= supx and infy <= y1 <= supy:
-            cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x, y)
-        if infx <= x3 <= supx and infy <= y3 <= supy:
-            cuadros[2] = Fisica.distanciaEntre2Puntos(x3, y3, x, y)
-
-    if a != 0:
-        y2 = funciony(a, b, c, d, x2)
-        y4 = funciony(a, b, c, d, x4)
-        print "y2_mejor: ", y2
-        print "y4_mejor: ", y4
-        print "infx, supx: ", infx, supx
-        print "infy, supy: ", infy, supy
-        print "xy1: ", x1, y1
-        print "xy2: ", x2, y2
-        print "xy3: ", x3, y3
-        print "xy4: ", x4, y4
-        print infx, " <= ", x2, " <= ", supx, " AND ", infy, " <= ", y2, " <= ", supy
-        print infx, " <= ", x4, " <= ", supx, " AND ", infy, " <= ", y4, " <= ", supy
-        if infx <= x2 <= supx and infy <= y2 <= supy:
-            print "entro aqui1"
-            cuadros[1] = Fisica.distanciaEntre2Puntos(x2, y2, x, y)
-        if infx <= x4 <= supx and infy <= y4 <= supy:
-            print "entro aqui2"
-            cuadros[3] = Fisica.distanciaEntre2Puntos(x4, y4, x, y)
-
     if b != 0:
         x1 = funcionx(a, b, c, d, y1)
         x3 = funcionx(a, b, c, d, y3)
@@ -135,29 +96,8 @@ def reposicion(personaje, rectangulo, roce = True):
         y2 = funciony(a, b, c, d, x2)
         y4 = funciony(a, b, c, d, x4)
 
-    print "->",cuadros
-    if recx <= x1 <= recx + rectangulo.ancho or recx <= x1 + ancho <= recx + rectangulo.ancho:
-        cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x_antes, y_antes)
-    if recy <= y2 <= recy + rectangulo.largo or recy <= y2 + largo <= recy + rectangulo.largo:
-        cuadros[1] = Fisica.distanciaEntre2Puntos(x2, y2, x_antes, y_antes)
-    if recx <= x3 <= recx + rectangulo.ancho or recx <= x3 + ancho <= recx + rectangulo.ancho:
-        cuadros[2] = Fisica.distanciaEntre2Puntos(x3, y3, x_antes, y_antes)
-    if recy <= y4 <= recy + rectangulo.largo or recy <= y4 + largo <= recy + rectangulo.largo:
-        cuadros[3] = Fisica.distanciaEntre2Puntos(x4, y4, x_antes, y_antes)
 
-    cuadro = cuadros.index(min(cuadros))
-
-    print "x, y: ", x, y
-    print "x_antes, y_antes: ", x_antes, y_antes
-    print cuadros
-    print "x1, y1: ", x1, y1
-    print "x2, y2: ", x2, y2
-    print "x3, y3: ", x3, y3
-    print "x4, y4: ", x4, y4
-    print "        RECTANGULO"
-    print "x, y: ", recx, recy
-    print "x_antes, y_antes: ", rectangulo.x_antes, rectangulo.y_antes
-    print "Cuadro Antes: ", cuadro
+    """
     if intercambio:
         aux = personaje
         personaje = rectangulo
@@ -206,14 +146,30 @@ def reposicion(personaje, rectangulo, roce = True):
         personaje._y = y0
         print "Rectangulo?", cuadro
         return cuadro
+    """
 
     l = []
     l.append(Rect(x1, y1, ancho, largo))
     l.append(Rect(x2, y2, ancho, largo))
     l.append(Rect(x3, y3, ancho, largo))
     l.append(Rect(x4, y4, ancho, largo))
+
+    indice = 0
+    lista = []
+    for contador in range(4):
+        newy1 = 0
+        if contador ==0 and a != 0:
+            newy1 = funciony(a, b, c, d, x1+1)
+            recNew = Rect(x1, newy1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(l[contador])
+
+            newy1 = funciony(a, b, c, d, x1 - 1)
+            recNew = Rect(x1, newy1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(l[contador])
     # return [l[cuadro]]
-    return l
+    return lista
 
 
 def funcionx(a, b, c, d, y):
