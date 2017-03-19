@@ -19,8 +19,8 @@ def reposicion(personaje, rectangulo, roce = True):
     resPuntoRectangulo = rec1.colliderect(rec2) and rec1.colliderect(rec3)
     intercambio = False
 
-    print "resPuntoPersonaje:  ", resPuntoPersonaje
-    print "resPuntoRectangulo: " ,resPuntoRectangulo
+    #print "resPuntoPersonaje:  ", resPuntoPersonaje
+    #print "resPuntoRectangulo: " ,resPuntoRectangulo
 
     if resPuntoPersonaje == False and resPuntoRectangulo == True:
         intercambio = True
@@ -74,19 +74,11 @@ def reposicion(personaje, rectangulo, roce = True):
     x4 = recx + rectangulo.ancho
     y4 = y
 
-    print "x1, y1: ", x1, y1
-    print "x2, y2: ", x2, y2
-    print "x3, y3: ", x3, y3
-    print "x4, y4: ", x4, y4
-
     a = x - x_antes
     b = y - y_antes
     c = x* b
     d = y * a
-    print "a: ",a
-    print "b: ",b
-    print "c: ",c
-    print "d: ",d
+
 
     if b != 0:
         x1 = funcionx(a, b, c, d, y1)
@@ -158,14 +150,56 @@ def reposicion(personaje, rectangulo, roce = True):
     lista = []
     for contador in range(4):
         newy1 = 0
-        if contador ==0 and a != 0:
-            newy1 = funciony(a, b, c, d, x1+1)
+        col1=False
+        col2=False
+        if contador ==0:
+
+            recNew = Rect(x1, y1-1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(l[contador])
+            """
+            if a != 0:
+                newy1 = funciony(a, b, c, d, x1+1)
+            else:
+                newy1 = y1+1
             recNew = Rect(x1, newy1, ancho, largo)
             if recNew.colliderect(rectangulo.rectangulo):
                 lista.append(l[contador])
+                col1 = True
 
-            newy1 = funciony(a, b, c, d, x1 - 1)
+            if a != 0:
+                newy1 = funciony(a, b, c, d, x1 - 1)
+            else:
+                newy1 = y1 - 1
             recNew = Rect(x1, newy1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(l[contador])
+                col1 = True
+            if not col1 and not col2:
+                print "a: ", a
+                print "b: ", b
+                print "c: ", c
+                print "d: ", d
+                print "x1, y1: ", x1, y1
+                print "x2, y2: ", x2, y2
+                print "x3, y3: ", x3, y3
+                print "x4, y4: ", x4, y4
+
+            """
+        if contador == 4 :
+            if b !=0:
+                newx2 = funcionx(a, b, c, d, y2+1)
+            else:
+                newx2 = y2+1
+            recNew = Rect(newx2, y2, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(l[contador])
+
+            if b != 0:
+                newx2 = funcionx(a, b, c, d, y2 - 1)
+            else:
+                newx2 = y2 - 1
+            recNew = Rect(newx2, y2, ancho, largo)
             if recNew.colliderect(rectangulo.rectangulo):
                 lista.append(l[contador])
     # return [l[cuadro]]
