@@ -11,7 +11,7 @@ class GestionDeteccionColisiones(object):
     def deteccionColisiones(self, personajes, plataformas, tablaColisiones):
         self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas, tablaColisiones)
         #self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
-        #self.gravedadActua(personajes)
+        self.gravedadActua(personajes)
         """
         for personaje in personajes:
             lista = tablaColisiones[personaje.id]
@@ -47,10 +47,10 @@ class GestionDeteccionColisiones(object):
                     lado = reposicion(personaje, plataforma)
                     personaje.rectangulo.left = personaje._x
                     personaje.rectangulo.top = personaje._y
-
-                    personaje.setSalto(False)
-                    personaje.setCaminar(False)
-                    personaje.setCorrer(False)
+                    if lado == 2:
+                        personaje.setSalto(False)
+                    #personaje.setCaminar(False)
+                    #personaje.setCorrer(False)
                     personaje.setGananciaXY((0,0))
 
                 if personaje.ady_down == False:
@@ -262,16 +262,16 @@ def reposicion_inteligente(personaje, rectangulo):
     pass
 
 def reposicion(personaje, rectangulo, roce = True):
-    rec1 = Rect(personaje._x, personaje._y, personaje.ancho, personaje.largo)#Personaje
+    rec1 = Rect(personaje._x, personaje._y, personaje.ancho, personaje.largo  )  # Personaje
 
     rec2 = Rect(rectangulo._x, rectangulo._y, rectangulo.ancho, rectangulo.largo)
     rec3 = Rect(rectangulo.x_antes, rectangulo.y_antes, rectangulo.ancho, rectangulo.largo)
 
     resPuntoPersonaje = rec1.colliderect(rec2) and rec1.colliderect(rec3)
-    #cuando el avance del personaje coliciona con las dos plataformas la del presente y pasado entonces
-    #entonces la reposicion tiene que ser desde el personaje
-    #pasa los mismo con la plataforma
-    rec1 = Rect(rectangulo._x, rectangulo._y, rectangulo.ancho, rectangulo.largo)#Rectangulo
+    # cuando el avance del personaje coliciona con las dos plataformas la del presente y pasado entonces
+    # entonces la reposicion tiene que ser desde el personaje
+    # pasa los mismo con la plataforma
+    rec1 = Rect(rectangulo._x, rectangulo._y, rectangulo.ancho, rectangulo.largo  )  # Rectangulo
 
     rec2 = Rect(personaje._x, personaje._y, personaje.ancho, personaje.largo)
     rec3 = Rect(personaje.x_antes, personaje.y_antes, personaje.ancho, personaje.largo)
@@ -279,8 +279,8 @@ def reposicion(personaje, rectangulo, roce = True):
     resPuntoRectangulo = rec1.colliderect(rec2) and rec1.colliderect(rec3)
     intercambio = False
 
-    print "resPuntoPersonaje:  ", resPuntoPersonaje
-    print "resPuntoRectangulo: ",resPuntoRectangulo
+    #print "resPuntoPersonaje:  ", resPuntoPersonaje
+    #print "resPuntoRectangulo: " ,resPuntoRectangulo
 
     if resPuntoPersonaje == False and resPuntoRectangulo == True:
         intercambio = True
@@ -299,6 +299,7 @@ def reposicion(personaje, rectangulo, roce = True):
     if resPuntoPersonaje == True and resPuntoRectangulo == True:
         intercambio = True
 
+
     if intercambio:
         aux = rectangulo
         rectangulo = personaje
@@ -311,10 +312,10 @@ def reposicion(personaje, rectangulo, roce = True):
     y_antes = Fisica.truncate(personaje.y_antes)
     ancho = personaje.ancho
     largo = personaje.largo
-    
+
     recx = Fisica.truncate(rectangulo._x)
     recy = Fisica.truncate(rectangulo._y)
-    
+
 
     infx = min([x, x_antes])
     supx = max([x, x_antes])
@@ -333,72 +334,70 @@ def reposicion(personaje, rectangulo, roce = True):
     x4 = recx + rectangulo.ancho
     y4 = y
 
-
     a = x - x_antes
     b = y - y_antes
-    c = x*b
-    d = y*a
-
-    cuadros=[float('inf'), float('inf'), float('inf'), float('inf')]
+    c = x* b
+    d = y * a
 
 
     if b != 0:
-        x1 = funcionx(a,b,c,d,y1)
-        x3 = funcionx(a, b, c, d, y3)
-
-        #print "infx, supx: ", infx, supx
-        #print "infy, supy: ", infy, supy
-        #print "xy1: ", x1, y1
-        #print "xy2: ", x2, y2
-        #print "xy3: ", x3, y3
-        #print "xy4: ", x4, y4
-        #print infx," <= ", x3," <= ",supx ," AND ", infy," <= ", y3," <= ",supy
-
-        if infx <= x1 <= supx and  infy<= y1 <= supy:
-            cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x, y)
-        if  infx <= x3 <= supx and infy<= y3 <= supy:
-            cuadros[2] = Fisica.distanciaEntre2Puntos(x3, y3, x, y)
-
-
-    if a != 0:
-        y2 = funciony(a,b,c,d,x2)
-        y4 = funciony(a,b,c,d,x4)
-
-        if infx <= x2 <= supx and  infy<= y2 <= supy:
-            cuadros[1] = Fisica.distanciaEntre2Puntos(x2, y2, x, y)
-        if infx <= x4 <= supx and  infy<= y4 <= supy:
-            cuadros[3] = Fisica.distanciaEntre2Puntos(x4, y4, x, y)
-
-    if b != 0:
-        x1 = funcionx(a,b,c,d,y1)
+        x1 = funcionx(a, b, c, d, y1)
         x3 = funcionx(a, b, c, d, y3)
 
     if a != 0:
-        y2 = funciony(a,b,c,d,x2)
-        y4 = funciony(a,b,c,d,x4)
+        y2 = funciony(a, b, c, d, x2)
+        y4 = funciony(a, b, c, d, x4)
 
-    if recx <= x1 <= recx + rectangulo.ancho or recx <= x1 + ancho <= recx + rectangulo.ancho:
-        cuadros[0] = Fisica.distanciaEntre2Puntos(x1, y1, x_antes, y_antes)
-    if recy <= y2 <= recy + rectangulo.largo or recy <= y2 + largo <= recy + rectangulo.largo:
-        cuadros[1] = Fisica.distanciaEntre2Puntos(x2, y2, x_antes, y_antes)
-    if recx <= x3 <= recx + rectangulo.ancho or recx <= x3 + ancho <= recx + rectangulo.ancho:
-        cuadros[2] = Fisica.distanciaEntre2Puntos(x3, y3, x_antes, y_antes)
-    if recy <= y4 <= recy + rectangulo.largo or recy <= y4 + largo <= recy + rectangulo.largo:
-        cuadros[3] = Fisica.distanciaEntre2Puntos(x4, y4, x_antes, y_antes)
+    l = []
+    l.append(Rect(x1, y1, ancho, largo))
+    l.append(Rect(x2, y2, ancho, largo))
+    l.append(Rect(x3, y3, ancho, largo))
+    l.append(Rect(x4, y4, ancho, largo))
 
-    cuadro = cuadros.index(min(cuadros))
+    indice = 0
+    lista = []
+    for contador in range(4):
+        if contador ==0:
+            recNew = Rect(x1, y1-1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x1, y1), 0))
 
-    print "x, y: ", x, y
-    print "x_antes, y_antes: ", x_antes, y_antes
-    print cuadros
-    print "x1, y1: ",x1, y1
-    print "x2, y2: ",x2, y2
-    print "x3, y3: ",x3, y3
-    print "x4, y4: ",x4, y4
-    print "        RECTANGULO"
-    print "x, y: ", recx, recy
-    print "x_antes, y_antes: ", rectangulo.x_antes, rectangulo.y_antes
-    print "Cuadro Antes: ", cuadro
+        if contador == 1 :
+            recNew = Rect(x2+1, y2, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x2, y2), 1))
+
+        if contador == 2:
+            recNew = Rect(x3 , y3+1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x3, y3), 2))
+
+        if contador == 3:
+            recNew = Rect(x4 - 1, y4, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x4, y4), 3))
+    l=[]
+    for coor , lado in lista:
+        x_, y_= coor
+        if infx <= x_ <= supx and infy <= y_ <= supy:
+            l.append(((x_, y_), lado))
+        else:
+            infx1 = min([x, x_])
+            supx1= max([x, x_])
+
+            infy1 = min([y, y_])
+            supy1 = max([y, y_])
+            if infx1 <= x_antes <= supx1 and infy1 <= y_antes <= supy1:
+                l.append(((x_, y_), lado))
+
+    try:
+        cuadro = l[0][1]
+    except IndexError:
+        print "len: ",len(l)
+        if len(l) > 0:
+            print "que tenemos aqui", l[0]
+
+
     if intercambio:
         aux = personaje
         personaje = rectangulo
@@ -448,25 +447,11 @@ def reposicion(personaje, rectangulo, roce = True):
         print "Rectangulo?", cuadro
         return cuadro
 
-    l = []
-    l.append((x1,y1))
-    l.append((x2, y2))
-    l.append((x3, y3))
-    l.append((x4, y4))
-    if cuadro != float('inf'):
-        personaje._x = l[cuadro][0]
-        personaje._y = l[cuadro][1]
-    print "Personaje?", cuadro
-    if cuadro == 3:
-        print x, y
-        print x_antes, y_antes
-        print cuadros
-        print x1,y1
-        print x2, y2
-        print x3, y3
-        print x4, y4
-        #time.sleep(1)
 
+    if len(l)>0:
+        personaje._x = l[0][0][0]
+        personaje._y =l[0][0][1]
+    # return [l[cuadro]]
     return cuadro
 
 def funcionx(a, b, c, d, y):

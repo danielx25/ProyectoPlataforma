@@ -8,6 +8,8 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
         lista_objetos = tablaColisiones[personaje.id]
         xGanancia = 0
         yGanancia = 0
+        ladoAbajo = False
+        ladoIzquierdo = False
         for objeto in lista_objetos:
             if isinstance(objeto[0], Personaje):
                 pass
@@ -15,26 +17,51 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
                 plataforma = objeto[0]
                 lado = objeto[1]
                 if lado == 0:
+                    ladoAbajo = True
                     xGanancia+= plataforma.getGananciaXY()[0]
                     yGanancia+= plataforma.getGananciaXY()[1]
+
                 if lado == 1:#izquierda
-                    if personaje.getCaminar() and personaje.getSentido() == False:
-                        personaje.setCaminar(False)
-
-                    if personaje.getSalto() and personaje.status["angulo"]>90:
-                        personaje.setSalto(False)
-
+                    ladoIzquierdo = True
                     if plataforma.getGananciaXY()[0] > 0:
                         xGanancia += plataforma.getGananciaXY()[0]
+                """
                 if lado == 3:#derecha
                     if personaje.getCaminar() and personaje.getSentido():
                         personaje.setCaminar(False)
 
                     if plataforma.getGananciaXY()[0] < 0:
                         xGanancia += plataforma.getGananciaXY()[0]
+                """
 
         if len(lista_objetos) > 0:
             personaje.setGananciaXY((xGanancia, yGanancia))
+
+        if ladoAbajo == False:
+            personaje.setCaminar(False)
+            personaje.setCorrer(False)
+
+        if ladoIzquierdo == True:
+            if personaje.getSalto():
+                print personaje.status["angulo"]
+                #angulo = personaje.status["angulo"]
+                #if (personaje.status["angulo"]>90 and personaje.status["angulo"]<270) or (personaje.status["angulo"]<-90 and personaje.status["angulo"]>-270):
+                #    personaje.setSalto(False)
+            if personaje.getCaminar() and personaje.getSentido() == False:
+                personaje.setCaminar(False)
+
+        if ladoAbajo == False and ladoIzquierdo == True:
+            if personaje.getSalto() == True:
+                angulo = personaje.status["angulo"]
+                saltoIzquierda = (angulo>90 and angulo<270) or (angulo<-90 and angulo>-270)
+                if saltoIzquierda == True:
+                    veloy = personaje.status["velocidad y"]
+                    if veloy > 0:
+                        personaje.status["angulo"] = 90
+                    else:
+                        personaje.status["angulo"] = -90
+
+
         #    print "PRIMERO"
         #else:
         #    print "SEGUNDO: ",personaje.recibirGanancia_x, personaje.recibirGanancia_y

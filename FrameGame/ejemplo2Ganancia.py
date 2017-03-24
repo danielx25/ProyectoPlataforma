@@ -14,7 +14,7 @@ def ejemploScript(plataforma):
     #pass
     #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=3
+    plataforma._x+=1
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -0
@@ -167,7 +167,7 @@ def main():
             if p.ady_up == True:
                 pygame.draw.rect(pantalla, darkBlue, p.rec4)
 
-        reloj1.tick(60)
+        reloj1.tick(80)
         pygame.display.update()
     motor.salirJuego = True
     pygame.quit()
