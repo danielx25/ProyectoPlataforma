@@ -21,6 +21,193 @@ plataforma2.y_antes = 2
 plataforma2.setTamRect(20, 800)
 plataforma2.actualizacionRec()
 
+def reposicion1(personaje, rectangulo, roce = True):
+    rec1 = Rect(personaje._x, personaje._y, personaje.ancho, personaje.largo  )  # Personaje
+
+    rec2 = Rect(rectangulo._x, rectangulo._y, rectangulo.ancho, rectangulo.largo)
+    rec3 = Rect(rectangulo.x_antes, rectangulo.y_antes, rectangulo.ancho, rectangulo.largo)
+
+    resPuntoPersonaje = rec1.colliderect(rec2) and rec1.colliderect(rec3)
+    # cuando el avance del personaje coliciona con las dos plataformas la del presente y pasado entonces
+    # entonces la reposicion tiene que ser desde el personaje
+    # pasa los mismo con la plataforma
+    rec1 = Rect(rectangulo._x, rectangulo._y, rectangulo.ancho, rectangulo.largo  )  # Rectangulo
+
+    rec2 = Rect(personaje._x, personaje._y, personaje.ancho, personaje.largo)
+    rec3 = Rect(personaje.x_antes, personaje.y_antes, personaje.ancho, personaje.largo)
+
+    resPuntoRectangulo = rec1.colliderect(rec2) and rec1.colliderect(rec3)
+    intercambio = False
+
+    #print "resPuntoPersonaje:  ", resPuntoPersonaje
+    #print "resPuntoRectangulo: " ,resPuntoRectangulo
+
+    if resPuntoPersonaje == False and resPuntoRectangulo == True:
+        intercambio = True
+
+    if resPuntoPersonaje == False and resPuntoRectangulo == False:
+        if personaje._x == personaje.x_antes and personaje._y == personaje.y_antes:
+            intercambio = True
+
+        if (personaje._x != personaje.x_antes or personaje._y != personaje.y_antes) and \
+                (rectangulo._x != rectangulo.x_antes or rectangulo._y != rectangulo.y_antes):
+            intercambio = True
+
+    if rectangulo._x == rectangulo.x_antes and rectangulo._y == rectangulo.y_antes:
+        intercambio = False
+
+    if resPuntoPersonaje == True and resPuntoRectangulo == True:
+        intercambio = True
+
+
+    if intercambio:
+        aux = rectangulo
+        rectangulo = personaje
+        personaje = aux
+        intercambio = True
+
+    x = Fisica.truncate(personaje._x)
+    y = Fisica.truncate(personaje._y)
+    x_antes = Fisica.truncate(personaje.x_antes)
+    y_antes = Fisica.truncate(personaje.y_antes)
+    ancho = personaje.ancho
+    largo = personaje.largo
+
+    recx = Fisica.truncate(rectangulo._x)
+    recy = Fisica.truncate(rectangulo._y)
+
+
+    infx = min([x, x_antes])
+    supx = max([x, x_antes])
+
+    infy = min([y, y_antes])
+    supy = max([y, y_antes])
+    x1 = x
+    y1 = recy + rectangulo.largo
+
+    x2 = recx - ancho
+    y2 = y
+
+    x3 = x
+    y3 = recy - largo
+
+    x4 = recx + rectangulo.ancho
+    y4 = y
+
+    a = x - x_antes
+    b = y - y_antes
+    c = x* b
+    d = y * a
+
+
+    if b != 0:
+        x1 = funcionx(a, b, c, d, y1)
+        x3 = funcionx(a, b, c, d, y3)
+
+    if a != 0:
+        y2 = funciony(a, b, c, d, x2)
+        y4 = funciony(a, b, c, d, x4)
+
+    l = []
+    l.append(Rect(x1, y1, ancho, largo))
+    l.append(Rect(x2, y2, ancho, largo))
+    l.append(Rect(x3, y3, ancho, largo))
+    l.append(Rect(x4, y4, ancho, largo))
+
+    indice = 0
+    lista = []
+    for contador in range(4):
+        if contador ==0:
+            recNew = Rect(x1, y1-1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x1, y1), 0))
+
+        if contador == 1 :
+            recNew = Rect(x2+1, y2, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x2, y2), 1))
+
+        if contador == 2:
+            recNew = Rect(x3 , y3+1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x3, y3), 2))
+
+        if contador == 3:
+            recNew = Rect(x4 - 1, y4, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x4, y4), 3))
+    l=[]
+    for coor , lado in lista:
+        x_, y_= coor
+        if infx <= x_ <= supx and infy <= y_ <= supy:
+            l.append(((x_, y_), lado))
+        else:
+            infx1 = min([x, x_])
+            supx1= max([x, x_])
+
+            infy1 = min([y, y_])
+            supy1 = max([y, y_])
+            if infx1 <= x_antes <= supx1 and infy1 <= y_antes <= supy1:
+                l.append(((x_, y_), lado))
+
+    cuadro = l[0][1]
+
+
+    if intercambio:
+        aux = personaje
+        personaje = rectangulo
+        rectangulo = aux
+
+        x = Fisica.truncate(personaje._x)
+        y = Fisica.truncate(personaje._y)
+        x_antes = Fisica.truncate(personaje.x_antes)
+        y_antes = Fisica.truncate(personaje.y_antes)
+        ancho = personaje.ancho
+        largo = personaje.largo
+
+        recx = Fisica.truncate(rectangulo._x)
+        recy = Fisica.truncate(rectangulo._y)
+
+        a = x - x_antes
+        b = y - y_antes
+        c = x * b
+        d = y * a
+
+        if cuadro == 0:
+            print "abajo"
+            x0 = x
+            y0 = recy - largo
+            if roce == True and b != 0:
+                x0 = funcionx(a, b, c, d, y0)
+
+            cuadro = 2
+        elif cuadro == 1:
+            print "izquierdo"
+            x0 = recx + rectangulo.ancho
+            y0 = y
+            cuadro = 3
+        elif cuadro == 2:
+            print "arriba"
+            x0 = x
+            y0 = recy + rectangulo.largo
+            cuadro = 0
+        elif cuadro == 3:
+            print "derecha"
+            x0 = recx - ancho
+            y0 = y
+            cuadro = 1
+
+        personaje._x = x0
+        personaje._y = y0
+        print "Rectangulo?", cuadro
+        return cuadro
+
+
+    if len(l)>0:
+        personaje._x = l[0][0]
+        personaje._y =l[0][1]
+    # return [l[cuadro]]
+    return cuadro
 
 
 def reposicion(personaje, rectangulo, roce = True):
@@ -250,10 +437,15 @@ def reposicion(personaje, rectangulo, roce = True):
 
     return cuadro
 
+
+
+
+
 def funcionx(a, b, c, d, y):
     return (a*y-d+c)/b
 
 def funciony(a, b, c, d, x):
     return (b*x-c+d)/a
 
-reposicion(p1, plataforma2)
+#reposicion(p1, plataforma2)
+reposicion1(p1, plataforma2)

@@ -39,13 +39,13 @@ def reposicion(personaje, rectangulo, roce = True):
     if resPuntoPersonaje == True and resPuntoRectangulo == True:
         intercambio = True
 
-    """
+
     if intercambio:
         aux = rectangulo
         rectangulo = personaje
         personaje = aux
         intercambio = True
-    """
+
     x = Fisica.truncate(personaje._x)
     y = Fisica.truncate(personaje._y)
     x_antes = Fisica.truncate(personaje.x_antes)
@@ -88,8 +88,51 @@ def reposicion(personaje, rectangulo, roce = True):
         y2 = funciony(a, b, c, d, x2)
         y4 = funciony(a, b, c, d, x4)
 
+    l = []
+    l.append(Rect(x1, y1, ancho, largo))
+    l.append(Rect(x2, y2, ancho, largo))
+    l.append(Rect(x3, y3, ancho, largo))
+    l.append(Rect(x4, y4, ancho, largo))
 
-    """
+    indice = 0
+    lista = []
+    for contador in range(4):
+        if contador ==0:
+            recNew = Rect(x1, y1-1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x1, y1), 0))
+
+        if contador == 1 :
+            recNew = Rect(x2+1, y2, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x2, y2), 1))
+
+        if contador == 2:
+            recNew = Rect(x3 , y3+1, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x3, y3), 2))
+
+        if contador == 3:
+            recNew = Rect(x4 - 1, y4, ancho, largo)
+            if recNew.colliderect(rectangulo.rectangulo):
+                lista.append(((x4, y4), 3))
+    l=[]
+    for coor , lado in lista:
+        x_, y_= coor
+        if infx <= x_ <= supx and infy <= y_ <= supy:
+            l.append(Rect(x_, y_, ancho, largo))
+        else:
+            infx1 = min([x, x_])
+            supx1= max([x, x_])
+
+            infy1 = min([y, y_])
+            supy1 = max([y, y_])
+            if infx1 <= x_antes <= supx1 and infy1 <= y_antes <= supy1:
+                l.append(Rect(x_, y_, ancho, largo))
+
+    cuadro = l[0][1]
+
+
     if intercambio:
         aux = personaje
         personaje = rectangulo
@@ -138,55 +181,13 @@ def reposicion(personaje, rectangulo, roce = True):
         personaje._y = y0
         print "Rectangulo?", cuadro
         return cuadro
-    """
 
-    l = []
-    l.append(Rect(x1, y1, ancho, largo))
-    l.append(Rect(x2, y2, ancho, largo))
-    l.append(Rect(x3, y3, ancho, largo))
-    l.append(Rect(x4, y4, ancho, largo))
-
-    indice = 0
-    lista = []
-    for contador in range(4):
-        if contador ==0:
-            recNew = Rect(x1, y1-1, ancho, largo)
-            if recNew.colliderect(rectangulo.rectangulo):
-                lista.append((x1, y1))
-
-        if contador == 1 :
-            recNew = Rect(x2+1, y2, ancho, largo)
-            if recNew.colliderect(rectangulo.rectangulo):
-                lista.append((x2, y2))
-
-        if contador == 2:
-            recNew = Rect(x3 , y3+1, ancho, largo)
-            if recNew.colliderect(rectangulo.rectangulo):
-                lista.append((x3, y3))
-
-        if contador == 3:
-            recNew = Rect(x4 - 1, y4, ancho, largo)
-            if recNew.colliderect(rectangulo.rectangulo):
-                lista.append((x4, y4))
-    l=[]
-    for x_, y_ in lista:
-        if infx <= x_ <= supx and infy <= y_ <= supy:
-            l.append(Rect(x_, y_, ancho, largo))
-        else:
-            infx1 = min([x, x_])
-            supx1= max([x, x_])
-
-            infy1 = min([y, y_])
-            supy1 = max([y, y_])
-            if infx1 <= x_antes <= supx1 and infy1 <= y_antes <= supy1:
-                l.append(Rect(x_, y_, ancho, largo))
 
     if len(l)>0:
-        pass
-        #personaje._x = l[0][0]
-        #personaje._y =l[0][1]
+        personaje._x = l[0][0]
+        personaje._y =l[0][1]
     # return [l[cuadro]]
-    return l
+    return cuadro
 
 
 def funcionx(a, b, c, d, y):
