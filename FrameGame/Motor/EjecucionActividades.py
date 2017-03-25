@@ -41,6 +41,13 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
             personaje.setCaminar(False)
             personaje.setCorrer(False)
 
+        if ladoIzquierdo == True and ladoAbajo == False:
+            pass
+
+        if ladoIzquierdo == True and ladoAbajo == True:
+            pass
+        
+        """
         if ladoIzquierdo == True:
             if personaje.getSalto():
                 print personaje.status["angulo"]
@@ -60,18 +67,6 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
                         personaje.status["angulo"] = 90
                     else:
                         personaje.status["angulo"] = -90
-
-
-        #    print "PRIMERO"
-        #else:
-        #    print "SEGUNDO: ",personaje.recibirGanancia_x, personaje.recibirGanancia_y
-        """
-        if personaje.ady_left == True or personaje.ady_right == True:
-            personaje.setCaminar(False)
-            personaje.setCorrer(False)
-        if personaje.ady_down == True or personaje.ady_up == True:
-            if 180<personaje.status["angulo"]<360 or -180<personaje.status["angulo"]<0:
-                personaje.setSalto(False)
         """
 
 
