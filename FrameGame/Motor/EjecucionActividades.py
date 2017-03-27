@@ -42,7 +42,17 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
             personaje.setCorrer(False)
 
         if ladoIzquierdo == True and ladoAbajo == False:
-            pass
+            angulo = float(personaje.status["angulo"])
+            print "AF: ",angulo
+            print type(angulo)
+            print " 90: ", angulo != 90
+            print "-90: ", angulo != -90
+            if angulo != 90 and  angulo != -90:
+                print "AD: ", angulo
+                personaje.setSalto(True)
+                personaje.status["parabola"] = (30, 45)
+                personaje.reseteo()
+
 
         if ladoIzquierdo == True and ladoAbajo == True:
             pass
