@@ -76,6 +76,8 @@ class Personaje(object):
         self.status["correr"] = (23, 1)#velocidad, aceleracion
         self.status["caminar"] = 30 #velocidad
 
+        self.reseteando = False #un intento de reseteo
+
     def runGanancia1(self):
         self.enviarGanancia_x = self._x - self.x_antes
         self.enviarGanancia_y = self._y - self.y_antes
@@ -126,8 +128,14 @@ class Personaje(object):
 
     def pos_rectangulos(self, coor, tam):
         x, y = coor
+        x = int(x)
+        y = int(y)
         ancho, largo = tam
-        self.rectangulo.left, self.rectangulo.top = (x, y)
+        try:
+            self.rectangulo.left, self.rectangulo.top = (x, y)
+        except TypeError:
+            print "Error"
+            print x ,y
         (self.rec1.left, self.rec1.top) = (x + (ancho / 4.0),y + largo - self.rec1.height)  # + 3*(largo/4.0))#abajo
         (self.rec2.left, self.rec2.top) = (x, y + (largo / 4.0))
         (self.rec3.left, self.rec3.top) = (x + ancho - self.rec3.width,y + (largo / 4.0))
@@ -274,11 +282,16 @@ class Personaje(object):
     def getStatus(self, status):
         return self.status[status]
 
+    def setReset(self, reset):
+        self.reseteando = reset
+
     def reseteo(self):
-        self.tiempo=0
-        self.x_inicial=self._x
-        self.y_inicial=self._y
-        self.sistema_cerradox[0] = self.sistema_cerradox[1] = 0
-        self.sistema_cerradoy[0] = self.sistema_cerradoy[1] = 0
-        self.actualizacionRec()
-        self.tic.modPasivo()
+        if self.reseteando:
+            self.tiempo=0
+            self.x_inicial=self._x
+            self.y_inicial=self._y
+            self.sistema_cerradox[0] = self.sistema_cerradox[1] = 0
+            self.sistema_cerradoy[0] = self.sistema_cerradoy[1] = 0
+            self.actualizacionRec()
+            self.tic.modPasivo()
+            self.reseteando = False

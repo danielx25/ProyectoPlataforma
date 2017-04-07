@@ -88,7 +88,7 @@ class GestionDeteccionColisiones(object):
                 personaje.setCorrer(False)
                 personaje.setSalto(True)
                 personaje.status["parabola"] = (60, -90)
-                personaje.reseteo()
+                personaje.setReset(True)
 
 
     def deteccionColisionEntrePersonajes(self, personajes, tablaColisiones):

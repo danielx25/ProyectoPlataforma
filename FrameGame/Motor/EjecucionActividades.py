@@ -45,13 +45,7 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
             personaje.setCaminar(False)
             personaje.setCorrer(False)
             angulo = round(personaje.status["angulo"])
-            print "AF: ",angulo
-            print "float: %.20f"%personaje.status["angulo"]
-            print type(angulo)
-            print " 90: ", angulo != 90
-            print "-90: ", angulo != -90
             if angulo != 90 and  angulo != -90:
-                print "AD: ", angulo
                 personaje.setSalto(True)
                 personaje.status["parabola"] = (60, 45)
                 personaje.reseteo()
@@ -60,28 +54,6 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
         if ladoIzquierdo == True and ladoAbajo == True:
             if personaje.getSentido() == False:
                 personaje.setCaminar(False)
-        
-        """
-        if ladoIzquierdo == True:
-            if personaje.getSalto():
-                print personaje.status["angulo"]
-                #angulo = personaje.status["angulo"]
-                #if (personaje.status["angulo"]>90 and personaje.status["angulo"]<270) or (personaje.status["angulo"]<-90 and personaje.status["angulo"]>-270):
-                #    personaje.setSalto(False)
-            if personaje.getCaminar() and personaje.getSentido() == False:
-                personaje.setCaminar(False)
-
-        if ladoAbajo == False and ladoIzquierdo == True:
-            if personaje.getSalto() == True:
-                angulo = personaje.status["angulo"]
-                saltoIzquierda = (angulo>90 and angulo<270) or (angulo<-90 and angulo>-270)
-                if saltoIzquierda == True:
-                    veloy = personaje.status["velocidad y"]
-                    if veloy > 0:
-                        personaje.status["angulo"] = 90
-                    else:
-                        personaje.status["angulo"] = -90
-        """
 
 
 
@@ -123,6 +95,7 @@ def ejecutarActividadesPlataformas(conjuntoPlataformas):
 
 def ejecutarActividadesPersonajes(conjuntoPersonajes):
     for p in conjuntoPersonajes:
+        p.reseteo()
         p.saltando()
         p.corriendo()
         p.caminando()
