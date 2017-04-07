@@ -42,6 +42,8 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
             personaje.setCorrer(False)
 
         if ladoIzquierdo == True and ladoAbajo == False:
+            personaje.setCaminar(False)
+            personaje.setCorrer(False)
             angulo = round(personaje.status["angulo"])
             print "AF: ",angulo
             print "float: %.20f"%personaje.status["angulo"]
@@ -56,7 +58,8 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
 
 
         if ladoIzquierdo == True and ladoAbajo == True:
-            pass
+            if personaje.getSentido() == False:
+                personaje.setCaminar(False)
         
         """
         if ladoIzquierdo == True:

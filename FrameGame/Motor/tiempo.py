@@ -11,7 +11,7 @@
 
 import time
 
-CONT = 0.1
+CONT = 0.25
 
 class Tiempo(object):
 
