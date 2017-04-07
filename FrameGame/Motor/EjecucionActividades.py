@@ -51,7 +51,7 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
             if angulo != 90 and  angulo != -90:
                 print "AD: ", angulo
                 personaje.setSalto(True)
-                personaje.status["parabola"] = (30, 45)
+                personaje.status["parabola"] = (60, 45)
                 personaje.reseteo()
 
 

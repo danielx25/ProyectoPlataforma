@@ -49,8 +49,6 @@ class GestionDeteccionColisiones(object):
                     personaje.rectangulo.top = personaje._y
                     if lado == 2:
                         personaje.setSalto(False)
-                    #personaje.setCaminar(False)
-                    #personaje.setCorrer(False)
                     personaje.setGananciaXY((0,0))
 
                 if personaje.ady_down == False:
