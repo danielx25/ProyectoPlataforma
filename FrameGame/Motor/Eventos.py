@@ -100,9 +100,11 @@ class Eventos_Protagonista(object):
 
                 if event.key == pygame.K_LEFT:# izquierda
                     self.izquierda = False
+                    self._left = False
 
                 if event.key == pygame.K_RIGHT:# derecha
                     self.derecha = False
+                    self._right= False
 
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -235,6 +237,7 @@ class Eventos_Protagonista(object):
                     protagonista.setSalto(True)
                     protagonista.setReset(True)
                     protagonista.status["parabola"] = (60, 90)
+                    print "salto 90"
                 else:
                     if self.derecha == False or  self.izquierda == False:
                         if self.derecha:

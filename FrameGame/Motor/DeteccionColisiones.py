@@ -38,9 +38,10 @@ class GestionDeteccionColisiones(object):
                 if plataforma.rectangulo.colliderect(personaje.rectangulo):
                     colision = True
                 else:
-                    if deteccionEfectoTunel(personaje, plataforma):
-                        print "colsicion tunel"
-                        colision = True
+                    pass
+                    #if deteccionEfectoTunel(personaje, plataforma):
+                    #    print "colsicion tunel"
+                    #    colision = True
 
                 if colision:
                     print "colision"

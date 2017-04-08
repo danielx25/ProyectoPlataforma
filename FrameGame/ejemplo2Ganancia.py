@@ -167,7 +167,7 @@ def main():
             if p.ady_up == True:
                 pygame.draw.rect(pantalla, darkBlue, p.rec4)
 
-        reloj1.tick(80)
+        reloj1.tick(30)
         pygame.display.update()
     motor.salirJuego = True
     pygame.quit()
