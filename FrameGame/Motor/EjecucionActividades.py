@@ -45,7 +45,7 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
             personaje.setCaminar(False)
             personaje.setCorrer(False)
             angulo = round(personaje.status["angulo"])
-            if angulo != 90 and  angulo != -90:
+            if 90<angulo<180 or -180<angulo<-90:
                 personaje.setSalto(True)
                 personaje.status["parabola"] = (60, -90)
                 personaje.setReset(True)
@@ -54,6 +54,14 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
         if ladoIzquierdo == True and ladoAbajo == True:
             if personaje.getSentido() == False:
                 personaje.setCaminar(False)
+
+            if personaje.getSalto():
+                angulo = round(personaje.status["angulo"])
+                if 90 < angulo < 180 or -180 < angulo < -90:
+                    personaje.setSalto(False)
+
+
+
 
 
 
