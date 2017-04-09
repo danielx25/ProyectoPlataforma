@@ -68,11 +68,11 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
             if parte1 or parte2:
                 personaje.setSalto(True)
                 velo_y = personaje.status["velocidad y"]
-                if velo_y < 0:
+                if velo_y > 0:
                     velo_y = 0
                 else:
                     velo_y *= -1
-                personaje.status["parabola"] = (velo_y, 90)
+                personaje.status["parabola"] = (velo_y, 270)
                 personaje.setReset(True)
 
         if ladoIzquierdo == True and ladoAbajo == True:
