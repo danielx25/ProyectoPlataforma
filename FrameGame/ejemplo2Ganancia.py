@@ -14,7 +14,7 @@ def ejemploScript(plataforma):
     #pass
     #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=1
+    plataforma._x-=1
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -0
@@ -74,7 +74,7 @@ def main():
     plataforma1.id = "cuadrado"
 
     plataforma3 = Plataforma()
-    plataforma3.setXY(0, 2)
+    plataforma3.setXY(620, 2)
     plataforma3.setTamRect(20, 800)
 
     motor = MotorVideojuego()

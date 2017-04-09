@@ -71,7 +71,7 @@ class Personaje(object):
         self.status["velocidad x"] = 0
         self.status["velocidad y"] = 0
         self.status["gravedad"] = 9.8
-        self.status["parabola"] = (90, 88)#velocidad inicial, angulo inicial
+        self.status["parabola"] = (88, 90)#velocidad inicial, angulo inicial
         self.status["caida"]=(270, 90)
         self.status["correr"] = (23, 1)#velocidad, aceleracion
         self.status["caminar"] = 30 #velocidad
