@@ -14,7 +14,7 @@ def ejemploScript(plataforma):
     #pass
     #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=3
+    plataforma._x-=1
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -0
@@ -74,7 +74,7 @@ def main():
     plataforma1.id = "cuadrado"
 
     plataforma3 = Plataforma()
-    plataforma3.setXY(0, 2)
+    plataforma3.setXY(620, 2)
     plataforma3.setTamRect(20, 800)
 
     motor = MotorVideojuego()
@@ -86,7 +86,7 @@ def main():
     start = pygame.time.get_ticks()/1000
 
     #==============
-    #motor.diccionarioScripts[plataforma.id].append(ejemploScript1)
+    motor.diccionarioScripts[plataforma.id].append(ejemploScript1)
     motor.diccionarioScripts[plataforma3.id].append(ejemploScript)
     motor.protagonista = motor.conjuntoPersonajes[0]
     iter=0
@@ -167,7 +167,7 @@ def main():
             if p.ady_up == True:
                 pygame.draw.rect(pantalla, darkBlue, p.rec4)
 
-        reloj1.tick(60)
+        reloj1.tick(30)
         pygame.display.update()
     motor.salirJuego = True
     pygame.quit()

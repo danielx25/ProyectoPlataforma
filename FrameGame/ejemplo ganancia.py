@@ -21,6 +21,7 @@ def main():
     p1.tam_rectangulos((50,50))
     p1.actualizacionRec()
 
+
     p2 = Personaje()
     p2._x = 100
     p2._y = 400
@@ -36,12 +37,12 @@ def main():
     fuente = pygame.font.Font(None, 25)
     texto1 = fuente.render("Texto de pruebas", 0, (255, 255, 255))
 
-    velocidad = 19
-    angulo = 45
+    velocidad = 59
+    angulo = 100
     gravedad = 9.8
     altura = 0
     tiempo = 0.9
-
+    p1.status["parabola"] = (velocidad, angulo)
     veloActual=0
     anguloActual=0
 
