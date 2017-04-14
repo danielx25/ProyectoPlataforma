@@ -42,7 +42,6 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
         else:
             if personaje.getSalto():
                 angulo = round(personaje.status["angulo"])
-
                 if 180< angulo< 360 or -180< angulo< 0:
                     print angulo
                     personaje.setSalto(False)
