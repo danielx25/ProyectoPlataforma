@@ -53,7 +53,7 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
         derechaAbajo = False
         parte1 = False
         parte2 = False
-"""
+
         if ladoIzquierdo == True and ladoAbajo == False:
             personaje.setCaminar(False)
             personaje.setCorrer(False)
@@ -103,7 +103,7 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
                 parte2 = 270 < angulo <= 360 or -90 < angulo <= 0
                 if parte1 or parte2:
                     personaje.setSalto(False)
-"""
+
 
 def adyacencia(personajes, tablaColisiones):
     for personaje in personajes:
