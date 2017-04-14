@@ -11,7 +11,7 @@ class GestionDeteccionColisiones(object):
     def deteccionColisiones(self, personajes, plataformas, tablaColisiones):
         self.deteccionColisionEntrePersonajesYPlatafromas(personajes, plataformas, tablaColisiones)
         #self.deteccionColisionEntrePersonajes(personajes, tablaColisiones)
-        self.gravedadActua(personajes)
+        #self.gravedadActua(personajes)
         """
         for personaje in personajes:
             lista = tablaColisiones[personaje.id]
