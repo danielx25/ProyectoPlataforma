@@ -7,7 +7,8 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
     # adyacencia(personajes, tablaColisiones)
     for personaje in personajes:
         lista_objetos = tablaColisiones[personaje.id]
-        xGanancia = 0
+        xGanancia_abajo = 0
+        xGanancia_lateral = 0
         yGanancia = 0
         ladoAbajo = False
         ladoIzquierdo = False
@@ -20,20 +21,41 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
                 lado = objeto[1]
                 if lado == 0:
                     ladoAbajo = True
-                    xGanancia += plataforma.getGananciaXY()[0]
+                    if plataforma.getGananciaXY()[0] > 0:
+                        if xGanancia_abajo < plataforma.getGananciaXY()[0]:
+                            xGanancia_abajo += plataforma.getGananciaXY()[0]
+                    else:
+                        if xGanancia_abajo > plataforma.getGananciaXY()[0]:
+                            xGanancia_abajo += plataforma.getGananciaXY()[0]
+
+
                     yGanancia += plataforma.getGananciaXY()[1]
 
                 if lado == 1:  # izquierda
                     ladoIzquierdo = True
                     if plataforma.getGananciaXY()[0] > 0:
-                        xGanancia += plataforma.getGananciaXY()[0]
+                        if xGanancia_lateral < plataforma.getGananciaXY()[0]:
+                            #esto indica que si hay dos o mas objetos empujando solo tomara el que sea mas rapido
+                            xGanancia_lateral += plataforma.getGananciaXY()[0]
 
                 if lado == 3:  # derecha
                     ladoDerecho = True
                     if plataforma.getGananciaXY()[0] < 0:
-                        xGanancia += plataforma.getGananciaXY()[0]
+                        if xGanancia_lateral > plataforma.getGananciaXY()[0]:
+                            xGanancia_lateral += plataforma.getGananciaXY()[0]
 
         if len(lista_objetos) > 0:
+            xGanancia = xGanancia_abajo
+            if ladoDerecho:
+                if xGanancia_lateral<=0:
+                    xGanancia = -1#xGanancia_lateral
+                    print xGanancia
+
+            #if ladoDerecho:
+            #    xGanancia = xGanancia_lateral
+                #if xGanancia_lateral<xGanancia_abajo:
+                #    xGanancia = xGanancia_abajo-xGanancia_lateral
+
             personaje.setGananciaXY((xGanancia, yGanancia))
 
         if ladoAbajo == False:

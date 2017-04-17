@@ -14,7 +14,7 @@ def ejemploScript(plataforma):
     #pass
     #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x-=0
+    plataforma._x+=-1
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -0
@@ -26,7 +26,7 @@ def ejemploScript1(plataforma):
     #pass
     #return 1
     plataforma.x_antes = plataforma._x
-    plataforma._x+=1
+    plataforma._x+=4
 
     plataforma.y_antes = plataforma._y
     plataforma._y += -2
