@@ -16,7 +16,7 @@ class Personaje(object):
 
         #identinficacion
         self.id = uuid.uuid1().hex
-
+        self.nombre = "Personaje"
         self._x = 0
         self._y = 0
         self.ancho = 0

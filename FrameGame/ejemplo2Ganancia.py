@@ -29,7 +29,7 @@ def ejemploScript1(plataforma):
     plataforma._x+=4
 
     plataforma.y_antes = plataforma._y
-    plataforma._y += -2
+    plataforma._y += -1
 
     #if plataforma._y < 20:
     #    plataforma.setXY(plataforma._x, 400)
@@ -67,15 +67,18 @@ def main():
     plataforma = Plataforma()
     plataforma.setXY(0, 554)
     plataforma.setTamRect(800, 20)
+    plataforma.nombre = "p1"
 
     plataforma1 = Plataforma()
     plataforma1.setXY(200, 504)
     plataforma1.setTamRect(50, 50)
     plataforma1.id = "cuadrado"
+    plataforma1.nombre = "p1"
 
     plataforma3 = Plataforma()
     plataforma3.setXY(620, 2)
     plataforma3.setTamRect(20, 800)
+    plataforma3.nombre = "p3"
 
     motor = MotorVideojuego()
     motor.entradaPersonajes([p1, p2,p3,Personaje(),Personaje(),Personaje(),Personaje(),Personaje(),Personaje()])

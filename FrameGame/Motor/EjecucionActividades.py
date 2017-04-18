@@ -21,14 +21,15 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
                 lado = objeto[1]
                 if lado == 0:
                     ladoAbajo = True
+                    """
                     if plataforma.getGananciaXY()[0] > 0:
                         if xGanancia_abajo < plataforma.getGananciaXY()[0]:
                             xGanancia_abajo += plataforma.getGananciaXY()[0]
                     else:
                         if xGanancia_abajo > plataforma.getGananciaXY()[0]:
                             xGanancia_abajo += plataforma.getGananciaXY()[0]
-
-
+                    """
+                    xGanancia_abajo += plataforma.getGananciaXY()[0]
                     yGanancia += plataforma.getGananciaXY()[1]
 
                 if lado == 1:  # izquierda
@@ -48,13 +49,10 @@ def ejecutarAccionesColisionesDetectadas(personajes, tablaColisiones):
             xGanancia = xGanancia_abajo
             if ladoDerecho:
                 if xGanancia_lateral<=0:
-                    xGanancia = -1#xGanancia_lateral
-                    print xGanancia
-
-            #if ladoDerecho:
-            #    xGanancia = xGanancia_lateral
-                #if xGanancia_lateral<xGanancia_abajo:
-                #    xGanancia = xGanancia_abajo-xGanancia_lateral
+                    xGanancia = xGanancia_lateral
+            print (personaje.x_antes, personaje.y_antes),"->",personaje.getXY()
+            print plataforma.nombre,(plataforma.x_antes, plataforma.y_antes),"->",plataforma.getXY()
+            print xGanancia
 
             personaje.setGananciaXY((xGanancia, yGanancia))
 
