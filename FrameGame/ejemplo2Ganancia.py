@@ -29,7 +29,7 @@ def ejemploScript1(plataforma):
     plataforma._x+=4
 
     plataforma.y_antes = plataforma._y
-    plataforma._y += -1
+    plataforma._y += -2
 
     #if plataforma._y < 20:
     #    plataforma.setXY(plataforma._x, 400)
